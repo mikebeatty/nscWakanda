@@ -16,6 +16,12 @@ function constructor (id) {
 	// @endregion// @endlock
 
 	// eventHandlers// @lock
+	
+		var vVendorID = sources.web_Access.CompanyID;
+		vVendorID = '38789';
+		sources.warehouses.query('VendorID == :1',vVendorID);
+		var vWareHouseID = '467';
+		$comp.sources.inventory_WarehouseCount.query('WareHouseID == :1',vWareHouseID);
 
 	// @region eventManager// @startlock
 	// @endregion// @endlock
