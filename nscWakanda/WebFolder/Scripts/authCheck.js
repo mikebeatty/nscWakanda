@@ -1,0 +1,1 @@
+﻿/**  * @fileOverview Check if user is logged in, if not kick back to login page * @author Welsh Harris * @created 8/12/2014 */if (WAF.directory.currentUser() === null) {	window.location = "/";	}

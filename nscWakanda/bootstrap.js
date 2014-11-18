@@ -1,0 +1,1 @@
+﻿/**  * @fileOverview Server side bootstrap file * @author Welsh Harris * @created 10/16/2014 *///install the login listener for when users try to authenticatedirectory.setLoginListener("loginListener", "Admin");
