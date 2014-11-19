@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?><solution>
-	<project path="../nscTest110414/nscTest110414.waProject"/>
+	<project path="../nscWakanda/nscWakanda.waProject"/>
 	<file path="./Settings.waSettings">
 		<tag name="settings"/>
 	</file>
