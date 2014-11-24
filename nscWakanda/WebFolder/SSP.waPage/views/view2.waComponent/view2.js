@@ -27,7 +27,7 @@ var repairAddress = $comp.widgets.repairAddress;
 		console.log($comp.sources.addresses.CompanyID);
 		console.log($comp.sources.addresses.CompanyName);
 //		
-debugger;
+
 //		$$(getHtmlId('repairAddress')) = sources.addresses.companyName;
 		repairAddress.setValue("Test");
 //		$comp.sources.addresses.CompanyName;
