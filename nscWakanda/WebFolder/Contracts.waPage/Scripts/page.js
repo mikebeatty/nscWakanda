@@ -26,9 +26,9 @@ WAF.onAfterInit = function() {
            ];
            
        sources.viewsArr.sync();
-        views = [
-            {name: "auth", description: "@Show Portal", path: "/portal.waPage/views/auth.waComponent"},
-        ];
+//        views = [
+//            {name: "auth", description: "@Show Portal", path: "/portal.waPage/views/auth.waComponent"},
+//        ];
 
         /**
          * load a view into the main view component
@@ -83,27 +83,45 @@ WAF.onAfterInit = function() {
 		displaySelectedRecord();
        });
             
-//        Wap.auth.getCurrUserName()
-//		console.log('getname');
-
-		var userName = WAF.directory.currentUser().fullName;
-		console.log(userName);
-		sources.web_Access.query('WebLogOn == :1',userName);
+var userName = WAF.directory.currentUser().fullName;
+console.log(userName);
+sources.web_Access.query('WebLogOn == :1',userName, {
+	onSuccess: function(event) {
 		console.log(sources.web_Access.length);
 		var vcompanyID = sources.web_Access.CompanyID;
 		console.log(vcompanyID);
-		var vcompanyID = '73718';
+		
+		sources.contracts.wak_getContractArr(vcompanyID,{				//consider using WakAPI as standard table
+	
+			onSuccess: function(event) {
+				contractArr = JSON.parse(event.result);
+				sources.contractArr.sync();
+			}
+		});
+	}
+});
+
+
+
+
+//		var userName = WAF.directory.currentUser().fullName;
+
+//		sources.web_Access.query('WebLogOn == :1',userName);
+//		console.log(sources.web_Access.length);
+//		var vcompanyID = sources.web_Access.CompanyID;
+//		console.log(vcompanyID);
+//		var vcompanyID = '73718';
 		
 //		sources.rMA_OnSite.query('SSP_ID == :1',sources.web_Access.CompanyID);
 //		sources.rMA_OnSite.query('SSP_ID == :1',vSSPID);
 
-		sources.contracts.wak_getContractArr(vcompanyID,{				//consider using WakAPI as standard table
-		onSuccess: function(event) {
-		contractArr = JSON.parse(event.result);
-		sources.contractArr.sync();
-	}
-		
-	});
+//		sources.contracts.wak_getContractArr(vcompanyID,{				//consider using WakAPI as standard table
+//		onSuccess: function(event) {
+//		contractArr = JSON.parse(event.result);
+//		sources.contractArr.sync();
+//	}
+//		
+//	});
         
         }
         
