@@ -13,19 +13,19 @@ function constructor (id) {
 	this.load = function (data) {// @lock
 
 	// @region namespaceDeclaration// @startlock
-	var dataGrid1 = {};	// @dataGrid
 	// @endregion// @endlock
 
 	// eventHandlers// @lock
+	
+	console.log('view1');
+	
+		function displayRepairDetail(){
+			$comp.widgets.textField7.setValue('Test');
+		};
 
-	dataGrid1.onRowClick = function dataGrid1_onRowClick (event)// @startlock
-	{// @endlock
-		var vRMAID = sources.rMA.RMA_ID;
-		sources.equipment_Encounters.query('TransactionID == :1',vRMAID);
-	};// @lock
+	this.displayRepairDetail = displayRepairDetail;
 
 	// @region eventManager// @startlock
-	WAF.addListener(this.id + "_dataGrid1", "onRowClick", dataGrid1.onRowClick, "WAF");
 	// @endregion// @endlock
 
 	};// @lock
