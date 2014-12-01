@@ -20,7 +20,9 @@
 			//=================================================================================================
 			var cs = $comp.sources,
 				cw = $comp.widgets,
-				repairAddressFld = cw.textField7;
+				repairAddressFld = cw.textField7,
+				repairByFld = cw.textField6,
+				$repairByFld = $("#" + repairByFld.id);
 
 			function displayRepairDetail() {
 				var vCompanyID;
@@ -29,6 +31,7 @@
 				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", sources.rMA.RMA_ID, {
 					onSuccess: function () {
 						console.log(sources.rMA.RMA_ID);
+						$repairByFld.timepicker("setTime", cs.rMA_Onsite_Bid1.RepairBy);
 					}
 				});
 
@@ -37,7 +40,7 @@
 				cs.addresses.query("CompanyID == :1", vCompanyID, {
 					onSuccess: function(){
 						var vRepairAddress;
-						
+
 						console.log(vCompanyID);
 						console.log($comp.sources.addresses.CompanyID);
 						console.log($comp.sources.addresses.CompanyName);
@@ -49,11 +52,13 @@
 
 			//event handlers
 			//=================================================================================================
-
+			$repairByFld.on("change", function() {
+				cs.rMA_Onsite_Bid1.RepairBy = $repairByFld.timepicker("getTime");
+			});
 
 			//on load
 			//=================================================================================================
-
+			$repairByFld.timepicker();
 
 			//public API
 			//=================================================================================================
