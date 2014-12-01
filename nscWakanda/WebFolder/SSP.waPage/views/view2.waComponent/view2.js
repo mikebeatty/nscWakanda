@@ -40,7 +40,8 @@ var repairAddress = $comp.widgets.repairAddress;
 			console.log(vCompanyID);
 			console.log($comp.sources.addresses.CompanyID);
 			console.log($comp.sources.addresses.CompanyName);
-			$comp.widgets.textField7.setValue("Test");
+			var vRepairAddress = 'test2';
+			$comp.widgets.textField7.setValue(vRepairAddress);
 			}
 		
 		});
