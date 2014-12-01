@@ -27,3 +27,4 @@ sessionID.json
 # Wakanda Remote Model Cache
 *.waRemoteModel
 
+.idea

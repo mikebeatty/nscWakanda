@@ -1,67 +1,65 @@
-﻿
-(function Component (id) {// @lock
+﻿/**
+ * @fileOverview Web Component: view2
+ * @author Welsh Harris
+ * @created 12/01/2014
+ */
 
-// Add the code that needs to be shared between components here
+/*global Wap:false sources:true */
 
+//noinspection JSUnusedLocalSymbols
+(function Component (id) {
+	"use strict";
+	//noinspection JSUnusedLocalSymbols
+	function constructor (id) {
+		var $comp = this;
+		this.name = 'view2';
+		//noinspection JSUnusedLocalSymbols
+		this.load = function (data) {
 
-function constructor (id) {
+			//component API
+			//=================================================================================================
+			var cs = $comp.sources,
+				cw = $comp.widgets,
+				repairAddressFld = cw.textField7;
 
-	// @region beginComponentDeclaration// @startlock
-	var $comp = this;
-	this.name = 'view2';
-	// @endregion// @endlock
+			function displayRepairDetail() {
+				var vCompanyID;
 
-	this.load = function (data) {// @lock
+				//var vCompanyID = '33430';
+				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", sources.rMA.RMA_ID, {
+					onSuccess: function () {
+						console.log(sources.rMA.RMA_ID);
+					}
+				});
 
-var repairAddress = $comp.widgets.repairAddress;
-
-	// @region namespaceDeclaration// @startlock
-	// @endregion// @endlock
-
-	// eventHandlers// @lock
-	function displayRepairDetail(){
-	
-//	var vCompanyID = '33430';
-
-	$comp.sources.rMA_Onsite_Bid1.query('RMA_ID == :1',sources.rMA.RMA_ID,{
-	
-	onSuccess: function(event){	
-		console.log(sources.rMA.RMA_ID);	
-	}
-	
-	});
-	
-	var vCompanyID = sources.rMA.CompanyID;
-//		console.log(vCompanyID);
-		$comp.sources.addresses.query('CompanyID == :1',vCompanyID,{
-		
-			onSuccess: function(event){
-			debugger;
-			console.log(vCompanyID);
-			console.log($comp.sources.addresses.CompanyID);
-			console.log($comp.sources.addresses.CompanyName);
-			var vRepairAddress = 'test2';
-			$comp.widgets.textField7.setValue(vRepairAddress);
+				vCompanyID = sources.rMA.CompanyID;
+				//console.log(vCompanyID);
+				cs.addresses.query("CompanyID == :1", vCompanyID, {
+					onSuccess: function(){
+						var vRepairAddress;
+						
+						console.log(vCompanyID);
+						console.log($comp.sources.addresses.CompanyID);
+						console.log($comp.sources.addresses.CompanyName);
+						vRepairAddress = 'test2';
+						repairAddressFld.setValue(vRepairAddress);
+					}
+				});
 			}
-		
-		});
 
-		
-//		
-
-//		$$(getHtmlId('repairAddress')) = sources.addresses.companyName;
-		
-//		$comp.sources.addresses.CompanyName;
-	};
-
-	this.displayRepairDetail = displayRepairDetail;
-
-	// @region eventManager// @startlock
-	// @endregion// @endlock
-
-	};// @lock
+			//event handlers
+			//=================================================================================================
 
 
-}// @startlock
-return constructor;
-})();// @endlock
+			//on load
+			//=================================================================================================
+
+
+			//public API
+			//=================================================================================================
+			this.displayRepairDetail = displayRepairDetail;
+
+		};
+	}
+	return constructor;
+})();
