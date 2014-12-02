@@ -25,7 +25,9 @@
 				$repairByFld = $("#" + repairByFld.id),
 				firstPrinterFld = cw.textField2,
 				additionalPrinterFld = cw.textField3,
-				finalBidFld = cw.rmaOnsiteTotalBid;
+				finalBidFld = cw.rmaOnsiteTotalBid,
+				saveBtn = cw.button1,
+				cancelBtn = cw.button2;
 
 			/**
 			 * Load up repair detail based on the selected repair
@@ -74,6 +76,17 @@
 				finalBidFld.setValue(accounting.formatMoney(finalBidValue));
 			}
 
+			/**
+			 * Save the current onsite bid entity
+			 */
+			function saveBid() {
+				cs.rMA_Onsite_Bid1.save({
+					onError: function(event) {
+						alert("error"); //todo swh: install client side error handler
+					}
+				});
+			}
+
 			//event handlers
 			//=================================================================================================
 
@@ -88,6 +101,16 @@
 			});
 			additionalPrinterFld.addListener("change", function() {
 				updateFinalBid();
+			});
+
+			//save button click
+			saveBtn.addListener("click", function() {
+				saveBid();
+			});
+
+			//cancel button click
+			cancelBtn.addListener("click", function() {
+				displayRepairDetail();
 			});
 
 			//on load
