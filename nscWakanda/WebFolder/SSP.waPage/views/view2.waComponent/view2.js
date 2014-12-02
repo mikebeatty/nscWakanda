@@ -71,7 +71,7 @@
 					finalBidValue = cs.rMA_Onsite_Bid1.FirstPrinterRate + ((numEncounters-1) * cs.rMA_Onsite_Bid1.AdditonalPrinterRate);
 				}
 
-				finalBidFld.setValue(finalBidValue);
+				finalBidFld.setValue(accounting.formatMoney(finalBidValue));
 			}
 
 			//event handlers
@@ -92,9 +92,14 @@
 
 			//on load
 			//=================================================================================================
+
+			//setup time picker for the repair by field
 			$repairByFld.timepicker({
 				step: 15
 			});
+
+			//format money fields
+
 
 			//public API
 			//=================================================================================================
