@@ -4,7 +4,7 @@
  * @created 12/01/2014
  */
 
-/*global Wap:false sources:true */
+/*global Wap:false sources:true, equipmentArr:true */
 
 //noinspection JSUnusedLocalSymbols
 (function Component (id) {
@@ -32,11 +32,11 @@
 			/**
 			 * Load up repair detail based on the selected repair
 			 */
-			function displayRepairDetail() {
+			function displayRepairDetail(rmaid) {
 				var vCompanyID;
 
 				//var vCompanyID = '33430';
-				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", sources.rMA.RMA_ID, {
+				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
 		
 						$repairByFld.timepicker("setTime", cs.rMA_Onsite_Bid1.RepairBy);
@@ -59,14 +59,23 @@
 				});
 				
 				sources.equipment_Encounters.wak_getEquipmentArr({
-			
-					arguments: [sources.rMA.RMA_ID],
+					arguments: [rmaid],
 					onSuccess: function(event) {
-					//debugger;
-					equipmentArr = JSON.parse(event.result);
-				sources.equipmentArr.sync();
-	}
-});
+						equipmentArr = JSON.parse(event.result);
+						sources.equipmentArr.sync();
+					}
+				});
+
+				//this was on page.js but not sure why
+				//sources.rMA_OnSite.query('RMA_ID == :1',rmaid,{
+				//	onSuccess: function(){
+				//		sources.rMA.query('RMA_ID == :1',rmaid,{
+				//			onSuccess: function(){
+				//				Wap.viewComp.displayRepairDetail();
+				//			}
+				//		});
+				//	}
+				//});
 			}
 
 			/**
@@ -131,7 +140,8 @@
 				step: 15
 			});
 
-			//format money fields
+			//load the detail
+			displayRepairDetail(data.userData.rmaid);
 
 
 			//public API
