@@ -34,7 +34,7 @@
 			 */
 			function displayRepairDetail(rmaid) {
 				var vCompanyID;
-debugger;
+
 				//var vCompanyID = '33430';
 				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
@@ -71,15 +71,15 @@ debugger;
 					}
 				});
 
-				sources.rMA_OnSite.query('RMA_ID == :1',rmaid,{
-					onSuccess: function(){
-						sources.rMA.query('RMA_ID == :1',rmaid,{
-							onSuccess: function(){
-								Wap.viewComp.displayRepairDetail();
-							}
-						});
-					}
-				});
+				//sources.rMA_OnSite.query('RMA_ID == :1',rmaid,{
+				//	onSuccess: function(){
+				//		sources.rMA.query('RMA_ID == :1',rmaid,{
+				//			onSuccess: function(){
+				//				Wap.viewComp.displayRepairDetail();
+				//			}
+				//		});
+				//	}
+				//});
 			}
 
 			/**
