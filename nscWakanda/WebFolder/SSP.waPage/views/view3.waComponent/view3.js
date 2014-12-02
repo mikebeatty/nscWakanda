@@ -19,7 +19,8 @@
 			//component API
 			//=================================================================================================
 			var cs = $comp.sources,
-				cw = $comp.widgets;
+				cw = $comp.widgets,
+				repairAddressFld = cw.textField7;
 
 			function displayRepairDetail(rmaid) {
 				sources.equipment_Encounters.wak_getEquipmentArr({

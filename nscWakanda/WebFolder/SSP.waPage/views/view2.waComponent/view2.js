@@ -47,14 +47,12 @@
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
 						vCompanyID = sources.rMA.CompanyID;
-						//console.log(vCompanyID);
 						cs.addresses.query("CompanyID == :1", vCompanyID, {
 							onSuccess: function(){
 								var vRepairAddress;
+//								vRepairAddress = Wap.page.formatAddress(cs.address.getCurrentElement());
+//								var vRepairAddress;
 
-								console.log(vCompanyID);
-								console.log($comp.sources.addresses.CompanyID);
-								console.log($comp.sources.addresses.CompanyName);
 								vRepairAddress = cs.addresses.CompanyName+String.fromCharCode(13);
 								vRepairAddress += cs.addresses.Address1+String.fromCharCode(13);
 								vRepairAddress += cs.addresses.Address2+String.fromCharCode(13);
