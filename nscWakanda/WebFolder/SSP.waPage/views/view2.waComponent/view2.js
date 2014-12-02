@@ -22,8 +22,14 @@
 				cw = $comp.widgets,
 				repairAddressFld = cw.textField7,
 				repairByFld = cw.textField6,
-				$repairByFld = $("#" + repairByFld.id);
+				$repairByFld = $("#" + repairByFld.id),
+				firstPrinterFld = cw.textField2,
+				additionalPrinterFld = cw.textField3,
+				finalBidFld = cw.rmaOnsiteTotalBid;
 
+			/**
+			 * Load up repair detail based on the selected repair
+			 */
 			function displayRepairDetail() {
 				var vCompanyID;
 
@@ -32,6 +38,7 @@
 					onSuccess: function () {
 						console.log(sources.rMA.RMA_ID);
 						$repairByFld.timepicker("setTime", cs.rMA_Onsite_Bid1.RepairBy);
+						updateFinalBid();
 					}
 				});
 
@@ -50,15 +57,44 @@
 				});
 			}
 
+			/**
+			 * Update value of the final bid
+			 */
+			function updateFinalBid() {
+				var finalBidValue,
+					numEncounters;
+
+				numEncounters = sources.equipment_Encounters.length;
+				if (numEncounters === 0) {
+					finalBidValue = 0;
+				} else {
+					finalBidValue = cs.rMA_Onsite_Bid1.FirstPrinterRate + ((numEncounters-1) * cs.rMA_Onsite_Bid1.AdditonalPrinterRate);
+				}
+
+				finalBidFld.setValue(finalBidValue);
+			}
+
 			//event handlers
 			//=================================================================================================
+
+			//changing the repair by value using the jquery timepicker
 			$repairByFld.on("change", function() {
 				cs.rMA_Onsite_Bid1.RepairBy = $repairByFld.timepicker("getTime");
 			});
 
+			//changing the first printer or additional printer updates final bid
+			firstPrinterFld.addListener("change", function() {
+				updateFinalBid();
+			});
+			additionalPrinterFld.addListener("change", function() {
+				updateFinalBid();
+			});
+
 			//on load
 			//=================================================================================================
-			$repairByFld.timepicker();
+			$repairByFld.timepicker({
+				step: 15
+			});
 
 			//public API
 			//=================================================================================================
