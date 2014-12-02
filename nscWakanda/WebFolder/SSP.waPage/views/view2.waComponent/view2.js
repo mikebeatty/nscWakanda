@@ -34,7 +34,7 @@
 			 */
 			function displayRepairDetail(rmaid) {
 				var vCompanyID;
-
+debugger;
 				//var vCompanyID = '33430';
 				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
@@ -44,19 +44,24 @@
 					}
 				});
 
-				vCompanyID = sources.rMA.CompanyID;
-				//console.log(vCompanyID);
-				cs.addresses.query("CompanyID == :1", vCompanyID, {
+				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
-						var vRepairAddress;
+						vCompanyID = sources.rMA.CompanyID;
+						//console.log(vCompanyID);
+						cs.addresses.query("CompanyID == :1", vCompanyID, {
+							onSuccess: function(){
+								var vRepairAddress;
 
-						console.log(vCompanyID);
-						console.log($comp.sources.addresses.CompanyID);
-						console.log($comp.sources.addresses.CompanyName);
-						vRepairAddress = 'test2';
-						repairAddressFld.setValue(vRepairAddress);
+								console.log(vCompanyID);
+								console.log($comp.sources.addresses.CompanyID);
+								console.log($comp.sources.addresses.CompanyName);
+								vRepairAddress = 'test2';
+								repairAddressFld.setValue(vRepairAddress);
+							}
+						});
 					}
 				});
+
 				
 				sources.equipment_Encounters.wak_getEquipmentArr({
 					arguments: [rmaid],
@@ -66,16 +71,15 @@
 					}
 				});
 
-				//this was on page.js but not sure why
-				//sources.rMA_OnSite.query('RMA_ID == :1',rmaid,{
-				//	onSuccess: function(){
-				//		sources.rMA.query('RMA_ID == :1',rmaid,{
-				//			onSuccess: function(){
-				//				Wap.viewComp.displayRepairDetail();
-				//			}
-				//		});
-				//	}
-				//});
+				sources.rMA_OnSite.query('RMA_ID == :1',rmaid,{
+					onSuccess: function(){
+						sources.rMA.query('RMA_ID == :1',rmaid,{
+							onSuccess: function(){
+								Wap.viewComp.displayRepairDetail();
+							}
+						});
+					}
+				});
 			}
 
 			/**
