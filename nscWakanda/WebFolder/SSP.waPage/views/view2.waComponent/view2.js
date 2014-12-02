@@ -38,7 +38,7 @@
 				//var vCompanyID = '33430';
 				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", sources.rMA.RMA_ID, {
 					onSuccess: function () {
-						console.log(sources.rMA.RMA_ID);
+		
 						$repairByFld.timepicker("setTime", cs.rMA_Onsite_Bid1.RepairBy);
 						updateFinalBid();
 					}
@@ -57,6 +57,16 @@
 						repairAddressFld.setValue(vRepairAddress);
 					}
 				});
+				
+				sources.equipment_Encounters.wak_getEquipmentArr({
+			
+					arguments: [sources.rMA.RMA_ID],
+					onSuccess: function(event) {
+					//debugger;
+					equipmentArr = JSON.parse(event.result);
+				sources.equipmentArr.sync();
+	}
+});
 			}
 
 			/**
