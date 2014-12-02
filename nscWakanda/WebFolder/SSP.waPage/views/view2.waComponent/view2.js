@@ -55,7 +55,11 @@
 								console.log(vCompanyID);
 								console.log($comp.sources.addresses.CompanyID);
 								console.log($comp.sources.addresses.CompanyName);
-								vRepairAddress = 'test2';
+								vRepairAddress = cs.addresses.CompanyName+String.fromCharCode(13);
+								vRepairAddress += cs.addresses.Address1+String.fromCharCode(13);
+								vRepairAddress += cs.addresses.Address2+String.fromCharCode(13);
+								vRepairAddress += cs.addresses.City+String.fromCharCode(32)+cs.addresses.State+String.fromCharCode(32)+cs.addresses.Zip+String.fromCharCode(13);
+								vRepairAddress += cs.addresses.Phone+String.fromCharCode(13);
 								repairAddressFld.setValue(vRepairAddress);
 							}
 						});
