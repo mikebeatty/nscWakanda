@@ -18,8 +18,10 @@
 
 			//component API
 			//=================================================================================================
+		
 			var cs = $comp.sources,
 				cw = $comp.widgets,
+				partsGrid = cw.dataGrid2,
 				repairAddressFld = cw.textField1,
 				repairEquipProblemField = cw.textField2,
 				repairEquipSolutionField = cw.textField3,
@@ -39,8 +41,9 @@
 					onSuccess: function(event) {
 						equipmentArr = JSON.parse(event.result);
 						sources.equipmentArr.sync();
-						debugger;
-						$repairContractRateField = "FR: EX: RN:";
+	
+						displayPartsDetail(sources.equipmentArr.EquipmentID);
+						repairContractRateField.setValue("FR: EX: RN:");
 					}
 				});
 				
@@ -57,9 +60,29 @@
 				
 				
 			}
+			
+			function displayPartsDetail(equipmentid){
+			
+				sources.equipment_Encounters.wak_getPartsArr({
+					arguments: [equipmentid],
+					onSuccess: function(event) {
+					
+						partsArr = JSON.parse(event.result);
+						sources.partsArr.sync();
+					}
+				});
+			
+			
+			}
+			
 
 			//event handlers
 			//=================================================================================================
+
+			WAF.addListener(partsGrid, "onRowClick", function() {
+				displayPartsDetail(sources.equipmentArr.EquipmentID);
+       		});
+
 
 			$repairArriveTimeField.on("change", function() {
 				sources.rMA_OnSite.ArrivedTime = $repairArriveTimeField.timepicker("getTime");
@@ -77,6 +100,8 @@
 
 			//load the detail
 			displayRepairDetail(data.userData.rmaid);
+			
+			
 
 			//public API
 			//=================================================================================================
