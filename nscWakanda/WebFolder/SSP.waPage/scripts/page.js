@@ -64,7 +64,7 @@ console.log('page.js');
 			   loadView;
 
 		   //determine which view should be displayed based on the currently selected repairsArr row
-		   if (sources.repairsArr.Status === "Successful Bid") {
+		   if (sources.repairsArr.Status === "Repair") {
 			   loadView = "repairs";
 		   } else {
 			   loadView = "bids";
