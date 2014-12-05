@@ -1,0 +1,1 @@
+﻿date = new Date();(date.getHours()*3600 + date.getMinutes()*60 + date.getSeconds())*1000 + date.getMilliseconds();

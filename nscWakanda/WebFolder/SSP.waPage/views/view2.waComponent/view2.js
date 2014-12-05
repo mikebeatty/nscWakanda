@@ -38,7 +38,7 @@
 				//var vCompanyID = '33430';
 				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
-		
+						//debugger;
 						$repairByFld.timepicker("setTime", cs.rMA_Onsite_Bid1.RepairBy);
 						updateFinalBid();
 					}
@@ -111,7 +111,19 @@
 			 * Save the current onsite bid entity
 			 */
 			function saveBid() {
+
+				//convert time to milliseconds before sending to 4D
+				//debugger;
+				cs.rMA_Onsite_Bid1.RepairBy = WakUtils.dateTo4DTime(cs.rMA_Onsite_Bid1.RepairBy);
+
 				cs.rMA_Onsite_Bid1.save({
+					onSuccess: function() {
+
+						//4D server will return times in milliseconds, need to display properly again
+						//debugger;
+						$repairByFld.timepicker("setTime", cs.rMA_Onsite_Bid1.RepairBy);
+
+					},
 					onError: function(event) {
 						alert("error"); //todo swh: install client side error handler
 					}
