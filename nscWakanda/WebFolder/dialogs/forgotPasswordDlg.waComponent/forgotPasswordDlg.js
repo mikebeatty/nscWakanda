@@ -33,32 +33,26 @@
 			function submitEmail() {
 				var email;
 
-				resultText.setValue("Hey cool, we sent you your password because yeah that is great wow cool");
-				resultText.hide();
-				$resultText.fadeIn("slow");
-				_.delay(close, 2000);
+				email = emailFld.getValue();
 
+				cs.web_Access.wak_passwordReminder({
+					arguments: [email],
+					onSuccess: function(event) {
+						var success = event.result.success,
+							message = event.result.message;
 
-				//email = emailFld.getValue();
+						resultText.setValue(message);
+						resultText.hide();
+						$resultText.fadeIn("slow");
 
-				//cs.web_Access.wak_passwordReminder({
-				//	arguments: [email],
-				//	onSuccess: function(event) {
-				//		var success = event.result.success,
-				//			message = event.result.message;
-                //
-				//		resultText.setValue(message);
-				//		resultText.hide();
-				//		$resultText.fadeIn("slow");
-                //
-				//		if (success) {
-				//			_.delay(close, 2000);  //wait 2 seconds and close
-				//		}
-				//	},
-				//	onError: function () {
-				//		alert("sorry, there was an unexpected error"); //todo swh: install client side error handler
-				//	}
-				//});
+						if (success) {
+							_.delay(close, 2000);  //wait 2 seconds and close
+						}
+					},
+					onError: function () {
+						alert("sorry, there was an unexpected error"); //todo swh: install client side error handler
+					}
+				});
 			}
 
 			/**
