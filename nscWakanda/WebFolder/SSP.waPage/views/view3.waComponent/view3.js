@@ -32,7 +32,10 @@
 				repairDepartTimeField = cw.textField13,
 				$repairDepartTimeField = $("#" + repairArriveTimeField.id),
 				repairContractRateField = cw.textField15,
-				$repairContractRateField = $("#" + repairContractRateField.id);
+				$repairContractRateField = $("#" + repairContractRateField.id),
+				saveBtn = cw.button1,
+				cancelBtn = cw.button2;
+
 				
 
 			function displayRepairDetail(rmaid) {
@@ -75,6 +78,28 @@
 			
 			}
 			
+			function saveRepair() {
+				
+				cs.rMA_OnSite.save({
+					onSuccess: function() {
+
+					},
+					onError: function(event) {
+						alert("error"); //todo swh: install client side error handler
+					}
+				});
+				
+					cs.equipment_Encounters.save({
+					onSuccess: function() {
+
+					},
+					onError: function(event) {
+						alert("error"); //todo swh: install client side error handler
+					}
+				});
+				
+			}
+			
 
 			//event handlers
 			//=================================================================================================
@@ -86,6 +111,16 @@
 
 			$repairArriveTimeField.on("change", function() {
 				sources.rMA_OnSite.ArrivedTime = $repairArriveTimeField.timepicker("getTime");
+			});
+			
+				//save button click
+			saveBtn.addListener("click", function() {
+				saveRepair();
+			});
+
+			//cancel button click
+			cancelBtn.addListener("click", function() {
+				displayRepairDetail();
 			});
 			//on load
 			//=================================================================================================
