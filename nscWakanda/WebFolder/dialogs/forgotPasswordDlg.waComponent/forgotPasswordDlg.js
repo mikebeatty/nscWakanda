@@ -35,7 +35,7 @@
 
 				email = emailFld.getValue();
 
-				cs.web_Access.wak_passwordReminder({
+				cs.web_Access.wak_getWebuserPassword({
 					arguments: [email],
 					onSuccess: function(event) {
 						var success = event.result.success,
