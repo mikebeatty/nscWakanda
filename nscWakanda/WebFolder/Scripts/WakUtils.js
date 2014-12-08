@@ -11,28 +11,34 @@ WakUtils = (function() {
     "use strict";
 
     /**
-     * Convert a javascript date to a 4D time
-     * @param date
-     * @returns {number} - the date converted to milliseconds
+     * Convert a 4D mobile time value (which is milliseconds since midnight) into a javascript date with the
+     * same time
+     * @param milliseconds
+     * @returns {object} the date
      */
-    function dateTo4DTime(date) {
-        var dateMilli,
-            dateJustTime;
-
-        if (date) {
-            dateJustTime = moment(date);
-            dateMilli = (dateJustTime.hour() * (1000*60*60)) + (dateJustTime.minute() * (1000*60)) + (dateJustTime.second() * (1000)) + dateJustTime.millisecond();
-        } else {
-            dateMilli = 0;
+    function convert4DTimeToJSDate(milliseconds) {
+        if (milliseconds) {
+            return moment(0).add(milliseconds, "ms").add(moment().zone(), "minutes").toDate();
         }
+        return null;
+    }
 
-        return dateMilli;
+    /**
+     * Convert a time string to a 4D mobile time (milliseoncs since midnight)
+     * @param {string} timeString - time string formatted like 1:23pm
+     * @returns {number} the time in milliseconds
+     */
+    function convertTimeStringTo4DTime(timeString) {
+        var date;
+        date = moment("1/1/1970 " + timeString, "M/D/YYY h:ma");
+        return (date.hour()*3600 + date.minute()*60 + date.second())*1000;
     }
 
     //public API
     //=================================================================================================
     return {
-        dateTo4DTime: dateTo4DTime
+        convert4DTimeToJSDate: convert4DTimeToJSDate,
+        convertTimeStringTo4DTime: convertTimeStringTo4DTime
     };
 
 }());

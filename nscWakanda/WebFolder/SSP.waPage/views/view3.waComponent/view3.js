@@ -30,7 +30,7 @@
 				$repairArriveTimeField = $("#" + repairArriveTimeField.id),
 				repairDepartDateField = cw.textField12,
 				repairDepartTimeField = cw.textField13,
-				$repairDepartTimeField = $("#" + repairArriveTimeField.id),
+				$repairDepartTimeField = $("#" + repairDepartTimeField.id),
 				repairContractRateField = cw.textField15,
 				$repairContractRateField = $("#" + repairContractRateField.id),
 				saveBtn = cw.button1,
@@ -50,14 +50,12 @@
 					}
 				});
 				
-				var rmaid = '1499614';
+				//var rmaid = '1499614';
 				sources.rMA_OnSite.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
-		
-						$repairArriveTimeField.timepicker("setTime", sources.rMA_OnSite.ArrivedTime);
-						$repairDepartTimeField.timepicker("setTime", sources.rMA_OnSite.ArrivedTime);
-						
-						
+						debugger;
+						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.ArrivedTime));
+						$repairDepartTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.DueTime));
 					}
 				});
 				
@@ -79,8 +77,12 @@
 			}
 			
 			function saveRepair() {
-				
-				cs.rMA_OnSite.save({
+debugger;
+				//convert time to milliseconds before sending to 4D
+				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
+				sources.rMA_OnSite.DueTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
+
+				sources.rMA_OnSite.save({
 					onSuccess: function() {
 
 					},

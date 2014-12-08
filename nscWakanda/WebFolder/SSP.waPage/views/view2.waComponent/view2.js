@@ -20,8 +20,9 @@
 			//=================================================================================================
 			var cs = $comp.sources,
 				cw = $comp.widgets,
+				cv = $comp.sourcesVar,
 				repairAddressFld = cw.textField7,
-				repairByFld = cw.textField6,
+				repairByFld = cw.textField8,
 				$repairByFld = $("#" + repairByFld.id),
 				firstPrinterFld = cw.textField2,
 				additionalPrinterFld = cw.textField3,
@@ -38,8 +39,7 @@
 				//var vCompanyID = '33430';
 				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
-						//debugger;
-						$repairByFld.timepicker("setTime", cs.rMA_Onsite_Bid1.RepairBy);
+						$repairByFld.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid1.RepairBy));
 						updateFinalBid();
 					}
 				});
@@ -113,17 +113,9 @@
 			function saveBid() {
 
 				//convert time to milliseconds before sending to 4D
-				//debugger;
-				cs.rMA_Onsite_Bid1.RepairBy = WakUtils.dateTo4DTime(cs.rMA_Onsite_Bid1.RepairBy);
+				cs.rMA_Onsite_Bid1.RepairBy = WakUtils.convertTimeStringTo4DTime(repairByFld.getValue());
 
 				cs.rMA_Onsite_Bid1.save({
-					onSuccess: function() {
-
-						//4D server will return times in milliseconds, need to display properly again
-						//debugger;
-						$repairByFld.timepicker("setTime", cs.rMA_Onsite_Bid1.RepairBy);
-
-					},
 					onError: function(event) {
 						alert("error"); //todo swh: install client side error handler
 					}
@@ -133,11 +125,6 @@
 
 			//event handlers
 			//=================================================================================================
-
-			//changing the repair by value using the jquery timepicker
-			$repairByFld.on("change", function() {
-				cs.rMA_Onsite_Bid1.RepairBy = $repairByFld.timepicker("getTime");
-			});
 
 			//changing the first printer or additional printer updates final bid
 			firstPrinterFld.addListener("change", function() {
