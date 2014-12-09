@@ -38,6 +38,7 @@
 				cs.web_Access.wak_getWebuserPassword({
 					arguments: [email],
 					onSuccess: function(event) {
+						debugger;
 						var success = event.result.success,
 							message = event.result.message;
 

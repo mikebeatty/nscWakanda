@@ -46,14 +46,18 @@
 						sources.equipmentArr.sync();
 	
 						displayPartsDetail(sources.equipmentArr.EquipmentID);
-						repairContractRateField.setValue("FR: EX: RN:");
+//						repairContractRateField.setValue("FR: EX: RN:");
+					sources.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid);
+					var contractRate = "FR:"+sources.rMA_Onsite_Bid.FirstPrinterRate+" EX:"+sources.rMA_Onsite_Bid.AdditonalPrinterRate+" RN:"+sources.rMA_Onsite_Bid.ReturnRate;
+				
+						repairContractRateField.setValue(contractRate);
 					}
 				});
 				
 				//var rmaid = '1499614';
 				sources.rMA_OnSite.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
-						debugger;
+		
 						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.ArrivedTime));
 						$repairDepartTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.DueTime));
 					}
@@ -70,6 +74,7 @@
 					
 						partsArr = JSON.parse(event.result);
 						sources.partsArr.sync();
+						sources.equipment_Encounters.query("EquipmentID == :1",equipmentid);
 					}
 				});
 			
@@ -77,7 +82,7 @@
 			}
 			
 			function saveRepair() {
-debugger;
+
 				//convert time to milliseconds before sending to 4D
 				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
 				sources.rMA_OnSite.DueTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
