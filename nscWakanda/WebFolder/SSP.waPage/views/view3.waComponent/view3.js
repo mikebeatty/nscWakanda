@@ -63,7 +63,25 @@
 					}
 				});
 				
-				
+				sources.rMA.query('RMA_ID == :1',rmaid,{
+					onSuccess: function(){
+						var vCompanyID = sources.rMA.CompanyID;
+						cs.addresses.query("CompanyID == :1", vCompanyID, {
+							onSuccess: function(){
+								var vRepairAddress;
+
+								vRepairAddress = cs.addresses.wak_getAddressRepair({
+									arguments: [vCompanyID],
+									onSuccess: function(event) {
+									repairAddressFld.setValue(event.result);
+									}
+								});
+//								repairAddressFld.setValue(vRepairAddress);
+							}
+						});
+					}
+				});
+
 			}
 			
 			function displayPartsDetail(equipmentid){

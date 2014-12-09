@@ -47,7 +47,7 @@
 						$resultText.fadeIn("slow");
 
 						if (success) {
-							_.delay(close, 2000);  //wait 2 seconds and close
+							_.delay(close, 5000);  //wait 2 seconds and close`moved to 5 - Mike
 						}
 					},
 					onError: function () {
