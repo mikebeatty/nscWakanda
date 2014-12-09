@@ -44,7 +44,7 @@
 					onSuccess: function(event) {
 						equipmentArr = JSON.parse(event.result);
 						sources.equipmentArr.sync();
-	
+				
 						displayPartsDetail(sources.equipmentArr.EquipmentID);
 //						repairContractRateField.setValue("FR: EX: RN:");
 					sources.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid);
@@ -62,6 +62,14 @@
 						$repairDepartTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.DueTime));
 					}
 				});
+				
+//				sources.lineItems.query("Transaction_ID == :1", rmaid, {
+//					onSuccess: function () {
+//		
+////						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.ArrivedTime));
+////						$repairDepartTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.DueTime));
+//					}
+//				});
 				
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){

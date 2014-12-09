@@ -15,18 +15,29 @@ function constructor (id) {
 	// @region namespaceDeclaration// @startlock
 	// @endregion// @endlock
 
+var cs = $comp.sources;
+
 	// eventHandlers// @lock
-	
-		var vVendorID = sources.web_Access.CompanyID;
-		vVendorID = '38789';
-		sources.warehouses.query('VendorID == :1',vVendorID);
-		var vWareHouseID = '467';
-		$comp.sources.inventory_WarehouseCount.query('WareHouseID == :1',vWareHouseID);
+	debugger;
+		var vVendorID = cs.web_Access.CompanyID;
+		vVendorID = 5161;
+		cs.warehouses.query('VendorID == :1',vVendorID,{
+		onSuccess: function () {
+//		var vWareHouseID = '467';
+			var vWareHouseID = cs.warehouses.WareHouseID;
+			cs.inventory_WarehouseCount.query('WareHouseID == :1',vWareHouseID,{
+					onSuccess: function () {
+						
+							}
+					});
+		
+	}};
 
 	// @region eventManager// @startlock
 	// @endregion// @endlock
 
 	};// @lock
+	
 
 
 }// @startlock
