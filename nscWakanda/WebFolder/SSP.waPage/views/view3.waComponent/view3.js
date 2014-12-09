@@ -92,15 +92,15 @@
 
 			}
 			
-			function displayPartsDetail(equipmentid){
+			function displayPartsDetail(rmaid){
 			
 				sources.equipment_Encounters.wak_getPartsArr({
-					arguments: [equipmentid],
+					arguments: [rmaid],
 					onSuccess: function(event) {
 					
 						partsArr = JSON.parse(event.result);
 						sources.partsArr.sync();
-						sources.equipment_Encounters.query("EquipmentID == :1",equipmentid);
+//						sources.equipment_Encounters.query("EquipmentID == :1",equipmentid);
 					}
 				});
 			
@@ -122,7 +122,7 @@
 					}
 				});
 				
-					cs.equipment_Encounters.save({
+				sources.equipment_Encounters.save({
 					onSuccess: function() {
 
 					},

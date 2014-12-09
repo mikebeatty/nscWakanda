@@ -26,7 +26,10 @@ console.log('page.js');
            viewComp = $$("componentDetail"),
 			viewCompLoaded = $$(viewComp.id),
 		   currentView = "",
-		   viewBidsRepairsBtn = $$("button7");
+		   viewBidsRepairsBtn = $$("button7"),
+		   viewBidFilter = $$("checkbox1"),
+		   viewInProgressFilter = $$("checkbox2"),
+		   viewClosedFilter = $$("checkbox3");
 
        //setup views
        viewsArr = [
@@ -58,6 +61,21 @@ console.log('page.js');
         * @param {string} viewName - name of the view as setup in the viewsArr
         * @param {object} [userData] - data to send to the component when it loads into the view
         */
+        
+                function displayFilteredSelection(){
+                	var vSSPID = sources.web_Access.CompanyID;
+				debugger;
+				sources.rMA_Onsite_Bid.wak_getRepairsArr({
+			
+					arguments: [vSSPID,viewBidFilter,viewInProgressFilter,viewClosedFilter],
+					onSuccess: function(event) {
+						//debugger;s
+						repairsArr = JSON.parse(event.result);
+						sources.repairsArr.sync();
+						displaySelectedRecord();
+							}
+						});	
+					}
         
         function displaySelectedRecord(){
 		   var rmaid = sources.repairsArr.RMAID,
@@ -113,8 +131,20 @@ console.log('page.js');
 //on load, attahce event listeners, run code we want to run when page loads
 //=================================================================================================
 
-
-
+		//Mike 12/09/14
+       WAF.addListener(viewBidFilter, "click", function() {
+		displayFilteredSelection();
+       });
+       
+       //Mike 12/09/14
+       WAF.addListener(viewInProgressFilter, "click", function() {
+		displayFilteredSelection();
+       });
+       
+       //Mike 12/09/14
+       WAF.addListener(viewClosedFilter, "click", function() {
+		displayFilteredSelection();
+       });
 
        //when clicking a row on the views listbox, load the view
        WAF.addListener(viewsGrid, "onRowClick", function() {
@@ -166,6 +196,11 @@ viewInventoryBtn.addListener("click", function(){
 						console.log('CompanyID '+sources.web_Access.CompanyID);
 					}
 				});
+				
+				viewBidFilter = '1';
+				viewInProgressFilter = 'True';
+				viewClosedFilter = 'False';
+				
 			var vSSPID = sources.web_Access.CompanyID;
 				//debugger;
 				sources.rMA_Onsite_Bid.wak_getRepairsArr({
