@@ -67,7 +67,7 @@ console.log('page.js');
 				debugger;
 				sources.rMA_Onsite_Bid.wak_getRepairsArr({
 			
-					arguments: [vSSPID,viewBidFilter,viewInProgressFilter,viewClosedFilter],
+					arguments: [vSSPID,viewBidFilter.getValue(),viewInProgressFilter.getValue(),viewClosedFilter.getValue()],
 					onSuccess: function(event) {
 						//debugger;s
 						repairsArr = JSON.parse(event.result);
@@ -197,22 +197,25 @@ viewInventoryBtn.addListener("click", function(){
 					}
 				});
 				
-				viewBidFilter = '1';
-				viewInProgressFilter = 'True';
-				viewClosedFilter = 'False';
+				viewBidFilter.setValue(true) ;
+				viewInProgressFilter.setValue(true) ;
+				viewClosedFilter.setValue(false) ;
 				
-			var vSSPID = sources.web_Access.CompanyID;
-				//debugger;
-				sources.rMA_Onsite_Bid.wak_getRepairsArr({
-			
-					arguments: [vSSPID],
-					onSuccess: function(event) {
-						//debugger;
-						repairsArr = JSON.parse(event.result);
-						sources.repairsArr.sync();
-						displaySelectedRecord();
-	}
-});
+				displayFilteredSelection();
+				
+				
+//			var vSSPID = sources.web_Access.CompanyID;
+//				//debugger;
+//				sources.rMA_Onsite_Bid.wak_getRepairsArr({
+//			
+//					arguments: [vSSPID],
+//					onSuccess: function(event) {
+//						//debugger;
+//						repairsArr = JSON.parse(event.result);
+//						sources.repairsArr.sync();
+//						displaySelectedRecord();
+//	}
+//});
 			}
 			
 		});

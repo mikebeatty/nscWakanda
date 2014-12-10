@@ -56,6 +56,14 @@
 					}
 				});
 				
+				sources.equipment_Encounters.wak_getPartsArr({
+					arguments: [rmaid],
+						onSuccess: function(event) {
+						partsArr = JSON.parse(event.result);
+						sources.partsArr.sync();
+					}
+				});
+				
 				//var rmaid = '1499614';
 				sources.rMA_OnSite.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
@@ -76,7 +84,7 @@
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
 						var vCompanyID = sources.rMA.CompanyID;
-						debugger;
+			
 							repairGaloRmaNumber.setValue(sources.rMA.GALO_RMA_Number);
 						cs.addresses.query("CompanyID == :1", vCompanyID, {
 							onSuccess: function(){
@@ -96,17 +104,32 @@
 
 			}
 			
-			function displayPartsDetail(rmaid){
+			function displayPartsDetail(){
 			
-				sources.equipment_Encounters.wak_getPartsArr({
-					arguments: [rmaid],
-					onSuccess: function(event) {
-					
-						partsArr = JSON.parse(event.result);
-						sources.partsArr.sync();
-//						sources.equipment_Encounters.query("EquipmentID == :1",equipmentid);
-					}
-				});
+				sources.equipment_Encounters.query("EquipmentID == :1",sources.equipmentArr.EquipmentID, {
+						
+						onError: function(event) {
+						alert("error"); //todo swh: install client side error handler
+							}
+							
+						});
+			
+			
+//				sources.equipment_Encounters.wak_getPartsArr({
+//					arguments: [rmaid],
+//					onSuccess: function(event) {
+//			debugger;
+//						partsArr = JSON.parse(event.result);
+//						sources.partsArr.sync();
+//						sources.equipment_Encounters.query("EquipmentID == :1",sources.equipmentArr.EquipmentID, {
+//						
+//						onError: function(event) {
+//						alert("error"); //todo swh: install client side error handler
+//							}
+//							
+//						});
+//					}
+//				});
 			
 			
 			}
@@ -142,7 +165,7 @@
 			//=================================================================================================
 
 			WAF.addListener(partsGrid, "onRowClick", function() {
-				displayPartsDetail(sources.equipmentArr.EquipmentID);
+				displayPartsDetail();
        		});
 
 
