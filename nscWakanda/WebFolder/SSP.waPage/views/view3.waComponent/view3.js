@@ -33,6 +33,8 @@
 				$repairDepartTimeField = $("#" + repairDepartTimeField.id),
 				repairContractRateField = cw.textField15,
 				$repairContractRateField = $("#" + repairContractRateField.id),
+				repairGaloRmaNumber = cw.textField4,
+				$repairGaloRmaNumber = $("#" + repairGaloRmaNumber.id),
 				saveBtn = cw.button1,
 				cancelBtn = cw.button2;
 
@@ -74,6 +76,8 @@
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
 						var vCompanyID = sources.rMA.CompanyID;
+						debugger;
+							repairGaloRmaNumber.setValue(sources.rMA.GALO_RMA_Number);
 						cs.addresses.query("CompanyID == :1", vCompanyID, {
 							onSuccess: function(){
 								var vRepairAddress;
@@ -111,7 +115,7 @@
 
 				//convert time to milliseconds before sending to 4D
 				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
-				sources.rMA_OnSite.DueTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
+				sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
 
 				sources.rMA_OnSite.save({
 					onSuccess: function() {

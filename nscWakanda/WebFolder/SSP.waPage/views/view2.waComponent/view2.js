@@ -43,6 +43,12 @@
 						updateFinalBid();
 					}
 				});
+				
+				cs.rMA.query("RMA_ID == :1", rmaid, {
+					onSuccess: function () {
+//						want to display the RMA.GaloRMANumber
+					}
+				});
 
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
