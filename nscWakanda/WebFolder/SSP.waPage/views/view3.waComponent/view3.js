@@ -4,7 +4,7 @@
  * @created 12/02/2014
  */
 
-/*global Wap:false, equipmentArr:true */
+/*global Wap:false, equipmentArr:true, partsArr:true */
 
 //noinspection JSUnusedLocalSymbols
 (function Component (id) {
@@ -41,12 +41,13 @@
 				
 
 			function displayRepairDetail(rmaid) {
+
 				sources.equipment_Encounters.wak_getEquipmentArr({
 					arguments: [rmaid],
 					onSuccess: function(event) {
 						equipmentArr = JSON.parse(event.result);
 						sources.equipmentArr.sync();
-				
+
 						displayPartsDetail(sources.equipmentArr.EquipmentID);
 //						repairContractRateField.setValue("FR: EX: RN:");
 					sources.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid);
@@ -90,7 +91,7 @@
 							onSuccess: function(){
 								var vRepairAddress;
 
-								vRepairAddress = cs.addresses.wak_getAddressRepair({
+								cs.addresses.wak_getAddressRepair({
 									arguments: [vCompanyID],
 									onSuccess: function(event) {
 									repairAddressFld.setValue(event.result);
@@ -104,15 +105,15 @@
 
 			}
 			
-			function displayPartsDetail(){
-			
-				sources.equipment_Encounters.query("EquipmentID == :1",sources.equipmentArr.EquipmentID, {
-						
-						onError: function(event) {
+			function displayPartsDetail(equipmentID){
+
+				sources.equipment_Encounters.query("EquipmentID == :1", {
+					params: [equipmentID],
+					onError: function() {
 						alert("error"); //todo swh: install client side error handler
-							}
-							
-						});
+					}
+				});
+
 			
 			
 //				sources.equipment_Encounters.wak_getPartsArr({

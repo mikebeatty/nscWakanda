@@ -62,20 +62,25 @@ console.log('page.js');
         * @param {object} [userData] - data to send to the component when it loads into the view
         */
         
-                function displayFilteredSelection(){
-                	var vSSPID = sources.web_Access.CompanyID;
-				debugger;
-				sources.rMA_Onsite_Bid.wak_getRepairsArr({
-			
-					arguments: [vSSPID,viewBidFilter.getValue(),viewInProgressFilter.getValue(),viewClosedFilter.getValue()],
-					onSuccess: function(event) {
-						//debugger;s
-						repairsArr = JSON.parse(event.result);
-						sources.repairsArr.sync();
-						displaySelectedRecord();
-							}
-						});	
-					}
+	   function displayFilteredSelection(){
+		   var vSSPID = sources.web_Access.CompanyID,
+			   isBid,
+			   isInProgress,
+			   isClosed;
+
+		   isBid = viewBidFilter.getValue();
+		   isInProgress = viewInProgressFilter.getValue();
+		   isClosed = viewClosedFilter.getValue();
+
+		   sources.rMA_Onsite_Bid.wak_getRepairsArr({
+			   arguments: [vSSPID,isBid,isInProgress,isClosed],
+			   onSuccess: function(event) {
+				   repairsArr = JSON.parse(event.result);
+				   sources.repairsArr.sync();
+				   displaySelectedRecord();
+			   }
+		   });
+	   }
         
         function displaySelectedRecord(){
 		   var rmaid = sources.repairsArr.RMAID,
