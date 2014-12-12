@@ -18,20 +18,22 @@ function constructor (id) {
 var cs = $comp.sources;
 
 	// eventHandlers// @lock
-	debugger;
-		var vVendorID = cs.web_Access.CompanyID;
-		vVendorID = 5161;
+//	debugger;
+		var vVendorID = sources.web_Access.CompanyID;
+//		`vVendorID = 5161;
 		cs.warehouses.query('VendorID == :1',vVendorID,{
-		onSuccess: function () {
+			onSuccess: function () {
 //		var vWareHouseID = '467';
-			var vWareHouseID = cs.warehouses.WareHouseID;
-			cs.inventory_WarehouseCount.query('WareHouseID == :1',vWareHouseID,{
+				var vWareHouseID = cs.warehouses.WareHouseID;
+				cs.inventory_WarehouseCount.query('WareHouseID == :1',vWareHouseID,{
 					onSuccess: function () {
 						
-							}
-					});
+					}
+				});
 		
-	}};
+	
+			}
+		});
 
 	// @region eventManager// @startlock
 	// @endregion// @endlock

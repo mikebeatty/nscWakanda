@@ -19,12 +19,12 @@ console.log('page.js');
    	
    	
        var viewsGrid = $$("dataGrid1"),//viewsGrid = $$("component1"),
-		    viewInventoryBtn = $$("button3"),//equiment
+		   viewInventoryBtn = $$("button3"),//equiment
 		   viewCountBtn = $$("button4"),//onsite
-		    viewShipToBtn = $$("button5"),//equiment
+		   viewShipToBtn = $$("button5"),//equiment
 		   viewReceivedBtn = $$("button6"),//onsite
            viewComp = $$("componentDetail"),
-			viewCompLoaded = $$(viewComp.id),
+		viewCompLoaded = $$(viewComp.id),
 		   currentView = "",
 		   viewBidsRepairsBtn = $$("button7"),
 		   viewBidFilter = $$("checkbox1"),
@@ -33,12 +33,12 @@ console.log('page.js');
 
        //setup views
        viewsArr = [
-           {name: "bids", path: "/SSP.waPage/views/view2.waComponent"},
-           {name: "repairs", path: "/SSP.waPage/views/view3.waComponent"},
-           {name: "inventory", path: "/SSP.waPage/views/view4.waComponent"},
-           {name: "count", path: "/SSP.waPage/views/view5.waComponent"},
-           {name: "shipTo", path: "/SSP.waPage/views/view6.waComponent"},
-           {name: "received", path: "/SSP.waPage/views/view7.waComponent"}
+           {name: "bids", path: "/SSP.waPage/views/view2.waComponent", left: 310, width: 690},
+           {name: "repairs", path: "/SSP.waPage/views/view3.waComponent", left: 310, width: 690},
+           {name: "inventory", path: "/SSP.waPage/views/view4.waComponent", left: 5, width: 990},
+           {name: "count", path: "/SSP.waPage/views/view5.waComponent", left: 5, width: 990},
+           {name: "shipTo", path: "/SSP.waPage/views/view6.waComponent", left: 5, width: 990},
+           {name: "received", path: "/SSP.waPage/views/view7.waComponent", left: 5, width: 990}
        ];
        sources.viewsArr.sync();
 
@@ -118,13 +118,20 @@ console.log('page.js');
            view = _.find(viewsArr, function(view) {return view.name === viewName;});
 
            //load view into the main view component
+
            viewComp.removeComponent();
+           viewComp.setLeft(view.left);
+           viewComp.setWidth(view.width);
+         
            viewComp.loadComponent({
 				   path: view.path,
 				   userData: userData,
 				   onSuccess:function(event){
-				 
-					   Wap.viewComp = $$(this.id);
+	
+					  Wap.viewComp = $$(this.id);
+					if((viewName === "bids")||(viewName === "repairs")){
+					 displaySelectedRecord();
+					}
 				   },
 				   onError: function(event){
 				
@@ -160,20 +167,20 @@ console.log('page.js');
 
 	   viewBidsRepairsBtn.addListener("click", function() {
 		   viewsGrid.show();
-		   displaySelectedRecord();
+		   goToView('repairs');
+//		   displaySelectedRecord();
 	   });
 
 
-viewInventoryBtn.addListener("click", function(){
-	viewsGrid.hide();
+	viewInventoryBtn.addListener("click", function(){
+		viewsGrid.hide();
 		goToView('inventory');
 });
 	
 	
 	viewCountBtn.addListener("click", function(){
-	console.log('button4');
 		viewsGrid.hide();
-	goToView('count');
+		goToView('count');
 });
 	
 	
