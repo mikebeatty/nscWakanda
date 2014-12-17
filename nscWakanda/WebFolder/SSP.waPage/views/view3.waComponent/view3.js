@@ -107,10 +107,11 @@
 			
 			function displayPartsDetail(equipmentID){
 
-				sources.equipment_Encounters.query("EquipmentID == :1", {
-					params: [equipmentID],
+//				sources.equipment_Encounters.query("EquipmentID == :1", {
+	sources.equipment_Encounters.query("EquipmentID == :1",sources.equipmentArr.EquipmentID,{
+//					params: [equipmentID],
 					onError: function() {
-						alert("error"); //todo swh: install client side error handler
+						alert("error - equipmentID"); //todo swh: install client side error handler
 					}
 				});
 
