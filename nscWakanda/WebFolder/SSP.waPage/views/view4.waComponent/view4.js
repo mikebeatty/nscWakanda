@@ -24,10 +24,19 @@ var cs = $comp.sources;
 		cs.warehouses.query('VendorID == :1',vVendorID,{
 			onSuccess: function () {
 //		var vWareHouseID = '467';
+
 				var vWareHouseID = cs.warehouses.WareHouseID;
-				cs.inventory_WarehouseCount.query('WareHouseID == :1',vWareHouseID,{
-					onSuccess: function () {
-						
+//				cs.inventory_WarehouseCount.query('WareHouseID == :1',vWareHouseID,{
+//					onSuccess: function () {
+//						
+//					}
+//				});
+
+			sources.inventory_WarehouseCount.wak_getInventory({
+					arguments: [vWareHouseID],
+						onSuccess: function(event) {
+						inventoryArr = JSON.parse(event.result);
+						sources.inventoryArr.sync();
 					}
 				});
 		
