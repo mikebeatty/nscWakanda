@@ -166,13 +166,12 @@ console.log('page.js');
        });
 
 
-	   viewBidsRepairsBtn.addListener("click", function() {
-		   viewsGrid.show();
-		   viewsGrid.show();
+	viewBidsRepairsBtn.addListener("click", function() {
+		viewsGrid.show();
 		viewBidFilter.show();
 		viewInProgressFilter.show();
 		viewClosedFilter.show();
-		   goToView('repairs');
+		goToView('repairs');
 //		   displaySelectedRecord();
 	   });
 
