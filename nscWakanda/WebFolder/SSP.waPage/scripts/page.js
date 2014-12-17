@@ -131,6 +131,7 @@ console.log('page.js');
 					  Wap.viewComp = $$(this.id);
 					if((viewName === "bids")||(viewName === "repairs")){
 					 displaySelectedRecord();
+					
 					}
 				   },
 				   onError: function(event){
@@ -167,6 +168,10 @@ console.log('page.js');
 
 	   viewBidsRepairsBtn.addListener("click", function() {
 		   viewsGrid.show();
+		   viewsGrid.show();
+		viewBidFilter.show();
+		viewInProgressFilter.show();
+		viewClosedFilter.show();
 		   goToView('repairs');
 //		   displaySelectedRecord();
 	   });
@@ -174,6 +179,9 @@ console.log('page.js');
 
 	viewInventoryBtn.addListener("click", function(){
 		viewsGrid.hide();
+		viewBidFilter.hide();
+		viewInProgressFilter.hide();
+		viewClosedFilter.hide();
 		goToView('inventory');
 });
 	
