@@ -29,7 +29,7 @@ console.log('page.js');
 		   viewBidsRepairsBtn = $$("button7"),
 		   viewBidFilter = $$("checkbox1"),
 		   viewInProgressFilter = $$("checkbox2"),
-		   viewClosedFilter = $$("checkbox3");
+		   viewCompleteFilter = $$("checkbox3");
 
        //setup views
        viewsArr = [
@@ -66,14 +66,14 @@ console.log('page.js');
 		   var vSSPID = sources.web_Access.CompanyID,
 			   isBid,
 			   isInProgress,
-			   isClosed;
+			   isComplete;
 
 		   isBid = viewBidFilter.getValue();
 		   isInProgress = viewInProgressFilter.getValue();
-		   isClosed = viewClosedFilter.getValue();
+		   isComplete = viewCompleteFilter.getValue();
 
 		   sources.rMA_Onsite_Bid.wak_getRepairsArr({
-			   arguments: [vSSPID,isBid,isInProgress,isClosed],
+			   arguments: [vSSPID,isBid,isInProgress,isComplete],
 			   onSuccess: function(event) {
 				   repairsArr = JSON.parse(event.result);
 				   sources.repairsArr.sync();
@@ -155,7 +155,7 @@ console.log('page.js');
        });
        
        //Mike 12/09/14
-       WAF.addListener(viewClosedFilter, "click", function() {
+       WAF.addListener(viewCompleteFilter, "click", function() {
 		displayFilteredSelection();
        });
 
@@ -170,7 +170,8 @@ console.log('page.js');
 		viewsGrid.show();
 		viewBidFilter.show();
 		viewInProgressFilter.show();
-		viewClosedFilter.show();
+		viewCompleteFilter.show();
+		$$("richText1").show();
 		goToView('repairs');
 //		   displaySelectedRecord();
 	   });
@@ -180,7 +181,8 @@ console.log('page.js');
 		viewsGrid.hide();
 		viewBidFilter.hide();
 		viewInProgressFilter.hide();
-		viewClosedFilter.hide();
+		viewCompleteFilter.hide();
+		$$("richText1").hide();
 		goToView('inventory');
 });
 	
@@ -218,7 +220,7 @@ console.log('page.js');
 				
 				viewBidFilter.setValue(true) ;
 				viewInProgressFilter.setValue(true) ;
-				viewClosedFilter.setValue(false) ;
+				viewCompleteFilter.setValue(false) ;
 				
 				displayFilteredSelection();
 				
