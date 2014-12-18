@@ -75,6 +75,7 @@ console.log('page.js');
 		   sources.rMA_Onsite_Bid.wak_getRepairsArr({
 			   arguments: [vSSPID,isBid,isInProgress,isComplete],
 			   onSuccess: function(event) {
+			   	debugger;
 				   repairsArr = JSON.parse(event.result);
 				   sources.repairsArr.sync();
 				   displaySelectedRecord();
