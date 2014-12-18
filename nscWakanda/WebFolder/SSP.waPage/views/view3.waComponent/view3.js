@@ -35,6 +35,8 @@
 				$repairContractRateField = $("#" + repairContractRateField.id),
 				repairGaloRmaNumber = cw.textField4,
 				$repairGaloRmaNumber = $("#" + repairGaloRmaNumber.id),
+				transactionNotes = cw.textField5,
+				$transactionNotes = $("#" + transactionNotes.id),
 				saveBtn = cw.button1,
 				cancelBtn = cw.button2;
 
@@ -99,6 +101,13 @@
 								});
 //								repairAddressFld.setValue(vRepairAddress);
 							}
+						});
+						
+						sources.transactions.query("Transaction_ID == :1",rmaid,{
+//				
+							onSuccess: function() {
+							transactionNotes.setValue(sources.transactions.Notes);; //todo swh: install client side error handler
+									}
 						});
 					}
 				});
