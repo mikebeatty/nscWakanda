@@ -75,10 +75,11 @@ console.log('page.js');
 		   sources.rMA_Onsite_Bid.wak_getRepairsArr({
 			   arguments: [vSSPID,isBid,isInProgress,isComplete],
 			   onSuccess: function(event) {
-			   	debugger;
-				   repairsArr = JSON.parse(event.result);
+			
+			 		repairsArr = JSON.parse(event.result);
 				   sources.repairsArr.sync();
 				   displaySelectedRecord();
+				   
 			   }
 		   });
 	   }
@@ -100,6 +101,7 @@ console.log('page.js');
 			   Wap.viewComp.displayRepairDetail(rmaid);
 		   } else {
 			   goToView(loadView, {
+		
 				   rmaid: rmaid
 			   })
 		   }
@@ -123,7 +125,7 @@ console.log('page.js');
            viewComp.removeComponent();
            viewComp.setLeft(view.left);
            viewComp.setWidth(view.width);
-         
+      
            viewComp.loadComponent({
 				   path: view.path,
 				   userData: userData,
@@ -131,7 +133,8 @@ console.log('page.js');
 	
 					  Wap.viewComp = $$(this.id);
 					if((viewName === "bids")||(viewName === "repairs")){
-					 displaySelectedRecord();
+//					 displaySelectedRecord();
+ 						Wap.viewComp.displayRepairDetail(userData.rmaid);
 					
 					}
 				   },

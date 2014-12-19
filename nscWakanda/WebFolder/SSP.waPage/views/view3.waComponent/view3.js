@@ -56,6 +56,8 @@
 					var contractRate = "FR:"+sources.rMA_Onsite_Bid.FirstPrinterRate+" EX:"+sources.rMA_Onsite_Bid.AdditonalPrinterRate+" RN:"+sources.rMA_Onsite_Bid.ReturnRate;
 				
 						repairContractRateField.setValue(contractRate);
+//						repairContractRateField.disable();
+//						transactionNotes.disable();
 					}
 				});
 				
@@ -153,7 +155,7 @@
 
 				sources.rMA_OnSite.save({
 					onSuccess: function() {
-
+						alertify.success("Record has been saved.");
 					},
 					onError: function(event) {
 						alert("error"); //todo swh: install client side error handler
@@ -191,6 +193,7 @@
 
 			//cancel button click
 			cancelBtn.addListener("click", function() {
+				alertify.error("Changes cancelled.");
 				displayRepairDetail();
 			});
 			//on load
