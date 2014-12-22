@@ -34,11 +34,28 @@ WakUtils = (function() {
         return (date.hour()*3600 + date.minute()*60 + date.second())*1000;
     }
 
+
+    /**
+     * Put user in the cell of a grid
+     * @param {object} grid - the grid widget
+     * @param {number} colNo
+     * @param {number} rowNo
+     */
+    function gridEditCell(grid, colNo, rowNo) {
+        grid.gridController.gridView._private.functions.startEditCell({
+            gridView: grid.gridController.gridView,
+            row: grid.gridController.gridView._private.globals.rows[rowNo],
+            cell: grid.gridController.gridView._private.globals.rows[rowNo].cells[colNo],
+            columnNumber: colNo
+        });
+    }
+
     //public API
     //=================================================================================================
     return {
         convert4DTimeToJSDate: convert4DTimeToJSDate,
-        convertTimeStringTo4DTime: convertTimeStringTo4DTime
+        convertTimeStringTo4DTime: convertTimeStringTo4DTime,
+        gridEditCell: gridEditCell
     };
 
 }());

@@ -21,7 +21,8 @@
 		
 			var cs = $comp.sources,
 				cw = $comp.widgets,
-				partsGrid = cw.dataGrid2,
+				equipmentGrid = cw.dataGrid2,
+				partsGrid = cw.dataGrid3,
 				repairAddressFld = cw.textField1,
 				repairEquipProblemField = cw.textField2,
 				repairEquipSolutionField = cw.textField3,
@@ -38,9 +39,9 @@
 				transactionNotes = cw.textField5,
 				$transactionNotes = $("#" + transactionNotes.id),
 				saveBtn = cw.button1,
-				cancelBtn = cw.button2;
+				cancelBtn = cw.button2,
+				oldPartsArrUsedVal;
 
-				
 
 			function displayRepairDetail(rmaid) {
 
@@ -172,12 +173,34 @@
 				});
 				
 			}
-			
+
+			/**
+			 * Called when the user changes the used value for a part in the parts grid
+			 * @param {string} sku
+			 * @param {string} used
+			 */
+			function savePartUsed(sku, used) {
+				debugger;
+				//Hey Mike, here is where you would pass the sku and used values to 4D to update
+				//the record on the 4D side
+
+			}
 
 			//event handlers
 			//=================================================================================================
 
-			WAF.addListener(partsGrid, "onRowClick", function() {
+			WAF.addListener("partsArr", "onUsedAttributeChange", function(event) {
+				if (event.eventKind === "onCurrentElementChange") {
+					oldPartsArrUsedVal = sources.partsArr.Used;
+				}
+				if (event.eventKind === "onAttributeChange") {
+					if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
+						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used);
+					}
+				}
+			}, "WAF", "Used");
+
+			WAF.addListener(equipmentGrid, "onRowClick", function() {
 				displayPartsDetail();
        		});
 
@@ -196,6 +219,14 @@
 				alertify.error("Changes cancelled.");
 				displayRepairDetail();
 			});
+
+			//clicking on a used cell in the used column of the parts grid
+			WAF.addListener(partsGrid, "onCellClick", function(event) {
+				WakUtils.gridEditCell(partsGrid, event.data.columnNumber, event.data.row.rowNumber);
+			});
+
+
+
 			//on load
 			//=================================================================================================
 				//setup time picker for the repair by field
