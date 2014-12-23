@@ -90,14 +90,14 @@
 //					}
 //				});
 				
-				sources.rMA.query('RMA_ID == :1',rmaid,{
+				cs.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
-						var vCompanyID = sources.rMA.CompanyID;
+						var vCompanyID = cs.rMA.CompanyID;
 							debugger;
-							repairGaloRmaNumber.setValue(sources.rMA.GALO_RMA_Number);
-							rmaComplete.setValue(sources.rMA.RMAComplete);
+							repairGaloRmaNumber.setValue(cs.rMA.GALO_RMA_Number);
+//							rmaComplete.setValue(cs.rMA.RMAComplete);
 						
-						if(sources.rMA.RMAComplete === true){
+						if(cs.rMA.RMAComplete == true){
 						
 //						repairContractRateField.disable();
 						transactionNotes.disable();
@@ -190,6 +190,15 @@
 					}
 				});
 				
+				cs.rMA.save({
+					onSuccess: function() {
+						
+					},
+					onError: function(event) {
+						alert("error"); //todo swh: install client side error handler
+					}
+				});
+				
 			}
 
 			/**
@@ -198,7 +207,7 @@
 			 * @param {string} used
 			 */
 			function savePartUsed(sku, used, lineItem, equipmentID, rmaID) {
-				debugger;
+		
 				//Hey Mike, here is where you would pass the sku and used values to 4D to update
 				//the record on the 4D side
 				var equipmentID = sources.equipmentArr.EquipmentID,
@@ -206,15 +215,12 @@
 				
 				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,rmaID,{
 				
-					onSuccess: function(){
-						debugger;
-						var resultText = JSON.parse(event.result);
-							resultText.show();
+					onSuccess: function(event){
+				
+						alertify.success(event.result.result);
 					},
-					onError: function(){
-						debugger;
-						var resultText = JSON.parse(event.result);
-							resultText.show();
+					onError: function(event){
+						alertify.error(event.result.result);
 					}
 					
 				
@@ -240,14 +246,16 @@
 				displayPartsDetail();
        		});
        		
-       		rmaComplete.addListener("click", function() {
-				sources.rMA.RMAComplete = 'true';
+       		rmaComplete.addListener("change", function() {
+//				cs.rMA.RMAComplete = 'true';
 			});
 
 
 			$repairArriveTimeField.on("change", function() {
 				sources.rMA_OnSite.ArrivedTime = $repairArriveTimeField.timepicker("getTime");
 			});
+			
+//			location.href = $filepath "http://" + window.location.host + "/getReport?" + cs.reportInstance.uuid;
 			
 				//save button click
 			saveBtn.addListener("click", function() {
