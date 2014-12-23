@@ -40,6 +40,7 @@
 				$transactionNotes = $("#" + transactionNotes.id),
 				saveBtn = cw.button1,
 				cancelBtn = cw.button2,
+				rmaComplete = cw.checkbox1,
 				oldPartsArrUsedVal;
 
 
@@ -57,6 +58,8 @@
 					var contractRate = "FR:"+sources.rMA_Onsite_Bid.FirstPrinterRate+" EX:"+sources.rMA_Onsite_Bid.AdditonalPrinterRate+" RN:"+sources.rMA_Onsite_Bid.ReturnRate;
 				
 						repairContractRateField.setValue(contractRate);
+						
+					
 //						repairContractRateField.disable();
 //						transactionNotes.disable();
 					}
@@ -90,8 +93,23 @@
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
 						var vCompanyID = sources.rMA.CompanyID;
-			
+							debugger;
 							repairGaloRmaNumber.setValue(sources.rMA.GALO_RMA_Number);
+							rmaComplete.setValue(sources.rMA.RMAComplete);
+						
+						if(sources.rMA.RMAComplete === true){
+						
+//						repairContractRateField.disable();
+						transactionNotes.disable();
+						partsGrid.disable();
+						repairEquipProblemField.disable();
+						repairEquipSolutionField.disable();
+						repairArriveDateField.disable();
+						repairArriveTimeField.disable();
+						repairDepartDateField.disable();
+						repairDepartTimeField.disable();
+						
+						}
 						cs.addresses.query("CompanyID == :1", vCompanyID, {
 							onSuccess: function(){
 								var vRepairAddress;
@@ -179,10 +197,28 @@
 			 * @param {string} sku
 			 * @param {string} used
 			 */
-			function savePartUsed(sku, used) {
+			function savePartUsed(sku, used, lineItem, equipmentID, rmaID) {
 				debugger;
 				//Hey Mike, here is where you would pass the sku and used values to 4D to update
 				//the record on the 4D side
+				var equipmentID = sources.equipmentArr.EquipmentID,
+					rmaID = sources.rMA_OnSite.RMA_ID;
+				
+				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,rmaID,{
+				
+					onSuccess: function(){
+						debugger;
+						var resultText = JSON.parse(event.result);
+							resultText.show();
+					},
+					onError: function(){
+						debugger;
+						var resultText = JSON.parse(event.result);
+							resultText.show();
+					}
+					
+				
+				});
 
 			}
 
@@ -195,7 +231,7 @@
 				}
 				if (event.eventKind === "onAttributeChange") {
 					if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
-						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used);
+						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem);
 					}
 				}
 			}, "WAF", "Used");
@@ -203,6 +239,10 @@
 			WAF.addListener(equipmentGrid, "onRowClick", function() {
 				displayPartsDetail();
        		});
+       		
+       		rmaComplete.addListener("click", function() {
+				sources.rMA.RMAComplete = 'true';
+			});
 
 
 			$repairArriveTimeField.on("change", function() {
