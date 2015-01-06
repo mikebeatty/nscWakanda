@@ -28,6 +28,10 @@
 				repairEquipSolutionField = cw.textField3,
 				repairArriveDateField = cw.textField7,
 				repairArriveTimeField = cw.textField8,
+				repairTripsRequired = cw.textField6,
+				repairApprovedTravel = cw.textField9,
+				repairApprovedLabor = cw.textField10,
+				repairMileage = cw.textField11,
 				$repairArriveTimeField = $("#" + repairArriveTimeField.id),
 				repairDepartDateField = cw.textField12,
 				repairDepartTimeField = cw.textField13,
@@ -108,6 +112,10 @@
 						repairArriveTimeField.disable();
 						repairDepartDateField.disable();
 						repairDepartTimeField.disable();
+						repairTripsRequired.disable();
+						repairApprovedTravel.disable();
+						repairApprovedLabor.disable();
+						repairMileage .disable();
 						
 						}
 						cs.addresses.query("CompanyID == :1", vCompanyID, {
