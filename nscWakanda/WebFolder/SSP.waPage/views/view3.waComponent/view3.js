@@ -285,6 +285,8 @@
 					onSuccess: function(event){
 						debugger;
 						alert(event.result);
+						window.open(event.result);
+						
 //						alertify.success(event.result.result);
 					},
 					onError: function(event){
