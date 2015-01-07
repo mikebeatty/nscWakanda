@@ -18,7 +18,7 @@ function constructor (id) {
 var cs = $comp.sources;
 
 	// eventHandlers// @lock
-//	debugger;
+
 		var vVendorID = sources.web_Access.CompanyID;
 //		`vVendorID = 5161;
 		cs.warehouses.query('VendorID == :1',vVendorID,{

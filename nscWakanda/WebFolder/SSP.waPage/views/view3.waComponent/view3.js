@@ -44,6 +44,7 @@
 				$transactionNotes = $("#" + transactionNotes.id),
 				saveBtn = cw.button1,
 				cancelBtn = cw.button2,
+				fieldsheetBtn = cw.button3,
 				rmaComplete = cw.checkbox1,
 				oldPartsArrUsedVal;
 
@@ -97,7 +98,7 @@
 				cs.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
 						var vCompanyID = cs.rMA.CompanyID;
-							debugger;
+						
 							repairGaloRmaNumber.setValue(cs.rMA.GALO_RMA_Number);
 //							rmaComplete.setValue(cs.rMA.RMAComplete);
 						
@@ -274,6 +275,24 @@
 			cancelBtn.addListener("click", function() {
 				alertify.error("Changes cancelled.");
 				displayRepairDetail();
+			});
+			
+			fieldsheetBtn.addListener("click", function() {
+				var rmaID = sources.rMA_OnSite.RMA_ID;
+				
+				sources.rMA_OnSite.wak_getFieldSheet(rmaID,{
+				
+					onSuccess: function(event){
+						debugger;
+						alert(event.result);
+//						alertify.success(event.result.result);
+					},
+					onError: function(event){
+						alertify.error(event.result.result);
+					}
+					
+				
+				});
 			});
 
 			//clicking on a used cell in the used column of the parts grid
