@@ -279,22 +279,7 @@
 			
 			fieldsheetBtn.addListener("click", function() {
 				var rmaID = sources.rMA_OnSite.RMA_ID;
-				
-				sources.rMA_OnSite.wak_getFieldSheet(rmaID,{
-				
-					onSuccess: function(event){
-						debugger;
-						alert(event.result);
-						window.open(event.result);
-						
-//						alertify.success(event.result.result);
-					},
-					onError: function(event){
-						alertify.error(event.result.result);
-					}
-					
-				
-				});
+				window.open("http://" + window.location.host + "/docProxy?" + rmaID);
 			});
 
 			//clicking on a used cell in the used column of the parts grid
