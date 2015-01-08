@@ -27,7 +27,7 @@ function docProxy(request, response) {
 
         //get the path to the document from 4D
         fullPath = ds.RMA_OnSite.wak_getFieldSheet(rmaID);
-       debugger;
+    
 //        fullPath = "/Users/welsh/Desktop/test.pdf";
 //		fullPath = "/Users/mikebeatty/4D Write-Untitled.pdf";
 
