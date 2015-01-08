@@ -33,8 +33,8 @@ console.log('page.js');
 
        //setup views
        viewsArr = [
-           {name: "bids", path: "/SSP.waPage/views/view2.waComponent", left: 310, width: 690},
-           {name: "repairs", path: "/SSP.waPage/views/view3.waComponent", left: 310, width: 690},
+           {name: "bids", path: "/SSP.waPage/views/view2.waComponent", left: 410, width: 690},
+           {name: "repairs", path: "/SSP.waPage/views/view3.waComponent", left: 410, width: 690},
            {name: "inventory", path: "/SSP.waPage/views/view4.waComponent", left: 5, width: 990},
            {name: "count", path: "/SSP.waPage/views/view5.waComponent", left: 5, width: 990},
            {name: "shipTo", path: "/SSP.waPage/views/view6.waComponent", left: 5, width: 990},
