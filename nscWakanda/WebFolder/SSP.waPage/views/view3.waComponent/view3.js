@@ -236,6 +236,8 @@
 				});
 
 			}
+			
+			
 
 			//event handlers
 			//=================================================================================================
@@ -250,6 +252,8 @@
 					}
 				}
 			}, "WAF", "Used");
+			
+			
 
 			WAF.addListener(equipmentGrid, "onRowClick", function() {
 				displayPartsDetail();
