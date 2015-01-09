@@ -27,6 +27,9 @@
 				firstPrinterFld = cw.textField2,
 				additionalPrinterFld = cw.textField3,
 				finalBidFld = cw.rmaOnsiteTotalBid,
+				repairArriveDateField = cw.textField7,
+				repairArriveTimeField = cw.textField8,
+				$repairArriveTimeField = $("#" + repairArriveTimeField.id),
 				saveBtn = cw.button1,
 				cancelBtn = cw.button2;
 
@@ -52,9 +55,12 @@
 
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
+						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid1.RepairBy));
+						
 						vCompanyID = sources.rMA.CompanyID;
 						cs.addresses.query("CompanyID == :1", vCompanyID, {
 							onSuccess: function(){
+							
 								var vRepairAddress;
 //								vRepairAddress = Wap.page.formatAddress(cs.address.getCurrentElement());
 //								var vRepairAddress;
@@ -149,6 +155,10 @@
 			//cancel button click
 			cancelBtn.addListener("click", function() {
 				displayRepairDetail();
+			});
+			
+			$repairArriveTimeField.on("change", function() {
+				sources.rMA_OnSite_Bid1.RepairBy = $repairArriveTimeField.timepicker("getTime");
 			});
 
 			//on load
