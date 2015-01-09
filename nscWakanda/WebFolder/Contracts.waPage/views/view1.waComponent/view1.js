@@ -28,7 +28,7 @@ function constructor (id) {
 							onSuccess: function(){
 								var vRepairAddress;
 
-								cs.addresses.wak_getAddressRepair({
+								cs.addresses.wak_getAddressCompany({
 									arguments: [vCompanyID],
 									onSuccess: function(event) {
 									contractAddressFld.setValue(event.result);

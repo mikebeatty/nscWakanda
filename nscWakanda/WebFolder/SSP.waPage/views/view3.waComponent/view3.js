@@ -124,7 +124,7 @@
 								var vRepairAddress;
 
 								cs.addresses.wak_getAddressRepair({
-									arguments: [vCompanyID],
+									arguments: [rmaid],
 									onSuccess: function(event) {
 									repairAddressFld.setValue(event.result);
 									}

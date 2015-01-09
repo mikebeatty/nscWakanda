@@ -65,7 +65,8 @@
 //								vRepairAddress += cs.addresses.City+String.fromCharCode(32)+cs.addresses.State+String.fromCharCode(32)+cs.addresses.Zip+String.fromCharCode(13);
 //								vRepairAddress += cs.addresses.Phone+String.fromCharCode(13);
 								vRepairAddress = cs.addresses.wak_getAddressRepair({
-									arguments: [vCompanyID],
+//									arguments: [vCompanyID],
+									arguments: [rmaid],
 									onSuccess: function(event) {
 									repairAddressFld.setValue(event.result);
 									}
