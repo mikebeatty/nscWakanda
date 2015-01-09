@@ -24,7 +24,7 @@ console.log('page.js');
 		   viewShipToBtn = $$("button5"),//equiment
 		   viewReceivedBtn = $$("button6"),//onsite
            viewComp = $$("componentDetail"),
-		viewCompLoaded = $$(viewComp.id),
+			viewCompLoaded = $$(viewComp.id),
 		   currentView = "",
 		   viewBidsRepairsBtn = $$("button7"),
 		   viewBidFilter = $$("checkbox1"),
@@ -35,10 +35,10 @@ console.log('page.js');
        viewsArr = [
            {name: "bids", path: "/SSP.waPage/views/view2.waComponent", left: 410, width: 690},
            {name: "repairs", path: "/SSP.waPage/views/view3.waComponent", left: 410, width: 690},
-           {name: "inventory", path: "/SSP.waPage/views/view4.waComponent", left: 5, width: 990},
-           {name: "count", path: "/SSP.waPage/views/view5.waComponent", left: 5, width: 990},
-           {name: "shipTo", path: "/SSP.waPage/views/view6.waComponent", left: 5, width: 990},
-           {name: "received", path: "/SSP.waPage/views/view7.waComponent", left: 5, width: 990}
+           {name: "inventory", path: "/SSP.waPage/views/view4.waComponent", left: 5, width: 1090},
+           {name: "count", path: "/SSP.waPage/views/view5.waComponent", left: 5, width: 1090},
+           {name: "shipTo", path: "/SSP.waPage/views/view6.waComponent", left: 5, width: 1090},
+           {name: "received", path: "/SSP.waPage/views/view7.waComponent", left: 5, width: 1090}
        ];
        sources.viewsArr.sync();
 
