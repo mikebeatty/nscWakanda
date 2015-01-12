@@ -24,6 +24,7 @@ function constructor (id) {
 			
 			sources.contracts.query("contractID == :1", contractID);
 			
+			vCompanyID = sources.contracts.BillToCompanyID;
 			cs.addresses.query("CompanyID == :1", vCompanyID, {
 							onSuccess: function(){
 								var vRepairAddress;
