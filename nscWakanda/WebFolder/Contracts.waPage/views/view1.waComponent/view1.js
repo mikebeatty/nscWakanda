@@ -4,8 +4,7 @@
 // Add the code that needs to be shared between components here
 
 function constructor (id) {
-	var $comp = this;
-	this.name = 'view1';
+
 	// @region beginComponentDeclaration// @startlock
 	var $comp = this;
 	this.name = 'view1';
@@ -22,49 +21,48 @@ function constructor (id) {
 			
 		function displayContractDetail(contractID) {
 			
-			sources.contracts.query("contractID == :1", contractID);
+			var contractID,
+				companyID;
+		
+			contractID = sources.contractArr.ContractID;
+			sources.contracts.query("ContractID == :1", contractID,{
 			
-			vCompanyID = sources.contracts.BillToCompanyID;
-			cs.addresses.query("CompanyID == :1", vCompanyID, {
-							onSuccess: function(){
-								var vRepairAddress;
-
-								cs.addresses.wak_getAddressCompany({
-									arguments: [vCompanyID],
-									onSuccess: function(event) {
-									contractAddressFld.setValue(event.result);
+				onError: function(event){
+				
+				},
+				
+				onSuccess: function () {
+		
+					companyID = sources.contracts.ShipID;
+					cs.addresses.query("CompanyID == :1", companyID, {
+						onSuccess: function(){
+//					var vRepairAddress;
+							
+							cs.addresses.wak_getAddressCompany({
+								arguments: [companyID],
+								onSuccess: function(event) {
+								contractAddressFld.setValue(event.result);
 									}
-								});
-//								repairAddressFld.setValue(vRepairAddress);
-							}
-						});
+							});
 
-//			sources.equipment_Encounters.wak_getEquipmentArr({
-//				arguments: [rmaid],
-//				onSuccess: function(event) {
-//					equipmentArr = JSON.parse(event.result);
-//					sources.equipmentArr.sync();
+						}
+					});
+				}
 
-//					displayPartsDetail(sources.equipmentArr.EquipmentID);
-////						repairContractRateField.setValue("FR: EX: RN:");
-//				sources.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid);
-//				var contractRate = "FR:"+sources.rMA_Onsite_Bid.FirstPrinterRate+" EX:"+sources.rMA_Onsite_Bid.AdditonalPrinterRate+" RN:"+sources.rMA_Onsite_Bid.ReturnRate;
-//				
-//					repairContractRateField.setValue(contractRate);
-						
-					
-//						repairContractRateField.disable();
-//						transactionNotes.disable();
-//				}
-			
-//			});
-		}
+			});
+		};
 		
 	// @region namespaceDeclaration// @startlock
 	// @endregion// @endlock
 
 	// eventHandlers// @lock
 	displayContractDetail(data.userData.contractID);
+	
+	
+	
+	//public API
+	//=================================================================================================
+	this.displayContractDetail = displayContractDetail;
 
 	// @region eventManager// @startlock
 	// @endregion// @endlock

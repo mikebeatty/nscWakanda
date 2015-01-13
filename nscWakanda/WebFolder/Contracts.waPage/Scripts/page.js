@@ -36,13 +36,33 @@ WAF.onAfterInit = function() {
          * @param {object} [userData] - data to send to the component when it loads into the view
          */
          
+          function displayFilteredSelection(){
+		   var vcompanyID = sources.web_Access.CompanyID;
+			   
+//		   isBid = viewBidFilter.getValue();
+//		   isInProgress = viewInProgressFilter.getValue();
+//		   isComplete = viewCompleteFilter.getValue();
+
+		   sources.contracts.wak_getContractArr({
+			   arguments: [vcompanyID],
+			   onSuccess: function(event) {
+			
+			 		contractArr = JSON.parse(event.result);
+				   sources.contractArr.sync();
+				   displaySelectedRecord();
+				   
+			   }
+		   });
+	   }
+         
          function displaySelectedRecord(){
-        
+       
         var contractID = sources.contractArr.Contract;
+         debugger;
 		sources.contracts.query('ContractID == :1',contractID);
 //		sources.rMA_OnSite.query('RMA_ID == :1',contractID);
 		
-		viewComp.displayContractDetail();
+		Wap.viewComp.displayContractDetail();
 	
 		
         };
@@ -98,6 +118,8 @@ sources.web_Access.query('WebLogOn == :1',userName, {
 				sources.contractArr.sync();
 			}
 		});
+		
+		displayFilteredSelection();
 	}
 });
 
