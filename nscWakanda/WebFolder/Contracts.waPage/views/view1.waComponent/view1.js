@@ -17,6 +17,7 @@ function constructor (id) {
 		
 		var cs = $comp.sources,
 			cw = $comp.widgets,
+			printerGrid = cw.dataGrid1,
 			contractAddressFld = cw.textField10;
 			
 		function displayContractDetail(contractID) {
@@ -36,8 +37,16 @@ function constructor (id) {
 					companyID = sources.contracts.ShipID;
 					cs.addresses.query("CompanyID == :1", companyID, {
 						onSuccess: function(){
-//					var vRepairAddress;
-							
+
+							sources.equipment_Encounters.wak_getContractPrintersArr({
+			   					arguments: [contractID],
+			   					onSuccess: function(event) {
+			 						equipmentArr = JSON.parse(event.result);
+				   					sources.equipmentArr.sync();
+				   	
+				   
+			   }
+		   });
 							cs.addresses.wak_getAddressCompany({
 								arguments: [companyID],
 								onSuccess: function(event) {
