@@ -1,0 +1,6 @@
+{
+    "name"    : "view3",    
+    "html"    : "view3.html",
+    "styles"  : [],
+    "scripts" : ["view3.js"]
+}

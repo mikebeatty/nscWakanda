@@ -37,7 +37,7 @@ console.log('page.js');
        //setup views
        viewsArr = [
            {name: "contract", path: "/Contracts.waPage/views/view1.waComponent", left: 410, width: 690},
-//           {name: "repair", path: "/Contracts.waPage/views/view2.waComponent", left: 410, width: 690},
+           {name: "repair", path: "/Contracts.waPage/views/view2.waComponent", left: 5, width: 1090},
 //           {name: "inventory", path: "/SSP.waPage/views/view4.waComponent", left: 5, width: 1090},
 //           {name: "count", path: "/SSP.waPage/views/view5.waComponent", left: 5, width: 1090},
 //           {name: "shipTo", path: "/SSP.waPage/views/view6.waComponent", left: 5, width: 1090},

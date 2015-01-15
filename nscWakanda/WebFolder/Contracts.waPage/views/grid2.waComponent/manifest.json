@@ -1,0 +1,6 @@
+{
+    "name"    : "grid2",    
+    "html"    : "grid2.html",
+    "styles"  : [],
+    "scripts" : ["grid2.js"]
+}
