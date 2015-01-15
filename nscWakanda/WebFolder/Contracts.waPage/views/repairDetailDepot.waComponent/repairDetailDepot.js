@@ -29,7 +29,7 @@ function constructor (id) {
 		   	var rmaid = sources.companyRepairArr.RMAID;
 	   		sources.rMA.query("RMA_ID == :1", sources.companyRepairArr.RMAID, {
 	   			 onSuccess: function(event) {
-	   				debugger;
+	   			
 	   				var printerType = sources.rMA.Make+" "+sources.rMA.Model+" "+sources.rMA.SerialNumber;
 
 					repairPrinter.setValue(printerType);
