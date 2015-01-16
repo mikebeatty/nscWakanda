@@ -1,6 +1,4 @@
 
-
-
 /*global viewsArr:true, repairsArr:true */
 /*Contracts page*/
 /** @namespace */

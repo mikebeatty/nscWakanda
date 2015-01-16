@@ -113,7 +113,7 @@ function constructor (id) {
 		   }
 
          if(viewName === 'depot'){
-          viewPath = '/Contracts.waPage/views/repairDetailDepot.waComponent';
+          viewPath = '/Contracts.waPage/views/repairDepot.waComponent';
          
          }
          

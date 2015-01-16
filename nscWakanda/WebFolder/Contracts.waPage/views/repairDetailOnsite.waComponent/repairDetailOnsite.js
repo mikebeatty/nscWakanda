@@ -16,38 +16,78 @@ function constructor (id) {
 	// @endregion// @endlock
 		var cs = $comp.sources,
 			cw = $comp.widgets,
-			repairBillTo = cw.textField1,
-			repairShipTo = cw.textField2,
-			repairPrinter = cw.textField9;
+			printerGrid = cw.dataGrid2,
+			printerProblem = cw.textField3,
+			printerSolution = cw.textField4,
+			notesTech = cw.textField2,
+			repairShipTo = cw.textField1;
+//			repairShipTo = cw.textField2;
+//			repairPrinter = cw.textField9;
 
 
 
 		function displayRepairDetail(rmaid) {
 			
-		   	var rmaid = sources.companyRepairArr.RMAID;
-	   		sources.rMA.query("RMA_ID == :1", sources.companyRepairArr.RMAID, {
-	   			 onSuccess: function(event) {
-	   			
-	   				var printerType = sources.rMA.Make+" "+sources.rMA.Model+" "+sources.rMA.SerialNumber;
-
-					repairPrinter.setValue(printerType);
-				}
-			});
-	
-		   sources.equipment_Inventory_Used.wak_getRepairLineItemArr({
+			cs.rMA_OnSite.wak_getRepairVisitArr({
 			   arguments: [sources.companyRepairArr.RMAID],
 			   onSuccess: function(event) {
 		
-			 		repairPartsArr = JSON.parse(event.result);
-				   sources.repairPartsArr.sync();
+			 		repairVisitArr = JSON.parse(event.result);
+				   sources.repairVisitArr.sync();
 				
-				   
 			   }
 		   });
+	
+		   sources.equipment_Encounters.wak_getRepairPrinterArray({
+			   arguments: [sources.companyRepairArr.RMAID],
+			   onSuccess: function(event) {
+		
+			 		repairPrinterArr = JSON.parse(event.result);
+				   sources.repairPrinterArr.sync();
 				
-			};
+				   notesTech.setValue(sources.repairPrinterArr.Notes);
+				   printerProblem.setValue(""),
+				   printerSolution.setValue("")
+			   }
+		   });
+		   
+		    sources.rMA.query("RMA_ID == :1", sources.companyRepairArr.RMAID,{
+		   		onSuccess: function(){
+		   			var vCompanyID = sources.rMA.CompanyID;
+		   		
+		   		
+		   			cs.addresses.query("CompanyID == :1", vCompanyID, {
+					onSuccess: function(){
+						
+					var vRepairAddress,
+						vAddressType = "BillTo";
+//						cs.addresses.wak_getAddressRepair({
+//						arguments: [rmaid,vAddressType],
+//							onSuccess: function(event) {
+//								
+//								repairBillTo.setValue(event.result);
+//								}
+//							});
+							
+						vAddressType = "ShipTo";
+						cs.addresses.wak_getAddressRepair({
+						arguments: [rmaid],
+							onSuccess: function(event) {
+									
+								repairShipTo.setValue(event.result);
+								}
+							});
+						}
+					});	
+		   		}
+			});	
+				
+		};
 	// eventHandlers// @lock
-
+	WAF.addListener(printerGrid, "onRowClick", function() {
+				printerProblem.setValue(sources.repairPrinterArr.Problem),
+				printerSolution.setValue(sources.repairPrinterArr.Solution)
+       		});
 	// @region eventManager// @startlock
 	// @endregion// @endlock
 
