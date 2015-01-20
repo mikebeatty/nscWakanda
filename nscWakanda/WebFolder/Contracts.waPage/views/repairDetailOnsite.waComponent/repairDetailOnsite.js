@@ -16,17 +16,23 @@ function constructor (id) {
 	// @endregion// @endlock
 		var cs = $comp.sources,
 			cw = $comp.widgets,
+			repairDetail = cw.component1.
+			visitGrid = cw.dataGrid1,
 			printerGrid = cw.dataGrid2,
+			notesGrid = cw.dataGrid3,
 			printerProblem = cw.textField3,
 			printerSolution = cw.textField4,
 			notesTech = cw.textField2,
 			repairShipTo = cw.textField1;
+		
 //			repairShipTo = cw.textField2;
 //			repairPrinter = cw.textField9;
 
 
 
 		function displayRepairDetail(rmaid) {
+			
+			repairDetail.hide(),
 			
 			cs.rMA_OnSite.wak_getRepairVisitArr({
 			   arguments: [sources.companyRepairArr.RMAID],
@@ -83,10 +89,27 @@ function constructor (id) {
 			});	
 				
 		};
+		
+		
+		
+		
 	// eventHandlers// @lock
 	WAF.addListener(printerGrid, "onRowClick", function() {
 				printerProblem.setValue(sources.repairPrinterArr.Problem),
 				printerSolution.setValue(sources.repairPrinterArr.Solution)
+       		});
+       		
+    WAF.addListener(printerGrid, "onRowDblClick", function() {
+				debugger;
+//				repairDetail.show(),
+				visitGrid.hide(),
+				printerGrid.hide(),
+				notesGrid.hide(),
+				printerProblem.hide(),
+				printerSolution.hide(),
+				notesTech.hide(),
+				repairShipTo.hide(),
+				printerProblem.hide()
        		});
 	// @region eventManager// @startlock
 	// @endregion// @endlock
