@@ -215,14 +215,14 @@
 			 * @param {string} sku
 			 * @param {string} used
 			 */
-			function savePartUsed(sku, used, lineItem, equipmentID, rmaID) {
+			function savePartUsed(sku, used, lineItem, equipmentID, serial, rmaID) {
 		
 				//Hey Mike, here is where you would pass the sku and used values to 4D to update
 				//the record on the 4D side
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
 				
-				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,rmaID,{
+				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
 				
@@ -248,7 +248,8 @@
 				}
 				if (event.eventKind === "onAttributeChange") {
 					if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
-						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem);
+					
+						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.serial,sources.partsArr.rmaID);
 					}
 				}
 			}, "WAF", "Used");

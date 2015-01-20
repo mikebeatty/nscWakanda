@@ -1,1 +1,0 @@
-﻿userName = "MikeBeatty";password = "MikeBeatty";authInfo = ds.Web_Access.wak_Auth(userName, password);authInfo;

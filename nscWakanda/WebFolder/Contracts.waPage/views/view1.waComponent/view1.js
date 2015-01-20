@@ -17,10 +17,10 @@ function constructor (id) {
 		
 		var cs = $comp.sources,
 			cw = $comp.widgets,
-			contactNameFld = cw.textField2,
-			contactPhoneFld = cw.textField3,
-			contactFaxFld = cw.textField11,
-			contactEmailFld = cw.textField12,
+			contactNameFld = cw.textField12,
+			contactPhoneFld = cw.textField2,
+			contactFaxFld = cw.textField3,
+			contactEmailFld = cw.textField11,
 			printerGrid = cw.dataGrid1,
 			saveBtn = cw.button1,
 			cancelBtn = cw.button2,
@@ -69,12 +69,38 @@ function constructor (id) {
 		
 		function saveRepair() {
 //Need code here to create/save repair
+			var test = sources.equipmentArr.Reference,
+			contractID = sources.contractArr.ContractID;
 			
+			sources.equipmentArr.sync();
 			
-			sources.rMA.wak_createRMAOnsite({
+			var dataObj = {
+				contractID: contractID,
+				contactName: contactNameFld.getValue(),
+				contactPhone: contactPhoneFld.getValue(),
+				contactFax: contactFaxFld.getValue(),
+				contactEmail: contactEmailFld.getValue(),
+//				reference: sources.equipmentArr.Reference
+				equipmentArr: equipmentArr
+			};
+		
+		
 			
-				onSuccess: function(){
-					alertify.success("Record has been saved.");
+			var rmaid = sources.rMA.wak_createRMAOnsite({
+			arguments: dataObj,
+				onSuccess: function(event){
+					alertify.success("RMA "+rmaid+" has been saved.")
+
+//					if(rmaid != null){
+//					alertify.success("RMA "+rmaid+" has been saved.")
+//						}
+//					 else {
+//			   			alert("A repair could not be created.");
+//					
+//					};
+				},
+				onError: function(event){
+					alert("A repair could not be created.");
 				}
 			});
 			
@@ -88,7 +114,7 @@ function constructor (id) {
 //						alertify.success("Record has been saved.");
 //					},
 //					onError: function(event) {
-//						alert("error"); //todo swh: install client side error handler
+//						alert("error"); //todo swh: install client side error handlers
 //					}
 //				});
 //				
