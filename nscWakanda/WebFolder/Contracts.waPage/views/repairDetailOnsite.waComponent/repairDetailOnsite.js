@@ -16,7 +16,9 @@ function constructor (id) {
 	// @endregion// @endlock
 		var cs = $comp.sources,
 			cw = $comp.widgets,
-			repairDetail = cw.component1.
+			detailCompLoaded = null,
+			repairDetail = cw.component1,
+			viewComp = $$("component1"),
 			visitGrid = cw.dataGrid1,
 			printerGrid = cw.dataGrid2,
 			notesGrid = cw.dataGrid3,
@@ -100,8 +102,8 @@ function constructor (id) {
        		});
        		
     WAF.addListener(printerGrid, "onRowDblClick", function() {
-				debugger;
-//				repairDetail.show(),
+				
+				
 				visitGrid.hide();
 				printerGrid.hide();
 				notesGrid.hide();
@@ -109,7 +111,32 @@ function constructor (id) {
 				printerSolution.hide();
 				notesTech.hide();
 				repairShipTo.hide();
-				printerProblem.hide();
+				
+				repairDetail.show();
+				debugger;
+				$$(repairDetail.id).displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
+//				displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
+//				var viewPath = '/Contracts.waPage/views/repairPrinterDetail.waComponent';
+//				repairDetail.loadComponent({
+//				   
+//				   path: viewPath,
+////				   userData: userData,
+//				   onSuccess:function(event){
+//					debugger;
+////					  detailCompLoaded = $$(this.id);
+//						Wap.viewComp = $$(this.id);
+////				
+//// 						detailCompLoaded.displayRepairDetail(userData.rmaid);
+//						Wap.viewComp.displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
+//					
+//				   },
+//				   onError: function(event){
+//				
+//				   }
+//               }
+//           );
+				
+				
        		});
 	// @region eventManager// @startlock
 	// @endregion// @endlock

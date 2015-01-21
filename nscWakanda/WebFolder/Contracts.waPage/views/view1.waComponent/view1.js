@@ -21,6 +21,8 @@ function constructor (id) {
 			contactPhoneFld = cw.textField2,
 			contactFaxFld = cw.textField3,
 			contactEmailFld = cw.textField11,
+			repairAddressNotes = cw.textField9,
+			repairPrinterFilter = cw.textField13,
 			printerGrid = cw.dataGrid1,
 			saveBtn = cw.button1,
 			cancelBtn = cw.button2,
@@ -104,6 +106,21 @@ function constructor (id) {
 				}
 			});
 			
+		 function displayPrinterFilter(){
+		   var vSerial = repairPrinterFilter,
+				contractID = sources.contractArr.ContractID;
+			   
+		   		sources.equipment_Encounters.query({
+			   arguments: [vSSPID,isBid,isInProgress,isComplete],
+			   onSuccess: function(event) {
+			
+			 		repairsArr = JSON.parse(event.result);
+				   sources.repairsArr.sync();
+				   displaySelectedRecord();
+				   
+			   }
+		   });
+	   }	
 			
 				//convert time to milliseconds before sending to 4D
 //				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
@@ -148,9 +165,13 @@ function constructor (id) {
 			});
 
 			//cancel button click
-			cancelBtn.addListener("click", function() {
+		cancelBtn.addListener("click", function() {
 				alertify.error("Changes cancelled.");
 				displayRepairDetail();
+			});
+			
+		repairPrinterFilter.addListener("change", function() {
+				displayPrinterFilter();
 			});
 	
 	//public API
