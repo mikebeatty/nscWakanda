@@ -102,14 +102,14 @@ function constructor (id) {
     WAF.addListener(printerGrid, "onRowDblClick", function() {
 				debugger;
 //				repairDetail.show(),
-				visitGrid.hide(),
-				printerGrid.hide(),
-				notesGrid.hide(),
-				printerProblem.hide(),
-				printerSolution.hide(),
-				notesTech.hide(),
-				repairShipTo.hide(),
-				printerProblem.hide()
+				visitGrid.hide();
+				printerGrid.hide();
+				notesGrid.hide();
+				printerProblem.hide();
+				printerSolution.hide();
+				notesTech.hide();
+				repairShipTo.hide();
+				printerProblem.hide();
        		});
 	// @region eventManager// @startlock
 	// @endregion// @endlock

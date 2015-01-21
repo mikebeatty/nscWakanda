@@ -98,7 +98,7 @@ console.log('page.js');
                    } else {
                        displaySelectedRecord();
                    }
-                   
+
 			   }
 		   });
 	   }
