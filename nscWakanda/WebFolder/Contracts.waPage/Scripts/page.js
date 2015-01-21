@@ -86,8 +86,8 @@ console.log('page.js');
 			 		contractArr = JSON.parse(event.result);
 				   sources.contractArr.sync();
 
-                   if (event.userData.goToContractID) {
-                       sources.contractArr.selectByKey(event.userData.goToContractID, {
+                   if (event.userData) {
+                       sources.contractArr.selectByKey(event.userData, {
                            onSuccess: function() {
                                displaySelectedRecord();
                            },
