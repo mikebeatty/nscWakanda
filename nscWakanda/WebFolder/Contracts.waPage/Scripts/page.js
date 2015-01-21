@@ -1,5 +1,5 @@
 
-/*global viewsArr:true, repairsArr:true */
+/*global viewsArr:true, contractArr:true */
 /*Contracts page*/
 /** @namespace */
 var Wap = Wap || {};
@@ -30,7 +30,9 @@ console.log('page.js');
 //		   viewBidFilter = $$("checkbox1"),
 //		   viewInProgressFilter = $$("checkbox2"),
 //		   viewCompleteFilter = $$("checkbox3");
-			currentView = "";
+			currentView = "",
+           uriParams,
+           goToContractID;
 
        //setup views
        viewsArr = [
@@ -63,7 +65,7 @@ console.log('page.js');
         * @param {object} [userData] - data to send to the component when it loads into the view
         */
         
-	   function displayFilteredSelection(){
+	   function displayFilteredSelection(goToContractID){
 		   var vcompanyID = sources.web_Access.CompanyID;
 //			   isBid,
 //			   isInProgress,
@@ -73,13 +75,30 @@ console.log('page.js');
 //		   isInProgress = viewInProgressFilter.getValue();
 //		   isComplete = viewCompleteFilter.getValue();
 
+           if (typeof goToContractID === "undefined") {
+               goToContractID = null;
+           }
+
 		   sources.contracts.wak_getContractArr({
+               userData: goToContractID,
 			   arguments: [vcompanyID],
 			   onSuccess: function(event) {
 			 		contractArr = JSON.parse(event.result);
 				   sources.contractArr.sync();
-				   displaySelectedRecord();
-				   
+
+                   if (event.userData.goToContractID) {
+                       sources.contractArr.selectByKey(event.userData.goToContractID, {
+                           onSuccess: function() {
+                               displaySelectedRecord();
+                           },
+                           onError: function() {
+                               alert("there was a problem selecting the contract");
+                           }
+                       });
+                   } else {
+                       displaySelectedRecord();
+                   }
+                   
 			   }
 		   });
 	   }
@@ -149,6 +168,26 @@ console.log('page.js');
 
 //on load, attahce event listeners, run code we want to run when page loads
 //=================================================================================================
+
+       //check to see if the user is using a url with a contract id
+       uriParams = new URI(document.URL).search(true);
+       if (typeof uriParams.C !== "undefined") {
+           goToContractID = uriParams.C;
+       } else {
+           goToContractID = null;
+       }
+
+       //lets make sure the user is logged in, if not kick them to the login page
+       if (Wap.auth.isLoggedIn() === false) {
+
+           //if the url had a go to contract id, throw in local storage so the login page
+           //can put back in the url after the user logs in
+           if (goToContractID) {
+               localStorage.setItem("ContractID", goToContractID);
+           }
+           window.location = "/";
+       }
+
 
 		//Mike 12/09/14
 //       WAF.addListener(viewBidFilter, "click", function() {
@@ -228,7 +267,7 @@ console.log('page.js');
 //				viewInProgressFilter.setValue(true) ;
 //				viewCompleteFilter.setValue(false) ;
 				console.log('displayFilteredSelection');
-				displayFilteredSelection();
+				displayFilteredSelection(goToContractID);
 				
 				
 //			var vSSPID = sources.web_Access.CompanyID;

@@ -6,12 +6,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
         <meta name="WAF.catalog" content="Contracts,Web_Access,Companies,RMA,Equipment_Inventory_Used"/>
         <meta name="WAF.packageJson"/>
-    	<meta name="wakanda-version" content="9 build 9.171536"/>
-		<meta name="wakanda-build" content="9.171536"/>
+    	<meta name="wakanda-version" content="9 build 9.172967"/>
+		<meta name="wakanda-build" content="9.172967"/>
 		
 		
 
-		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="array" data-source="contractArr" data-lib="WAF" data-id="contractArr" data-dataType="string" data-autoLoad="true" data-attributes="Contract:string,Company:string,Dates:string,Reseller:string,ContractID:string" content="contractArr"/>		
+		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="array" data-source="contractArr" data-lib="WAF" data-id="contractArr" data-dataType="string" data-autoLoad="true" data-attributes="Contract:string:key,Company:string,Dates:string,Reseller:string,ContractID:string" content="contractArr"/>		
 
 		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="dataClass" data-source="Contracts" data-lib="WAF" data-id="contracts" data-dataType="string" data-autoLoad="false" content="contracts"/>
 		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="dataClass" data-source="Web_Access" data-lib="WAF" data-id="web_Access" data-dataType="string" data-autoLoad="false" content="web_Access"/>		
@@ -56,21 +56,65 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="dataClass" data-source="Equipment_Inventory_Used" data-lib="WAF" data-id="equipment_Inventory_Used" data-dataType="string" data-autoLoad="false" content="equipment_Inventory_Used"/>
+		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="dataClass" data-source="RMA" data-lib="WAF" data-id="rMA" data-dataType="string" data-autoLoad="false" content="rMA"/>
+		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="array" data-source="viewsArr" data-lib="WAF" data-id="viewsArr" data-dataType="string" data-autoLoad="true" data-attributes="name:string,path:string" content="viewsArr"/>
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<meta name="WAF.config.loadJS" content="scripts/underscore.js"/>
 		<meta name="WAF.config.loadJS" content="/libraries/jqueryTimePicker/jquery.timepicker.js"/>
 		<meta name="WAF.config.loadJS" content="/libraries/accounting.js"/>
 		<meta name="WAF.config.loadJS" content="/index.waPage/Scripts/auth.js"/>
 		<meta name="WAF.config.loadJS" content="/libraries/moment.js"/>
 		<meta name="WAF.config.loadJS" content="/libraries/alertify/alertify.js"/>
+		<meta name="WAF.config.loadJS" content="/libraries/URI.js"/>
 		<meta name="WAF.config.loadJS" content="/Scripts/WakUtils.js"/>
 		<meta name="WAF.config.loadJS" content="scripts/page.js"/>
-
-		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="dataClass" data-source="Equipment_Inventory_Used" data-lib="WAF" data-id="equipment_Inventory_Used" data-dataType="string" data-autoLoad="false" content="equipment_Inventory_Used"/>
-		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="dataClass" data-source="RMA" data-lib="WAF" data-id="rMA" data-dataType="string" data-autoLoad="false" content="rMA"/>
-		<meta data-type="dataSource" data-lib="WAF" data-source="viewsArr" data-source-type="array" data-dataType="string" data-autoLoad="true" name="WAF.config.datasources" data-id="viewsArr" data-attributes="name:string,path:string" content="viewsArr"/>
-		</head>
+</head>
     <body id="waf-body" data-workspace-width="0" data-workspace-orientation="portrait" data-workspace-height="0" data-workspace-device="desktop" data-viewport-width="device-width" data-viewport-minimum-scale="1.0" data-viewport-maximum-scale="1.0" data-viewport-initial-scale="1.0" data-type="document" data-title="index" data-theme="default" data-platform="desktop" data-lib="WAF" data-group="[]" data-entire-model="false" data-apple-meta-tags-status-bar="default" style="bottom:;right:;visibility:hidden;">
-    	<div id="dataGrid1" data-type="dataGrid" data-selection-mode="single" data-lib="WAF" data-label-position="top" data-label="" data-footer-text="item(s)" data-footer-hide="true" data-display-error="true" data-constraint-top="true" data-constraint-left="true" data-constraint-bottom="true" data-column="[{'sourceAttID':'Contract','colID':'Contract','width':'120','title':'Contract'},{'sourceAttID':'Company','colID':'Company','width':'200','title':'Company'},{'sourceAttID':'Dates','colID':'Dates','width':'70','title':'Dates'},{'sourceAttID':'Reseller','colID':'Reseller','width':'150','title':'Reseller'}]" data-binding="contractArr" class="waf-widget waf-dataGrid" data-hideonload="false"></div>
+    	<div id="dataGrid1" data-type="dataGrid" data-selection-mode="single" data-lib="WAF" data-label-position="top" data-label="" data-hideonload="false" data-footer-text="item(s)" data-footer-hide="true" data-display-error="true" data-constraint-top="true" data-constraint-left="true" data-constraint-bottom="true" data-column="[{'sourceAttID':'Contract','colID':'Contract','width':'120','title':'Contract'},{'sourceAttID':'Company','colID':'Company','width':'200','title':'Company'},{'sourceAttID':'Dates','colID':'Dates','width':'70','title':'Dates'},{'sourceAttID':'Reseller','colID':'Reseller','width':'150','title':'Reseller'}]" data-binding="contractArr" class="waf-widget waf-dataGrid"></div>
 		<div id="componentDetail" data-type="component" data-start-load="false" data-path="/Contracts.waPage/views/view1.waComponent" data-lib="WAF" data-constraint-top="true" data-constraint-left="true" data-constraint-bottom="true" class="waf-widget waf-component"></div>
 		<div id="container1" data-type="container" data-lib="WAF" data-label-position="top" data-label="" data-constraint-top="true" data-constraint-left="true" class="waf-widget waf-container waf-container-level-0 waf-level-0">
 	 	 	<button id="button3" data-type="button" data-text="Repairs" data-target="_blank" data-lib="WAF" data-constraint-top="true" data-constraint-right="false" data-constraint-left="true" data-constraint-bottom="false" data-action="simple" class="waf-widget waf-button"></button>
@@ -80,7 +124,6 @@
  	 		<button id="button7" data-type="button" data-text="Contracts" data-target="_blank" data-lib="WAF" data-constraint-top="true" data-constraint-right="false" data-constraint-left="true" data-constraint-bottom="false" data-action="simple" class="waf-widget waf-button"></button>
  	 		<div id="component2" data-type="component" data-path="/headerNew.waComponent" data-lib="WAF" data-constraint-top="true" data-constraint-right="false" data-constraint-left="true" data-constraint-bottom="false" class="waf-widget waf-component"></div>
  	 	</div>
-	
 		<script type="text/javascript" src="/waLib/WAF/Loader.js"></script>
 	</body>
 </html>

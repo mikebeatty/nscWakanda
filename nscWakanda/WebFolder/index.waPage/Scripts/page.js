@@ -18,7 +18,8 @@ Wap.page = (function() {
 		errorText = $$("richText1"),
 //		passwordReminder = $$("richText10");
 		passwordReminderBtn = $$("button2"),
-		passwordReminderComp = $$("component1");
+		passwordReminderComp = $$("component1"),
+		goToContractID;
 	
 	//attempt to login
     function login() {
@@ -54,7 +55,15 @@ Wap.page = (function() {
 
 			if (Wap.auth.isInGroup("Customer")) {
 
-				window.location = "/Contracts";//Welsh had used service, defaults to index.html within the folder
+				//check local storage for a contract id
+				goToContractID = localStorage.getItem("ContractID");
+				if (goToContractID) {
+					localStorage.removeItem("ContractID");
+					window.location = "/Contracts/?C=" + goToContractID;
+				} else {
+					window.location = "/Contracts";
+				}
+
 				sources.web_Access.query('webLogOn == :1',userName);
 				var vCompanyID = sources.web_Access.CompanyID;
 			} else if (Wap.auth.isInGroup("Service")) {
