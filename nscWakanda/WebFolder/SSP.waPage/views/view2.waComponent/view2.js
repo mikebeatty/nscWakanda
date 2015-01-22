@@ -40,9 +40,10 @@
 				var vCompanyID;
 
 				//var vCompanyID = '33430';
-				cs.rMA_Onsite_Bid1.query("RMA_ID == :1", rmaid, {
+				if(rmaid != null){
+				cs.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
-						$repairByFld.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid1.RepairBy));
+						$repairByFld.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid.RepairBy));
 						updateFinalBid();
 					}
 				});
@@ -55,7 +56,7 @@
 
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
-						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid1.RepairBy));
+						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid.RepairBy));
 						
 						vCompanyID = sources.rMA.CompanyID;
 						cs.addresses.query("CompanyID == :1", vCompanyID, {
@@ -101,6 +102,14 @@
 				//		});
 				//	}
 				//});
+				} else{
+					rmaid = 0;
+				cs.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid, {
+					onSuccess: function () {
+						
+					}
+				});
+				}
 			}
 
 			/**
@@ -114,7 +123,7 @@
 				if (numEncounters === 0) {
 					finalBidValue = 0;
 				} else {
-					finalBidValue = cs.rMA_Onsite_Bid1.FirstPrinterRate + ((numEncounters-1) * cs.rMA_Onsite_Bid1.AdditonalPrinterRate);
+					finalBidValue = cs.rMA_Onsite_Bid.FirstPrinterRate + ((numEncounters-1) * cs.rMA_Onsite_Bid.AdditonalPrinterRate);
 				}
 
 				finalBidFld.setValue(accounting.formatMoney(finalBidValue));
@@ -126,9 +135,9 @@
 			function saveBid() {
 
 				//convert time to milliseconds before sending to 4D
-				cs.rMA_Onsite_Bid1.RepairBy = WakUtils.convertTimeStringTo4DTime(repairByFld.getValue());
+				cs.rMA_Onsite_Bid.RepairBy = WakUtils.convertTimeStringTo4DTime(repairByFld.getValue());
 				
-				cs.rMA_Onsite_Bid1.save({
+				cs.rMA_Onsite_Bid.save({
 					onSuccess: function() {
 						alertify.success("Record has been saved.");
 					},
@@ -137,7 +146,7 @@
 					}
 				});
 
-//				cs.rMA_Onsite_Bid1.save({
+//				cs.rMA_Onsite_Bid.save({
 //					onError: function(event) {
 //						alert("error"); //todo swh: install client side error handler
 //					}
@@ -168,7 +177,7 @@
 			});
 			
 			$repairArriveTimeField.on("change", function() {
-				sources.rMA_OnSite_Bid1.RepairBy = $repairArriveTimeField.timepicker("getTime");
+				sources.rMA_OnSite_Bid.RepairBy = $repairArriveTimeField.timepicker("getTime");
 			});
 
 			//on load
