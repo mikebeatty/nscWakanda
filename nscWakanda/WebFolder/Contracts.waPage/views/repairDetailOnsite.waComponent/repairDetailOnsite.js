@@ -23,7 +23,7 @@ function constructor (id) {
 			printerGrid = cw.dataGrid2,
 			notesGrid = cw.dataGrid3,
 			printerProblem = cw.textField3,
-			printerSolution = cw.textField4,
+			printerResolution = cw.textField4,
 			notesTech = cw.textField2,
 			repairShipTo = cw.textField1;
 		
@@ -55,7 +55,7 @@ function constructor (id) {
 				
 				   notesTech.setValue(sources.repairPrinterArr.Notes);
 				   printerProblem.setValue(""),
-				   printerSolution.setValue("")
+				   printerResolution.setValue("")
 			   }
 		   });
 		   
@@ -98,7 +98,7 @@ function constructor (id) {
 	// eventHandlers// @lock
 	WAF.addListener(printerGrid, "onRowClick", function() {
 				printerProblem.setValue(sources.repairPrinterArr.Problem),
-				printerSolution.setValue(sources.repairPrinterArr.Solution)
+				printerResolution.setValue(sources.repairPrinterArr.Resolution)
        		});
        		
     WAF.addListener(printerGrid, "onRowDblClick", function() {
