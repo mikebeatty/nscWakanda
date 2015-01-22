@@ -59,6 +59,16 @@ function constructor (id) {
 			   }
 		   });
 		   
+		    sources.transactions.wak_getRepairNotesArr({
+			   arguments: [sources.companyRepairArr.RMAID],
+			   onSuccess: function(event) {
+		
+			 		repairNotesArr = JSON.parse(event.result);
+				   sources.repairNotesArr.sync();
+			
+			   }
+		   });
+		   
 		    sources.rMA.query("RMA_ID == :1", sources.companyRepairArr.RMAID,{
 		   		onSuccess: function(){
 		   			var vCompanyID = sources.rMA.CompanyID;

@@ -91,7 +91,11 @@ function constructor (id) {
 			var rmaid = sources.rMA.wak_createRMAOnsite({
 			arguments: dataObj,
 				onSuccess: function(event){
-					alertify.success("RMA "+rmaid+" has been saved.")
+					
+					rmaid = event.result;
+					alert("RMA "+rmaid+" has been created.");
+					
+//					alertify.success("RMA "+rmaid+" has been saved.")
 
 //					if(rmaid != null){
 //					alertify.success("RMA "+rmaid+" has been saved.")
