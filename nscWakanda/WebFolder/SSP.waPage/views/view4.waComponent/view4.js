@@ -17,13 +17,12 @@ function constructor (id) {
 
 var cs = $comp.sources,
 	cw = $comp.widgets,
-	inventoryGrid = cw.datagrid1,
-	saveBtn = cw.button1,
-	cancelBtn = cw.button2,
+	inventoryGrid = cw.dataGrid1,
+	oldinventoryArrTechCountVal = 0,
 	setInventoryComplete = checkbox1;
 
 	// eventHandlers// @lock
-
+debugger;
 		var vVendorID = sources.web_Access.CompanyID;
 //		`vVendorID = 5161;
 		cs.warehouses.query('VendorID == :1',vVendorID,{
@@ -49,17 +48,31 @@ var cs = $comp.sources,
 			}
 		});
 		
-		function saveInventoryUpdate(sku, name, rto, reserved, target, techonhand) {
+		function displayInventoryPhysicalCount(){
+		
+		inventoryGrid.hide();
+		
+		
+		}
+		
+		function displayInventoryFull(){
+		
+		inventoryGrid.show();
+		
+		
+		}
+		
+		function saveInventoryUpdate(sku, name, onhand, target, techcount) {
 		
 				//Hey Mike, here is where you would pass the sku and used values to 4D to update
 				//the record on the 4D side
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
-				debugger;
-				sources.inventory_WarehouseCount.wak_setInventoryArrUpdate(sku, name, rto, reserved, target, techonhand,{
+			
+				sources.inventory_WarehouseCount.wak_setInventoryArrUpdate(sku, name, onhand, target, techcount,{
 				
 					onSuccess: function(event){
-				debugger;
+		
 						alertify.success(event.result.result);
 					},
 					onError: function(event){
@@ -76,39 +89,35 @@ var cs = $comp.sources,
 
 
 //		WAF.addListener("inventoryArr", "onTechOnHandAttributeChange", function(event) {
-	WAF.addListener("inventoryArr", "onTechOnHandAttributeChange", function(event) {
+	WAF.addListener("inventoryArr", "onTechCountAttributeChange", function(event) {
 			
-	debugger;
+
 			if (event.eventKind === "onCurrentElementChange") {
-				oldinventoryArrTechOnHandVal = sources.inventoryArr.TechOnHand;
+				oldinventoryArrTechCountVal = sources.inventoryArr.TechCount;
 			}
 			if (event.eventKind === "onAttributeChange") {
-	debugger;				
-				if (sources.inventoryArr.TechOnHand != oldinventoryArrTechOnHandVal) { //using != because these were bouncing between number and string
+			
+				if (sources.inventoryArr.TechCount != oldinventoryArrTechCountVal) { //using != because these were bouncing between number and string
 				
-					saveInventoryUpdate(sources.inventoryArr.SKU, sources.inventoryArr.Name, sources.inventoryArr.RTO,sources.inventoryArr.Reserved,sources.inventoryArr.Target,sources.inventoryArr.TechOnHand);
+					saveInventoryUpdate(sources.inventoryArr.SKU, sources.inventoryArr.Name, sources.inventoryArr.OnHand,sources.inventoryArr.Target,sources.inventoryArr.TechCount);
 				}
 			}
-		}, "WAF", "Used");
+		}, "WAF", "TechCount");
 
 		WAF.addListener(inventoryGrid, "onCellClick", function(event) {
 			WakUtils.gridEditCell(inventoryGrid, event.data.columnNumber, event.data.row.rowNumber);
 		});
 		
-				//save button click
-		saveBtn.addListener("click", function() {
-			saveInventory();
-		});
 
-			//cancel button click
-		cancelBtn.addListener("click", function() {
-			alertify.error("Changes cancelled.");
-			displayRepairDetail();
-		});
+
+	//public API
+	//=================================================================================================
+	this.displayInventoryPhysicalCount = displayInventoryPhysicalCount;
+	this.displayInventoryFull = displayInventoryFull;
+
 
 	};// @lock
 	
-
 
 }// @startlock
 return constructor;

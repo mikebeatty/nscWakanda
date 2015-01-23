@@ -30,7 +30,8 @@ console.log('page.js');
 		   viewBidFilter = $$("checkbox1"),
 		   viewInProgressFilter = $$("checkbox2"),
 		   viewCompleteFilter = $$("checkbox3"),
-		   setInventoryComplete = $$("checkbox5");
+		   setPhysicalCount = $$("checkbox5"),
+		   submitPhysicalCount = $$("button1");
 		   
 
        //setup views
@@ -112,7 +113,7 @@ console.log('page.js');
         }
         
        function goToView(viewName, userData) {
-    
+   
            var view;
 
 		   if (typeof userData === "undefined") {
@@ -173,7 +174,8 @@ console.log('page.js');
 
 
 	viewBidsRepairsBtn.addListener("click", function() {
-		setInventoryComplete.hide();
+		setPhysicalCount.hide();
+		submitPhysicalCount.hide();
 		viewsGrid.show();
 		viewBidFilter.show();
 		viewInProgressFilter.show();
@@ -185,7 +187,8 @@ console.log('page.js');
 
 
 	viewInventoryBtn.addListener("click", function(){
-		setInventoryComplete.show();
+		setPhysicalCount.show();
+		submitPhysicalCount.hide();
 		viewsGrid.hide();
 		viewBidFilter.hide();
 		viewInProgressFilter.hide();
@@ -213,6 +216,19 @@ console.log('page.js');
 		viewsGrid.hide();
 	goToView('received');
 });
+
+	setPhysicalCount.addListener("click", function(){
+	
+		if(setPhysicalCount.getValue() === true){
+			submitPhysicalCount.show();
+			Wap.viewComp.displayInventoryPhysicalCount();
+		}else{
+			submitPhysicalCount.hide();
+			Wap.viewComp.displayInventoryFull();
+		}
+
+});
+
 	
 //		This is essentially the on load portion
 //		var vSSPID = '38789';
@@ -229,7 +245,8 @@ console.log('page.js');
 				viewBidFilter.setValue(true) ;
 				viewInProgressFilter.setValue(true) ;
 				viewCompleteFilter.setValue(false) ;
-				setInventoryComplete.hide();
+				setPhysicalCount.hide();
+				submitPhysicalCount.hide();
 				displayFilteredSelection();
 				
 				

@@ -18,7 +18,7 @@ function constructor (id) {
 			cw = $comp.widgets,
 			detailCompLoaded = null,
 			repairDetail = cw.component1,
-			viewComp = $$("component1"),
+
 			visitGrid = cw.dataGrid1,
 			printerGrid = cw.dataGrid2,
 			notesGrid = cw.dataGrid3,
@@ -34,14 +34,21 @@ function constructor (id) {
 
 		function displayRepairDetail(rmaid) {
 			
-			repairDetail.hide(),
+			repairDetail.hide();
+			visitGrid.show();
+			printerGrid.show();
+			notesGrid.show();
+			printerProblem.show();	
+			printerResolution.show();
+			notesTech.show();
+			repairShipTo.show();	
 			
 			cs.rMA_OnSite.wak_getRepairVisitArr({
 			   arguments: [sources.companyRepairArr.RMAID],
 			   onSuccess: function(event) {
 		
 			 		repairVisitArr = JSON.parse(event.result);
-				   sources.repairVisitArr.sync();
+				    sources.repairVisitArr.sync();
 				
 			   }
 		   });
@@ -103,7 +110,14 @@ function constructor (id) {
 		};
 		
 		
-		
+		function displayRepairPrinterDetail(eeuuid){
+				debugger;
+			sources.equipment.query("EquipmentUUID == :1",eeuid,{
+				onSuccess: function(event){
+				debugger;
+				}
+			});
+		}
 		
 	// eventHandlers// @lock
 	WAF.addListener(printerGrid, "onRowClick", function() {
@@ -124,7 +138,9 @@ function constructor (id) {
 				
 				repairDetail.show();
 				debugger;
-				$$(repairDetail.id).displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
+//				$$(repairDetail.id).displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
+				
+				cw.component1.displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
 //				displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
 //				var viewPath = '/Contracts.waPage/views/repairPrinterDetail.waComponent';
 //				repairDetail.loadComponent({
