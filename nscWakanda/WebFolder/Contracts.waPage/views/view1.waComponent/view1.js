@@ -112,41 +112,32 @@ function constructor (id) {
 			
 		}
 		 function displayPrinterFilter(){
-		    debugger;
+		 
 		   var vSerial = repairPrinterFilter.getValue(),
 				contractID = sources.contractArr.ContractID;
-			   debugger;
+
 			   
 			   if(vSerial.length > 0){
 
 		   		sources.equipmentArr.query("Serial == :1",vSerial,{
 			
 			   onSuccess: function(event) {
-				debugger
-//			 		equipmentArr = JSON.parse(event.result);
-//				   sources.equipmentArr.sync();
-//				   displaySelectedRecord();
 				   
 			   }
 		   });
 		   }else{
-		   	sources.equipmentArr.query("",{
-			
-			   onSuccess: function(event) {
-				debugger
-//			 		equipmentArr = JSON.parse(event.result);
-//				   sources.equipmentArr.sync();
-//				   displaySelectedRecord();
-				   
-			   }
-//		   	sources.equipment_Encounters.wak_getContractPrintersArr({
-//			   	arguments: [contractID],
-//			   	onSuccess: function(event) {
-//			 		equipmentArr = JSON.parse(event.result);
-//				   	sources.equipmentArr.sync();
-		   });
+//		   	
+		 
+		   	sources.equipment_Encounters.wak_getContractPrintersArr({
+			   	arguments: [contractID],
+			   	onSuccess: function(event) {
+			 		equipmentArr = JSON.parse(event.result);
+				   	sources.equipmentArr.sync();
+		  			}
+		  
+		  		});
 		   
-	   			}	
+	   		}	
 			
 		}		//convert time to milliseconds before sending to 4D
 //				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
