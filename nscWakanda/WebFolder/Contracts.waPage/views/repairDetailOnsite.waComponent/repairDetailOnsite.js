@@ -118,7 +118,7 @@ function constructor (id) {
 				printerGrid.hide();
 				notesGrid.hide();
 				printerProblem.hide();
-				printerSolution.hide();
+				printerResolution.hide();
 				notesTech.hide();
 				repairShipTo.hide();
 				

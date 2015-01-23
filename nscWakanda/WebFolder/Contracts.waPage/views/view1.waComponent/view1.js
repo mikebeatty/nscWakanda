@@ -33,6 +33,8 @@ function constructor (id) {
 			var contractID,
 				companyID;
 		
+			saveBtn.hide();
+		
 			contractID = sources.contractArr.ContractID;
 			sources.contracts.query("ContractID == :1", contractID,{
 			
@@ -93,8 +95,14 @@ function constructor (id) {
 				onSuccess: function(event){
 					
 					rmaid = event.result;
+					
+					if(rmaid > 0){
 					alert("RMA "+rmaid+" has been created.");
 					
+					}else{
+					
+					alert("RMA has not been created. Please verify contact information, printer problem and reference have been entered.");
+					}
 //					alertify.success("RMA "+rmaid+" has been saved.")
 
 //					if(rmaid != null){
@@ -190,6 +198,12 @@ function constructor (id) {
 		repairPrinterFilter.addListener("change", function() {
 				displayPrinterFilter();
 			});
+			
+		WAF.addListener(printerGrid, "change", function(event) {
+				debugger;
+				saveBtn.show();
+			});
+			
 	
 	//public API
 	//=================================================================================================
