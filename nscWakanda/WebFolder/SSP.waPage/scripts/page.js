@@ -29,7 +29,9 @@ console.log('page.js');
 		   viewBidsRepairsBtn = $$("button7"),
 		   viewBidFilter = $$("checkbox1"),
 		   viewInProgressFilter = $$("checkbox2"),
-		   viewCompleteFilter = $$("checkbox3");
+		   viewCompleteFilter = $$("checkbox3"),
+		   setInventoryComplete = $$("checkbox5");
+		   
 
        //setup views
        viewsArr = [
@@ -171,6 +173,7 @@ console.log('page.js');
 
 
 	viewBidsRepairsBtn.addListener("click", function() {
+		setInventoryComplete.hide();
 		viewsGrid.show();
 		viewBidFilter.show();
 		viewInProgressFilter.show();
@@ -182,6 +185,7 @@ console.log('page.js');
 
 
 	viewInventoryBtn.addListener("click", function(){
+		setInventoryComplete.show();
 		viewsGrid.hide();
 		viewBidFilter.hide();
 		viewInProgressFilter.hide();
@@ -225,7 +229,7 @@ console.log('page.js');
 				viewBidFilter.setValue(true) ;
 				viewInProgressFilter.setValue(true) ;
 				viewCompleteFilter.setValue(false) ;
-				
+				setInventoryComplete.hide();
 				displayFilteredSelection();
 				
 				

@@ -25,7 +25,7 @@ console.log('page.js');
 //		   viewReceivedBtn = $$("button6"),//onsite
            viewComp = $$("componentDetail"),
 			viewCompLoaded = $$(viewComp.id),
-		   
+		   contractFilter = $$("textField1"),
 //		   viewBidsRepairsBtn = $$("button7"),
 //		   viewBidFilter = $$("checkbox1"),
 //		   viewInProgressFilter = $$("checkbox2"),
@@ -106,7 +106,7 @@ console.log('page.js');
         function displaySelectedRecord(){
 		   var contractID = sources.contractArr.ContractID,
 			   loadView;
-			console.log('displaySelectedRecord');
+		
 		   //determine which view should be displayed based on the currently selected repairsArr row
 //		   if (sources.repairsArr.Status === "Repair") {
 //			   loadView = "repairs";
@@ -231,6 +231,22 @@ console.log('page.js');
 		goToView('repair');
 });
 	
+	contractFilter.addListener("change", function(){
+		debugger;
+		sources.contracts.query("GALO_ContractNum == :1",contractFilter.getValue(),{
+	
+			onSuccess:function(event){
+//				wak_getFilterResults(contractFilter.getValue())
+				var goToContractID = sources.contracts.GALO_ContractNum;
+				
+				displayFilteredSelection(goToContractID)
+		
+			}
+	
+		});
+	
+	
+	});
 	
 //	viewCountBtn.addListener("click", function(){
 //		viewsGrid.hide();
@@ -263,10 +279,7 @@ console.log('page.js');
 					}
 				});
 				
-//				viewBidFilter.setValue(true) ;
-//				viewInProgressFilter.setValue(true) ;
-//				viewCompleteFilter.setValue(false) ;
-				console.log('displayFilteredSelection');
+
 				displayFilteredSelection(goToContractID);
 				
 				

@@ -19,6 +19,9 @@ function constructor (id) {
 	/**
 	 * Handle what to do after the user logs out
 	 */
+	 
+	
+	 
 	function onAfterLogout() {
 		window.location = "/";
 	}
