@@ -254,7 +254,10 @@
 				}
 			}, "WAF", "Used");
 			
-			
+			//clicking on a used cell in the used column of the parts grid
+			WAF.addListener(partsGrid, "onCellClick", function(event) {
+				WakUtils.gridEditCell(partsGrid, event.data.columnNumber, event.data.row.rowNumber);
+			});
 
 			WAF.addListener(equipmentGrid, "onRowClick", function() {
 				displayPartsDetail();
@@ -287,10 +290,7 @@
 				window.open("http://" + window.location.host + "/docProxy?" + rmaID);
 			});
 
-			//clicking on a used cell in the used column of the parts grid
-			WAF.addListener(partsGrid, "onCellClick", function(event) {
-				WakUtils.gridEditCell(partsGrid, event.data.columnNumber, event.data.row.rowNumber);
-			});
+			
 
 
 

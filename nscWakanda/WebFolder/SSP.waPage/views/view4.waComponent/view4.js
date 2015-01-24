@@ -18,6 +18,7 @@ function constructor (id) {
 var cs = $comp.sources,
 	cw = $comp.widgets,
 	inventoryGrid = cw.dataGrid1,
+	inventoryCountGrid = cw.dataGrid2,
 	oldinventoryArrTechCountVal = 0,
 	setInventoryComplete = checkbox1;
 
@@ -51,6 +52,7 @@ debugger;
 		function displayInventoryPhysicalCount(){
 		
 		inventoryGrid.hide();
+		inventoryCountGrid.show();
 		
 		
 		}
@@ -58,7 +60,7 @@ debugger;
 		function displayInventoryFull(){
 		
 		inventoryGrid.show();
-		
+		inventoryCountGrid.hide();
 		
 		}
 		
@@ -69,7 +71,7 @@ debugger;
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
 			
-				sources.inventory_WarehouseCount.wak_setInventoryArrUpdate(sku, name, onhand, target, techcount,{
+				sources.inventory_WarehouseCount.wak_setInventoryArrUpdate(sku, name, techcount, iwuuid,{
 				
 					onSuccess: function(event){
 		
@@ -99,13 +101,13 @@ debugger;
 			
 				if (sources.inventoryArr.TechCount != oldinventoryArrTechCountVal) { //using != because these were bouncing between number and string
 				
-					saveInventoryUpdate(sources.inventoryArr.SKU, sources.inventoryArr.Name, sources.inventoryArr.OnHand,sources.inventoryArr.Target,sources.inventoryArr.TechCount);
+					saveInventoryUpdate(sources.inventoryArr.SKU, sources.inventoryArr.Name,sources.inventoryArr.TechCount,sources.inventoryArr.IWUUID);
 				}
 			}
 		}, "WAF", "TechCount");
 
-		WAF.addListener(inventoryGrid, "onCellClick", function(event) {
-			WakUtils.gridEditCell(inventoryGrid, event.data.columnNumber, event.data.row.rowNumber);
+		WAF.addListener(inventoryCountGrid, "onCellClick", function(event) {
+			WakUtils.gridEditCell(inventoryCountGrid, event.data.columnNumber, event.data.row.rowNumber);
 		});
 		
 
