@@ -71,7 +71,7 @@ debugger;
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
 			
-				sources.inventory_WarehouseCount.wak_setInventoryArrUpdate(sku, name, techcount, iwuuid,{
+				sources.inventory_WarehouseCount.wak_setInventoryPhysicalCount(sku, name, techcount, iwuuid,{
 				
 					onSuccess: function(event){
 		
