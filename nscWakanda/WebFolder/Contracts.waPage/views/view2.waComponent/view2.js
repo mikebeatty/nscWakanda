@@ -20,6 +20,10 @@ function constructor (id) {
 			detailComp = cw.component1,
 			detailCompLoaded = null,
 			currentView = "",
+			rmaFilter = $$("textField3"),
+		    rmaReferenceFilter = $$("textField4"),
+		    contractRefresh = $$("button1"),
+		    rmaRefresh = $$("button2"),
 //			repairBillTo = cw.textField1,
 //			repairShipTo = cw.textField2,
 //			repairPrinter = cw.textField9,
@@ -103,6 +107,34 @@ function constructor (id) {
 		   currentView = loadView;
         }
         
+		function displayRMAFilter(){
+		 
+		   var rmaid = Number(rmaFilter.getValue());
+
+
+		   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
+			
+			   onSuccess: function(event) {
+				   debugger;
+				   displaySelectedRecord();
+			   }
+		   });
+//		   }else{
+////		   	
+//		 
+//		   	sources.equipment_Encounters.wak_getContractPrintersArr({
+//			   	arguments: [contractID],
+//			   	onSuccess: function(event) {
+//			 		equipmentArr = JSON.parse(event.result);
+//				   	sources.equipmentArr.sync();
+//		  			}
+//		  
+//		  		});
+//		   
+//	   		}	
+			
+		}	
+        
        function goToView(viewName, userData) {
     
            var view,
@@ -156,6 +188,31 @@ function constructor (id) {
 				displaySelectedRecord();
        		});
        		
+    rmaRefresh.addListener("click", function() {
+//           goToView(sources.viewsArr.name);
+		displayFilteredSelection();
+       });
+       		
+       		
+    rmaFilter.addListener("change", function(){
+		debugger;
+		rmaReferenceFilter.setValue("");
+		var rmaid = rmaFilter.getValue();
+	
+		displayRMAFilter(rmaid);
+//		sources.rMA.query("RMAID == :1",rmaFilter.getValue(),{
+//	
+//			onSuccess:function(event){
+////				wak_getFilterResults(contractFilter.getValue())
+//				var goToRMAID = sources.rMA.RMAID;
+//				displayFilteredSelection(goToRMAID)
+//		
+//			}
+//	
+//		});
+	
+	
+	});
 //       		WAF.addListener(repairGrid, "onRowClick", function() {
 //				displayRepairDetail();
 //       		});

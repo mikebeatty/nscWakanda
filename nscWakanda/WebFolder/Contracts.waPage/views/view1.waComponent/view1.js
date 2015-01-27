@@ -26,6 +26,7 @@ function constructor (id) {
 			printerGrid = cw.dataGrid1,
 			saveBtn = cw.button1,
 			cancelBtn = cw.button2,
+			oldequipmentArrProblemVal = "",
 			contractAddressFld = cw.textField10;
 			
 		function displayContractDetail(contractID) {
@@ -97,11 +98,11 @@ function constructor (id) {
 					rmaid = event.result;
 					
 					if(rmaid > 0){
-					alert("RMA "+rmaid+" has been created.");
+					alertify.alert("RMA "+rmaid+" has been created.");
 					
 					}else{
 					
-					alert("RMA has not been created. Please verify contact information, printer problem and reference have been entered.");
+					alertify.alert("RMA has not been created. Please verify contact information, printer problem and reference have been entered.");
 					}
 //					alertify.success("RMA "+rmaid+" has been saved.")
 
@@ -114,7 +115,7 @@ function constructor (id) {
 //					};
 				},
 				onError: function(event){
-					alert("A repair could not be created.");
+					alertify.alert("A repair could not be created.");
 				}
 			});
 			
@@ -199,10 +200,26 @@ function constructor (id) {
 				displayPrinterFilter();
 			});
 			
-		WAF.addListener(printerGrid, "change", function(event) {
-				debugger;
-				saveBtn.show();
-			});
+
+
+		WAF.addListener("equipmentArr", "onProblemAttributeChange", function(event) {
+			
+
+			if (event.eventKind === "onCurrentElementChange") {
+				oldequipmentArrProblemVal = sources.equipmentArr.Problem;
+			}
+			if (event.eventKind === "onAttributeChange") {
+			
+				if (sources.equipmentArr.Problem != oldequipmentArrProblemVal) { //using != because these were bouncing between number and string
+				
+						saveBtn.show();
+				}
+			}
+		}, "WAF", "Problem");
+
+		WAF.addListener(printerGrid, "onCellClick", function(event) {
+			WakUtils.gridEditCell(printerGrid, event.data.columnNumber, event.data.row.rowNumber);
+		});
 			
 	
 	//public API
