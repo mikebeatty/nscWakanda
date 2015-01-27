@@ -110,8 +110,6 @@ function constructor (id) {
 		function displayRMAFilter(){
 		 
 		   var rmaid = Number(rmaFilter.getValue());
-
-
 		   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
 			
 			   onSuccess: function(event) {
@@ -119,6 +117,33 @@ function constructor (id) {
 				   displaySelectedRecord();
 			   }
 		   });
+		}
+		   
+		function displayRMAReferenceFilter(reference){
+
+		   	sources.equipment_Encounters.query("ThirdPartyID == :1",reference,{
+//			
+			   onSuccess: function(event) {
+				   debugger;
+				   var rmaid = sources.equipment_Encounters.TransactionID;
+				   if(sources.companyRepairArr.length === 0){
+				   
+				   		displayFilteredSelection();
+				   		displayRMAReferenceFilter(reference);
+				   }else{
+				    
+				   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
+//				   
+				    		onSuccess: function(event) {
+				   			debugger;
+				   			displaySelectedRecord();
+				   			}
+				   		});
+				   }
+			   }
+		   });
+		}
+		   
 //		   }else{
 ////		   	
 //		 
@@ -133,7 +158,7 @@ function constructor (id) {
 //		   
 //	   		}	
 			
-		}	
+		
         
        function goToView(viewName, userData) {
     
@@ -195,22 +220,19 @@ function constructor (id) {
        		
        		
     rmaFilter.addListener("change", function(){
-		debugger;
 		rmaReferenceFilter.setValue("");
 		var rmaid = rmaFilter.getValue();
 	
 		displayRMAFilter(rmaid);
-//		sources.rMA.query("RMAID == :1",rmaFilter.getValue(),{
-//	
-//			onSuccess:function(event){
-////				wak_getFilterResults(contractFilter.getValue())
-//				var goToRMAID = sources.rMA.RMAID;
-//				displayFilteredSelection(goToRMAID)
-//		
-//			}
-//	
-//		});
 	
+	});
+	
+	   rmaReferenceFilter.addListener("change", function(){
+		debugger;
+//		rmaFilter.setValue("");
+		var reference = rmaReferenceFilter.getValue();
+	
+		displayRMAReferenceFilter(reference);
 	
 	});
 //       		WAF.addListener(repairGrid, "onRowClick", function() {

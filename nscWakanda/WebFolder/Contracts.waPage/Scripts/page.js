@@ -21,11 +21,16 @@ console.log('page.js');
        var viewsGrid = $$("dataGrid1"),//viewsGrid = $$("component1"),
 		   viewContractBtn = $$("button7"),//equiment
 		   viewRepairBtn = $$("button3"),//onsite
+		   contractRefresh = $$("button1"),
+		   rmaRefresh = $$("button2"),
 //		   viewShipToBtn = $$("button5"),//equiment
 //		   viewReceivedBtn = $$("button6"),//onsite
            viewComp = $$("componentDetail"),
 			viewCompLoaded = $$(viewComp.id),
 		   contractFilter = $$("textField1"),
+		   referenceFilter = $$("textField2"),
+		   rmaFilter = $$("textField3"),
+		   rmaReferenceFilter = $$("textField4"),
 //		   viewBidsRepairsBtn = $$("button7"),
 //		   viewBidFilter = $$("checkbox1"),
 //		   viewInProgressFilter = $$("checkbox2"),
@@ -209,10 +214,21 @@ console.log('page.js');
 //           goToView(sources.viewsArr.name);
 		displaySelectedRecord();
        });
+       
+     contractRefresh.addListener("click", function() {
+//           goToView(sources.viewsArr.name);
+		displayFilteredSelection();
+       });
 
 
 	viewContractBtn.addListener("click", function() {
 		viewsGrid.show();
+		contractFilter.show();
+		referenceFilter.show();
+		rmaFilter.hide();
+		rmaReferenceFilter.hide();
+		contractRefresh.show();
+		rmaRefresh.hide();
 //		viewBidFilter.show();
 //		viewInProgressFilter.show();
 //		viewCompleteFilter.show();
@@ -224,6 +240,12 @@ console.log('page.js');
 
 	viewRepairBtn.addListener("click", function(){
 		viewsGrid.hide();
+		contractFilter.hide();
+		referenceFilter.hide();
+		rmaFilter.show();
+		rmaReferenceFilter.show();
+		contractRefresh.hide();
+		rmaRefresh.show();
 //		viewBidFilter.hide();
 //		viewInProgressFilter.hide();
 //		viewCompleteFilter.hide();
@@ -232,15 +254,38 @@ console.log('page.js');
 });
 	
 	contractFilter.addListener("change", function(){
-		debugger;
+		referenceFilter.setValue("");
 		sources.contracts.query("GALO_ContractNum == :1",contractFilter.getValue(),{
 	
 			onSuccess:function(event){
 //				wak_getFilterResults(contractFilter.getValue())
 				var goToContractID = sources.contracts.GALO_ContractNum;
-				
 				displayFilteredSelection(goToContractID)
 		
+			}
+	
+		});
+	
+	
+	});
+	
+
+	
+	referenceFilter.addListener("change", function(){
+		contractFilter.setValue("");
+		sources.equipment_Encounters.query("ThirdPartyID == :1",referenceFilter.getValue(),{
+	
+			onSuccess:function(event){
+//				wak_getFilterResults(contractFilter.getValue())
+				
+				sources.contracts.query("ContractID == :1",sources.equipment_Encounters.ContractID,{
+					onSuccess:function(event){
+						debugger;
+					var goToContractID = sources.contracts.GALO_ContractNum;
+				
+					displayFilteredSelection(goToContractID)
+					}
+				});
 			}
 	
 		});

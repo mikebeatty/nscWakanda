@@ -126,7 +126,7 @@ function constructor (id) {
 				contractID = sources.contractArr.ContractID;
 
 			   
-			   if(vSerial.length > 0){
+			if(vSerial.length > 0){
 
 		   		sources.equipmentArr.query("Serial == :1",vSerial,{
 			
