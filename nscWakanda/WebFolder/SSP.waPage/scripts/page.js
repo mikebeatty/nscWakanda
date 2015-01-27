@@ -183,7 +183,7 @@ console.log('page.js');
 		$$("richText1").show();
 		goToView('repairs');
 //		   displaySelectedRecord();
-	   });
+	});
 
 
 	viewInventoryBtn.addListener("click", function(){
@@ -195,27 +195,27 @@ console.log('page.js');
 		viewCompleteFilter.hide();
 		$$("richText1").hide();
 		goToView('inventory');
-});
+	});
 	
 	
 	viewCountBtn.addListener("click", function(){
 		viewsGrid.hide();
 		goToView('count');
-});
+	});
 	
 	
 	viewShipToBtn.addListener("click", function(){
 	console.log('button5');
 		viewsGrid.hide();
 	goToView('shipTo');
-});
+	});
 	
 	
 	viewReceivedBtn.addListener("click", function(){
 	console.log('button6');
 		viewsGrid.hide();
 	goToView('received');
-});
+	});
 
 	setPhysicalCount.addListener("click", function(){
 	
@@ -227,8 +227,21 @@ console.log('page.js');
 			Wap.viewComp.displayInventoryFull();
 		}
 
-});
-
+	});
+	
+	submitPhysicalCount.addListener("click", function(){
+		debugger;
+		var vVendorID = sources.web_Access.CompanyID;
+		sources.warehouses.query('VendorID == :1',vVendorID,{
+			onSuccess: function () {
+				debugger;
+				
+				var warehouseID = sources.warehouses.WareHouseID;
+				sources.inventory_WarehouseCount.wak_setInventoryUpdateComplete(warehouseID);
+				alertify.alert("Physical count has been submitted.");
+			}
+		});
+	});
 	
 //		This is essentially the on load portion
 //		var vSSPID = '38789';
