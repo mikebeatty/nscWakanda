@@ -183,7 +183,7 @@
 				//convert time to milliseconds before sending to 4D
 				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
 				sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
-debugger;
+
 				cs.rMA.RMAStatus = "Precompleted";
 
 				sources.rMA_OnSite.save({
