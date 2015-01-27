@@ -59,12 +59,13 @@
 
 						displayPartsDetail(sources.equipmentArr.EquipmentID);
 //						repairContractRateField.setValue("FR: EX: RN:");
-					sources.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid);
-					var contractRate = "FR:"+sources.rMA_Onsite_Bid.FirstPrinterRate+" EX:"+sources.rMA_Onsite_Bid.AdditonalPrinterRate+" RN:"+sources.rMA_Onsite_Bid.ReturnRate;
+					sources.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid,{
+						onSuccess: function(event) {
+							var contractRate = "FR:"+sources.rMA_Onsite_Bid.FirstPrinterRate+" EX:"+sources.rMA_Onsite_Bid.AdditonalPrinterRate+" RN:"+sources.rMA_Onsite_Bid.ReturnRate;
 				
-						repairContractRateField.setValue(contractRate);
-						
-					
+							repairContractRateField.setValue(contractRate);
+							}
+						});
 //						repairContractRateField.disable();
 //						transactionNotes.disable();
 					}
@@ -180,6 +181,8 @@
 				//convert time to milliseconds before sending to 4D
 				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
 				sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
+
+//				cs.rMA.RMAStatus.setValue("Precompleted");
 
 				sources.rMA_OnSite.save({
 					onSuccess: function() {
