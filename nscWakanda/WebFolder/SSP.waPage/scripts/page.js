@@ -31,7 +31,8 @@ console.log('page.js');
 		   viewInProgressFilter = $$("checkbox2"),
 		   viewCompleteFilter = $$("checkbox3"),
 		   setPhysicalCount = $$("checkbox5"),
-		   submitPhysicalCount = $$("button1");
+		   submitPhysicalCount = $$("button1"),
+		   printPhysicalCount = $$("button2");
 		   
 
        //setup views
@@ -176,6 +177,7 @@ console.log('page.js');
 	viewBidsRepairsBtn.addListener("click", function() {
 		setPhysicalCount.hide();
 		submitPhysicalCount.hide();
+		printPhysicalCount.hide();
 		viewsGrid.show();
 		viewBidFilter.show();
 		viewInProgressFilter.show();
@@ -189,6 +191,7 @@ console.log('page.js');
 	viewInventoryBtn.addListener("click", function(){
 		setPhysicalCount.show();
 		submitPhysicalCount.hide();
+		printPhysicalCount.hide();
 		viewsGrid.hide();
 		viewBidFilter.hide();
 		viewInProgressFilter.hide();
@@ -221,9 +224,11 @@ console.log('page.js');
 	
 		if(setPhysicalCount.getValue() === true){
 			submitPhysicalCount.show();
+			printPhysicalCount.show();
 			Wap.viewComp.displayInventoryPhysicalCount();
 		}else{
 			submitPhysicalCount.hide();
+			printPhysicalCount.hide();
 			Wap.viewComp.displayInventoryFull();
 		}
 
@@ -241,6 +246,21 @@ console.log('page.js');
 				alertify.alert("Physical count has been submitted.");
 			}
 		});
+	});
+	
+	printPhysicalCount.addListener("click", function(){
+		debugger;
+		alertify.alert("Inventory list has been created.");
+//		var vVendorID = sources.web_Access.CompanyID;
+//		sources.warehouses.query('VendorID == :1',vVendorID,{
+//			onSuccess: function () {
+//				debugger;
+//				
+//				var warehouseID = sources.warehouses.WareHouseID;
+//				sources.inventory_WarehouseCount.wak_setInventoryUpdateComplete(warehouseID);
+//				alertify.alert("Inventory list has been created.");
+//			}
+//		});
 	});
 	
 //		This is essentially the on load portion
