@@ -54,6 +54,7 @@
 				sources.equipment_Encounters.wak_getEquipmentArr({
 					arguments: [rmaid],
 					onSuccess: function(event) {
+					
 						equipmentArr = JSON.parse(event.result);
 						sources.equipmentArr.sync();
 
@@ -61,6 +62,7 @@
 //						repairContractRateField.setValue("FR: EX: RN:");
 					sources.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid,{
 						onSuccess: function(event) {
+					
 							var contractRate = "FR:"+sources.rMA_Onsite_Bid.FirstPrinterRate+" EX:"+sources.rMA_Onsite_Bid.AdditonalPrinterRate+" RN:"+sources.rMA_Onsite_Bid.ReturnRate;
 				
 							repairContractRateField.setValue(contractRate);
@@ -181,8 +183,8 @@
 				//convert time to milliseconds before sending to 4D
 				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
 				sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
-
-//				cs.rMA.RMAStatus.setValue("Precompleted");
+debugger;
+				cs.rMA.RMAStatus = "Precompleted";
 
 				sources.rMA_OnSite.save({
 					onSuccess: function() {
