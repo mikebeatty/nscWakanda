@@ -113,8 +113,12 @@ function constructor (id) {
 		   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
 			
 			   onSuccess: function(event) {
-				   debugger;
+				   if(sources.companyRepairArr.RMAID != null){
 				   displaySelectedRecord();
+				   }else{
+				   alertify.alert("RMA "+rmaid+" was not found.");
+				   displayFilteredSelection();
+				   }
 			   }
 		   });
 		}
