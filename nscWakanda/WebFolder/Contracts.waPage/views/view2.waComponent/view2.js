@@ -27,6 +27,7 @@ function constructor (id) {
 //			repairBillTo = cw.textField1,
 //			repairShipTo = cw.textField2,
 //			repairPrinter = cw.textField9,
+			viewAllFilter = $$("checkbox1"),
 			repairGrid = cw.dataGrid1;
 			
 //			here we need to display what happened in Repair
@@ -55,21 +56,24 @@ function constructor (id) {
 //			};
 			
 		function displayFilteredSelection(){
-		   var vcompanyID = sources.web_Access.CompanyID;
+		   var vcompanyID = sources.web_Access.CompanyID,
+		   		viewAll;
+		   		
+		   		viewAll = viewAllFilter.getValue();
 
 		   sources.rMA.wak_getCompanyRepairsArr({
-			   arguments: [vcompanyID],
+			   arguments: [vcompanyID,viewAll],
 			   onSuccess: function(event) {
 			 		companyRepairArr = JSON.parse(event.result);
 				   sources.companyRepairArr.sync();
 //				   displayRepairDetail(data.userData.rmaid);
-					displaySelectedRecord();
+					displaySelectedRMARecord();
 				   
 			   }
 		   });
 	   }
 	   
-//	   function displaySelectedRecord(){
+//	   function displaySelectedRMARecord(){
 //	   		
 ////	   		var rmaid = sources.companyRepairArr.RMAID;
 ////	   		sources.rMA.query("RMA_ID == :1", rmaid);
@@ -80,7 +84,7 @@ function constructor (id) {
 //	   };
 	   
 	   
-	   function displaySelectedRecord(){
+	   function displaySelectedRMARecord(){
 		   var rmaid = sources.companyRepairArr.RMAID,
 			   loadView;
 
@@ -118,7 +122,7 @@ function constructor (id) {
 				sources.companyRepairArr.selectByKey(event.userData, {
                            onSuccess: function() {
                          
-                               displaySelectedRecord();
+                               displaySelectedRMARecord();
                            },
                            onError: function() {
                                alert("there was a problem selecting the RMA");
@@ -145,7 +149,7 @@ function constructor (id) {
 //				   
 				    		onSuccess: function(event) {
 				   			debugger;
-				   			displaySelectedRecord();
+				   			displaySelectedRMARecord();
 				   			}
 				   		});
 				   }
@@ -198,7 +202,7 @@ function constructor (id) {
 					
 					  detailCompLoaded = $$(this.id);
 					if((viewName === "depot")||(viewName === "onsite")){
-//					 displaySelectedRecord();
+//					 displaySelectedRMARecord();
  						detailCompLoaded.displayRepairDetail(userData.rmaid);
 					
 					}
@@ -219,7 +223,7 @@ function constructor (id) {
 	// eventHandlers// @lock
 
 	WAF.addListener(repairGrid, "onRowClick", function() {
-				displaySelectedRecord();
+				displaySelectedRMARecord();
        		});
        		
 
@@ -251,6 +255,11 @@ function constructor (id) {
     rmaRefresh.addListener("click", function() {
 //           goToView(sources.viewsArr.name);
 		debugger;
+		displayFilteredSelection();
+       });
+       
+        viewAllFilter.addListener("click", function() {
+//           goToView(sources.viewsArr.name);
 		displayFilteredSelection();
        });
 //       		WAF.addListener(repairGrid, "onRowClick", function() {

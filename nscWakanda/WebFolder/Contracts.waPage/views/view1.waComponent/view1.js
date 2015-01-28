@@ -214,19 +214,27 @@ function constructor (id) {
 			
 					saveBtn.show();
 					
+					var sendAlert = false;
 					if(contactNameFld.getValue() === ""){
-					alertify.alert("Contact name is required.");
+					sendAlert.setValue(true);
+//					alertify.alert("Contact name is required.");
 					saveBtn.hide();
 					}
 					
 					if(contactPhoneFld.getValue() === ""){
-					alertify.alert("Contact phone is required.");
+					sendAlert.setValue(true);
+//					alertify.alert("Contact phone is required.");
 					saveBtn.hide();
 					}
 					
 					if(sources.contracts.Status != 'Open'){
-					alertify.alert("Contract status must be open.");
+					sendAlert.setValue(true);
+					
 					saveBtn.hide();
+					}
+					
+					if(sendAlert.getValue === true){
+					alertify.alert("Contact name and contact phone are required. Contract status must be open.");
 					}
 						
 				}
