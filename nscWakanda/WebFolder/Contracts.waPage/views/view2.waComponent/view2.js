@@ -110,15 +110,20 @@ function constructor (id) {
 		function displayRMAFilter(){
 		 
 		   var rmaid = Number(rmaFilter.getValue());
-		   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
-			
+//		   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
+		   		sources.rMA.query("RMA_ID == :1",rmaid,{
+				userData : rmaid,
 			   onSuccess: function(event) {
-				   if(sources.companyRepairArr.RMAID != null){
-				   displaySelectedRecord();
-				   }else{
-				   alertify.alert("RMA "+rmaid+" was not found.");
-				   displayFilteredSelection();
-				   }
+			   	
+				sources.companyRepairArr.selectByKey(event.userData, {
+                           onSuccess: function() {
+                         
+                               displaySelectedRecord();
+                           },
+                           onError: function() {
+                               alert("there was a problem selecting the RMA");
+                           }
+                       });
 			   }
 		   });
 		}

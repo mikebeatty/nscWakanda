@@ -211,8 +211,24 @@ function constructor (id) {
 			if (event.eventKind === "onAttributeChange") {
 			
 				if (sources.equipmentArr.Problem != oldequipmentArrProblemVal) { //using != because these were bouncing between number and string
-				
-						saveBtn.show();
+			
+					saveBtn.show();
+					
+					if(contactNameFld.getValue() === ""){
+					alertify.alert("Contact name is required.");
+					saveBtn.hide();
+					}
+					
+					if(contactPhoneFld.getValue() === ""){
+					alertify.alert("Contact phone is required.");
+					saveBtn.hide();
+					}
+					
+					if(sources.contracts.Status != 'Open'){
+					alertify.alert("Contract status must be open.");
+					saveBtn.hide();
+					}
+						
 				}
 			}
 		}, "WAF", "Problem");

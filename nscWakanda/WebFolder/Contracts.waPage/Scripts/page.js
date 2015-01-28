@@ -35,6 +35,8 @@ console.log('page.js');
 //		   viewBidFilter = $$("checkbox1"),
 //		   viewInProgressFilter = $$("checkbox2"),
 //		   viewCompleteFilter = $$("checkbox3");
+			viewAllFilter = $$("checkbox1"),
+			filterQuerySkip = true,
 			currentView = "",
            uriParams,
            goToContractID;
@@ -71,7 +73,8 @@ console.log('page.js');
         */
         
 	   function displayFilteredSelection(goToContractID){
-		   var vcompanyID = sources.web_Access.CompanyID;
+		   var vcompanyID = sources.web_Access.CompanyID,
+		   		vAll = false;
 //			   isBid,
 //			   isInProgress,
 //			   isComplete;
@@ -79,6 +82,8 @@ console.log('page.js');
 //		   isBid = viewBidFilter.getValue();
 //		   isInProgress = viewInProgressFilter.getValue();
 //		   isComplete = viewCompleteFilter.getValue();
+			
+			vAll = viewAllFilter.getValue();
 
            if (typeof goToContractID === "undefined") {
                goToContractID = null;
@@ -86,8 +91,9 @@ console.log('page.js');
 
 		   sources.contracts.wak_getContractArr({
                userData: goToContractID,
-			   arguments: [vcompanyID],
+			   arguments: [vcompanyID,vAll],
 			   onSuccess: function(event) {
+		
 			 		contractArr = JSON.parse(event.result);
 				   sources.contractArr.sync();
 
@@ -207,6 +213,11 @@ console.log('page.js');
        });
        
      rmaRefresh.addListener("click", function() {
+//           goToView(sources.viewsArr.name);
+		displayFilteredSelection();
+       });
+       
+       viewAllFilter.addListener("click", function() {
 //           goToView(sources.viewsArr.name);
 		displayFilteredSelection();
        });

@@ -11,7 +11,7 @@
 		
 		
 
-		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="array" data-source="contractArr" data-lib="WAF" data-id="contractArr" data-dataType="string" data-autoLoad="true" data-attributes="Contract:string:key,Response:string,Company:string,Dates:string,Reseller:string,ContractID:string" content="contractArr"/>		
+		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="array" data-source="contractArr" data-lib="WAF" data-id="contractArr" data-dataType="string" data-autoLoad="true" data-attributes="Contract:string:key,Response:string,Company:string,Dates:string,Reseller:string,ContractID:string,Status:string" content="contractArr"/>		
 
 		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="dataClass" data-source="Contracts" data-lib="WAF" data-id="contracts" data-dataType="string" data-autoLoad="false" content="contracts"/>
 		<meta name="WAF.config.datasources" data-type="dataSource" data-source-type="dataClass" data-source="Web_Access" data-lib="WAF" data-id="web_Access" data-dataType="string" data-autoLoad="false" content="web_Access"/>		
@@ -115,7 +115,7 @@
 <meta name="WAF.config.loadJS" id="waf-script" content="scripts/index.js"/>
 </head>
     <body id="waf-body" data-workspace-width="0" data-workspace-orientation="portrait" data-workspace-height="0" data-workspace-device="desktop" data-viewport-width="device-width" data-viewport-minimum-scale="1.0" data-viewport-maximum-scale="1.0" data-viewport-initial-scale="1.0" data-type="document" data-title="index" data-theme="default" data-platform="desktop" data-lib="WAF" data-group="[]" data-entire-model="false" data-apple-meta-tags-status-bar="default" style="bottom:;right:;visibility:hidden;">
-    	<div id="dataGrid1" data-type="dataGrid" data-selection-mode="single" data-lib="WAF" data-label-position="top" data-label="" data-hideonload="false" data-footer-text="item(s)" data-footer-hide="true" data-display-error="true" data-constraint-top="true" data-constraint-left="true" data-constraint-bottom="true" data-column="[{'sourceAttID':'Contract','colID':'Contract','width':'80','title':'Contract'},{'sourceAttID':'Response','colID':'Response','width':'150','title':'Response'},{'sourceAttID':'Company','colID':'Company','width':'200','title':'Company'},{'sourceAttID':'Dates','colID':'Dates','width':'70','title':'Dates'},{'sourceAttID':'Reseller','colID':'Reseller','width':'150','title':'Reseller'}]" data-binding="contractArr" class="waf-widget waf-dataGrid"></div>
+    	<div id="dataGrid1" data-type="dataGrid" data-selection-mode="single" data-lib="WAF" data-label-position="top" data-label="" data-hideonload="false" data-footer-text="item(s)" data-footer-hide="true" data-display-error="true" data-constraint-top="true" data-constraint-left="true" data-constraint-bottom="true" data-column="[{'sourceAttID':'Contract','colID':'Contract','width':'80','title':'Contract'},{'sourceAttID':'Status','colID':'Status','width':'80','title':'Status'},{'sourceAttID':'Response','colID':'Response','width':'80','title':'Response'},{'sourceAttID':'Dates','colID':'Dates','width':'80','title':'End%20Date'},{'sourceAttID':'Company','colID':'Company','width':'200','title':'Company'}]" data-binding="contractArr" class="waf-widget waf-dataGrid"></div>
 		<div id="componentDetail" data-type="component" data-start-load="false" data-path="/Contracts.waPage/views/view1.waComponent" data-lib="WAF" data-constraint-top="true" data-constraint-left="true" data-constraint-bottom="true" class="waf-widget waf-component"></div>
 		<div id="container1" data-type="container" data-lib="WAF" data-label-position="top" data-label="" data-constraint-top="true" data-constraint-left="true" class="waf-widget waf-container waf-container-level-0 waf-level-0">
 	 	 	<button id="button3" data-type="button" data-text="Repairs" data-target="_blank" data-lib="WAF" data-constraint-top="true" data-constraint-right="false" data-constraint-left="true" data-constraint-bottom="false" data-action="simple" class="waf-widget waf-button"></button>
@@ -135,5 +135,8 @@
 	
 	
 		<div id="button1" data-type="image" data-target="_blank" data-src="/images/arrow_refresh.png" data-lib="WAF" data-label-position="left" data-label="" data-fit="0" data-constraint-top="true" data-constraint-left="true" class="waf-widget waf-image"></div>
-		<script type="text/javascript" src="/waLib/WAF/Loader.js"></script><div id="button2" data-type="image" data-target="_blank" data-src="/images/arrow_refresh.png" data-lib="WAF" data-label-position="left" data-label="" data-hideonload="false" data-fit="0" data-constraint-top="true" data-constraint-left="true" class="waf-widget waf-image"></div></body>
+		<div id="button2" data-type="image" data-target="_blank" data-src="/images/arrow_refresh.png" data-lib="WAF" data-label-position="left" data-label="" data-hideonload="false" data-fit="0" data-constraint-top="true" data-constraint-left="true" class="waf-widget waf-image"></div>	<div id="checkbox1" data-type="checkbox" data-lib="WAF" type="checkbox" class="waf-widget waf-checkbox" data-label="All" data-label-position="right" data-constraint-left="true" data-constraint-top="true"></div>
+		<label id="label5" data-type="label" data-lib="WAF" for="checkbox1" data-valign="middle" data-margin="5" class="waf-widget waf-label waf-label-checkbox" data-constraint-left="true" data-constraint-top="true">All</label>
+		<script type="text/javascript" src="/waLib/WAF/Loader.js"></script>
+	</body>
 </html>
