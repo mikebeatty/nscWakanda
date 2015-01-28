@@ -194,20 +194,6 @@ console.log('page.js');
        }
 
 
-		//Mike 12/09/14
-//       WAF.addListener(viewBidFilter, "click", function() {
-//		displayFilteredSelection();
-//       });
-//       
-//       //Mike 12/09/14
-//       WAF.addListener(viewInProgressFilter, "click", function() {
-//		displayFilteredSelection();
-//       });
-//       
-//       //Mike 12/09/14
-//       WAF.addListener(viewCompleteFilter, "click", function() {
-//		displayFilteredSelection();
-//       });
 
        //when clicking a row on the views listbox, load the view
        WAF.addListener(viewsGrid, "onRowClick", function() {
@@ -219,6 +205,11 @@ console.log('page.js');
 //           goToView(sources.viewsArr.name);
 		displayFilteredSelection();
        });
+       
+     rmaRefresh.addListener("click", function() {
+//           goToView(sources.viewsArr.name);
+		displayFilteredSelection();
+       });
 
 
 	viewContractBtn.addListener("click", function() {
@@ -227,8 +218,8 @@ console.log('page.js');
 		referenceFilter.show();
 		rmaFilter.hide();
 		rmaReferenceFilter.hide();
-		contractRefresh.show();
-		rmaRefresh.hide();
+//		contractRefresh.show();
+//		rmaRefresh.hide();
 //		viewBidFilter.show();
 //		viewInProgressFilter.show();
 //		viewCompleteFilter.show();
@@ -244,24 +235,28 @@ console.log('page.js');
 		referenceFilter.hide();
 		rmaFilter.show();
 		rmaReferenceFilter.show();
-		contractRefresh.hide();
-		rmaRefresh.show();
+//		contractRefresh.hide();
+//		rmaRefresh.show();
 //		viewBidFilter.hide();
 //		viewInProgressFilter.hide();
 //		viewCompleteFilter.hide();
 //		$$("richText1").hide();
 		goToView('repair');
-});
+	});
 	
 	contractFilter.addListener("change", function(){
-		referenceFilter.setValue("");
+//		referenceFilter.setValue("");
+	
 		sources.contracts.query("GALO_ContractNum == :1",contractFilter.getValue(),{
 	
 			onSuccess:function(event){
 //				wak_getFilterResults(contractFilter.getValue())
+				if(sources.contracts.GALO_ContractNum != null){
 				var goToContractID = sources.contracts.GALO_ContractNum;
 				displayFilteredSelection(goToContractID)
-		
+					}else{
+				alertify.alert("Contract number not found");
+				}
 			}
 	
 		});
@@ -272,45 +267,35 @@ console.log('page.js');
 
 	
 	referenceFilter.addListener("change", function(){
-		contractFilter.setValue("");
+	
+
 		sources.equipment_Encounters.query("ThirdPartyID == :1",referenceFilter.getValue(),{
-	
+//	
 			onSuccess:function(event){
+				if(sources.equipment_Encounters.ThirdPartyID != null){
+
+					sources.contracts.query("ContractID == :1",sources.equipment_Encounters.ContractID,{
+						onSuccess:function(event){
 //				wak_getFilterResults(contractFilter.getValue())
-				
-				sources.contracts.query("ContractID == :1",sources.equipment_Encounters.ContractID,{
-					onSuccess:function(event){
-						debugger;
-					var goToContractID = sources.contracts.GALO_ContractNum;
-				
-					displayFilteredSelection(goToContractID)
-					}
-				});
+						if(sources.contracts.GALO_ContractNum != null){
+						var goToContractID = sources.contracts.GALO_ContractNum;
+						displayFilteredSelection(goToContractID)
+							}else{
+						alertify.alert("Reference number not found");
+							}
+						}
+					});
+				}else{
+					alertify.alert("Reference number not found");
+//					displayFilteredSelection();
+				}
 			}
-	
+//	
 		});
-	
-	
+//	
+//	
 	});
-	
-//	viewCountBtn.addListener("click", function(){
-//		viewsGrid.hide();
-//		goToView('count');
-//});
 //	
-//	
-//	viewShipToBtn.addListener("click", function(){
-//	console.log('button5');
-//		viewsGrid.hide();
-//	goToView('shipTo');
-//});
-//	
-//	
-//	viewReceivedBtn.addListener("click", function(){
-//	console.log('button6');
-//		viewsGrid.hide();
-//	goToView('received');
-//});
 	
 //		This is essentially the on load portion
 //		var vSSPID = '38789';
@@ -326,20 +311,7 @@ console.log('page.js');
 				
 
 				displayFilteredSelection(goToContractID);
-				
-				
-//			var vSSPID = sources.web_Access.CompanyID;
-//				//debugger;
-//				sources.rMA_Onsite_Bid.wak_getRepairsArr({
-//			
-//					arguments: [vSSPID],
-//					onSuccess: function(event) {
-//						//debugger;
-//						repairsArr = JSON.parse(event.result);
-//						sources.repairsArr.sync();
-//						
-//	}
-//});
+
 			}
 			
 		});
