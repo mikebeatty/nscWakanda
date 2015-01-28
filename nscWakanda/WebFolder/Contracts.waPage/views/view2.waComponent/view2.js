@@ -213,14 +213,11 @@ function constructor (id) {
 				displaySelectedRecord();
        		});
        		
-    rmaRefresh.addListener("click", function() {
-//           goToView(sources.viewsArr.name);
-		displayFilteredSelection();
-       });
+
        		
        		
     rmaFilter.addListener("change", function(){
-		rmaReferenceFilter.setValue("");
+//		rmaReferenceFilter.setValue("");
 		var rmaid = rmaFilter.getValue();
 	
 		displayRMAFilter(rmaid);
@@ -235,6 +232,18 @@ function constructor (id) {
 		displayRMAReferenceFilter(reference);
 	
 	});
+	
+	contractRefresh.addListener("click", function() {
+//           goToView(sources.viewsArr.name);
+		debugger;
+		displayFilteredSelection();
+       });
+       
+    rmaRefresh.addListener("click", function() {
+//           goToView(sources.viewsArr.name);
+		debugger;
+		displayFilteredSelection();
+       });
 //       		WAF.addListener(repairGrid, "onRowClick", function() {
 //				displayRepairDetail();
 //       		});
