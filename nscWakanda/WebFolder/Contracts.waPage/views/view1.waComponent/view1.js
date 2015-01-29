@@ -30,13 +30,12 @@ function constructor (id) {
 			contractAddressFld = cw.textField10;
 			
 		function displayContractDetail(contractID) {
-			
-			var contractID,
-				companyID;
+
+			var companyID;
 		
 			saveBtn.hide();
 		
-			contractID = sources.contractArr.ContractID;
+			//contractID = sources.contractArr.ContractID; //welsh: shouldn't need this because it is passed in as a param
 			sources.contracts.query("ContractID == :1", contractID,{
 			
 				onError: function(event){
@@ -44,11 +43,10 @@ function constructor (id) {
 				},
 				
 				onSuccess: function () {
-		
+
 					companyID = sources.contracts.ShipID;
 					cs.addresses.query("CompanyID == :1", companyID, {
 						onSuccess: function(){
-
 							sources.equipment_Encounters.wak_getContractPrintersArr({
 			   					arguments: [contractID],
 			   					onSuccess: function(event) {
@@ -184,7 +182,7 @@ function constructor (id) {
 	// @endregion// @endlock
 
 	// eventHandlers// @lock
-	displayContractDetail(data.userData.contractID);
+	//displayContractDetail(data.userData.contractID); //welsh: we don't want this to run on load, should get called from the parent page
 	
 		saveBtn.addListener("click", function() {
 				saveRepair();
