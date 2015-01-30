@@ -24,6 +24,7 @@
 				repairAddressFld = cw.textField7,
 				repairByFld = cw.textField8,
 				$repairByFld = $("#" + repairByFld.id),
+				transactionNotes = cw.textField1,
 				firstPrinterFld = cw.textField2,
 				additionalPrinterFld = cw.textField3,
 				finalBidFld = cw.rmaOnsiteTotalBid,
@@ -52,6 +53,13 @@
 					onSuccess: function () {
 //						want to display the RMA.GaloRMANumber
 					}
+				});
+				
+				sources.transactions.query("Transaction_ID == :1",rmaid,{
+//				
+							onSuccess: function() {
+							transactionNotes.setValue(sources.transactions.Notes); //todo swh: install client side error handler
+									}
 				});
 
 				sources.rMA.query('RMA_ID == :1',rmaid,{

@@ -139,7 +139,7 @@
 						sources.transactions.query("Transaction_ID == :1",rmaid,{
 //				
 							onSuccess: function() {
-							transactionNotes.setValue(sources.transactions.Notes);; //todo swh: install client side error handler
+							transactionNotes.setValue(sources.transactions.Notes); //todo swh: install client side error handler
 									}
 						});
 					}
