@@ -22,7 +22,8 @@ console.log('page.js');
 		   viewContractBtn = $$("button7"),//equiment
 		   viewRepairBtn = $$("button3"),//onsite
 		   contractRefresh = $$("button1"),
-		   rmaRefresh = $$("button2"),
+		   referenceRefresh = $$("button2"),
+		   rmaRefresh = $$("button9"),
 //		   viewShipToBtn = $$("button5"),//equiment
 //		   viewReceivedBtn = $$("button6"),//onsite
            viewComp = $$("componentDetail"),
@@ -31,6 +32,7 @@ console.log('page.js');
 		   referenceFilter = $$("textField2"),
 		   rmaFilter = $$("textField3"),
 		   rmaReferenceFilter = $$("textField4"),
+		   rmaContractFilter = $$("textField5"),
 //		   viewBidsRepairsBtn = $$("button7"),
 //		   viewBidFilter = $$("checkbox1"),
 //		   viewInProgressFilter = $$("checkbox2"),
@@ -212,7 +214,7 @@ console.log('page.js');
 		displayFilteredSelection();
        });
        
-     rmaRefresh.addListener("click", function() {
+     referenceRefresh.addListener("click", function() {
 //           goToView(sources.viewsArr.name);
 		displayFilteredSelection();
        });
@@ -229,6 +231,8 @@ console.log('page.js');
 		referenceFilter.show();
 		rmaFilter.hide();
 		rmaReferenceFilter.hide();
+		rmaRefresh.hide();
+		rmaContractFilter.hide();
 //		contractRefresh.show();
 //		rmaRefresh.hide();
 //		viewBidFilter.show();
@@ -246,6 +250,8 @@ console.log('page.js');
 		referenceFilter.hide();
 		rmaFilter.show();
 		rmaReferenceFilter.show();
+		rmaRefresh.show();
+		rmaContractFilter.show();
 //		contractRefresh.hide();
 //		rmaRefresh.show();
 //		viewBidFilter.hide();
