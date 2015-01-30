@@ -22,19 +22,29 @@ function constructor (id) {
 		repairReference = cw.textField4,
 		repairProblem = cw.textField5,
 		repairSolution = cw.textField6;
-		
+
 		
 		function displayRepairPrinterDetail(eeuuid){
 //			var eeuuid = sources.repairPrinterArr.EEUUID;
+		
 			
 			sources.equipment_Encounters.query("Equipment_EncountersUUID == :1",eeuuid,{
 				
+			
+				
 				onSuccess:function(event){
 		
-				repairReference = sources.equipment_Encounters.ThirdPartyID;
-				repairProblem = sources.equipment_Encounters.Notes_Problem;
-				repairSolution = sources.equipment_Encounters.Notes_Resolution;
+				repairReference.setValue(sources.equipment_Encounters.ThirdPartyID);
+				repairProblem.setValue(sources.equipment_Encounters.Notes_Problem);
+				repairSolution.setValue(sources.equipment_Encounters.Notes_Resolution);
 				
+				var equipmentID = sources.equipment_Encounters.EquipmentID;
+	
+				sources.equipment.query("Key == :1",equipmentID,{
+				onSuccess:function(event){
+	
+				}
+			});
 				
 				}
 			
