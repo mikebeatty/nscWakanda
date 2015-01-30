@@ -30,6 +30,7 @@
 				finalBidFld = cw.rmaOnsiteTotalBid,
 				repairArriveDateField = cw.textField7,
 				repairArriveTimeField = cw.textField8,
+				repairNeededTimeField = cw.textField13,
 				$repairArriveTimeField = $("#" + repairArriveTimeField.id),
 				saveBtn = cw.button1,
 				cancelBtn = cw.button2;
@@ -42,7 +43,9 @@
 
 				//var vCompanyID = '33430';
 				if(rmaid != null){
-				cs.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid, {
+				var sspID = sources.web_Access.CompanyID;
+	
+				cs.rMA_Onsite_Bid.query("RMA_ID == :1 AND SSP_ID == :2", rmaid, sspID, {
 					onSuccess: function () {
 						$repairByFld.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid.RepairBy));
 						updateFinalBid();
@@ -57,28 +60,35 @@
 				
 				sources.transactions.query("Transaction_ID == :1",rmaid,{
 //				
-							onSuccess: function() {
-							transactionNotes.setValue(sources.transactions.Notes); //todo swh: install client side error handler
-									}
+					onSuccess: function() {
+					transactionNotes.setValue(sources.transactions.Notes); //todo swh: install client side error handler
+					}
+				});
+				
+				sources.rMA_OnSite.query("RMA_ID == :1",rmaid,{
+//				
+					onSuccess: function() {
+							
+					}
 				});
 
 				sources.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
 						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid.RepairBy));
 						
+//						sources.rMA_OnSite.query("RMA_ID == :1",rmaid,{
+//							onSuccess: function() {
+//							repairNeededTimeField("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.NeededByTime));
+//							}
+//						});
+						
+						
 						vCompanyID = sources.rMA.CompanyID;
 						cs.addresses.query("CompanyID == :1", vCompanyID, {
 							onSuccess: function(){
 							
 								var vRepairAddress;
-//								vRepairAddress = Wap.page.formatAddress(cs.address.getCurrentElement());
-//								var vRepairAddress;
 
-//								vRepairAddress = cs.addresses.CompanyName+String.fromCharCode(13);
-//								vRepairAddress += cs.addresses.Address1+String.fromCharCode(13);
-//								vRepairAddress += cs.addresses.Address2+String.fromCharCode(13);
-//								vRepairAddress += cs.addresses.City+String.fromCharCode(32)+cs.addresses.State+String.fromCharCode(32)+cs.addresses.Zip+String.fromCharCode(13);
-//								vRepairAddress += cs.addresses.Phone+String.fromCharCode(13);
 								vRepairAddress = cs.addresses.wak_getAddressRepair({
 //									arguments: [vCompanyID],
 									arguments: [rmaid],
@@ -101,15 +111,7 @@
 					}
 				});
 
-				//sources.rMA_OnSite.query('RMA_ID == :1',rmaid,{
-				//	onSuccess: function(){
-				//		sources.rMA.query('RMA_ID == :1',rmaid,{
-				//			onSuccess: function(){
-				//				Wap.viewComp.displayRepairDetail();
-				//			}
-				//		});
-				//	}
-				//});
+
 				} else{
 					rmaid = 0;
 				cs.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid, {

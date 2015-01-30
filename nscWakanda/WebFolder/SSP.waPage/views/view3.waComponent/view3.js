@@ -60,7 +60,9 @@
 
 						displayPartsDetail(sources.equipmentArr.EquipmentID);
 //						repairContractRateField.setValue("FR: EX: RN:");
-					sources.rMA_Onsite_Bid.query("RMA_ID == :1", rmaid,{
+					var sspID = sources.web_Access.CompanyID;
+					sources.rMA_Onsite_Bid.query("RMA_ID == :1 AND SSP_ID == :2", rmaid, sspID, {
+						
 						onSuccess: function(event) {
 					
 							var contractRate = "FR:"+sources.rMA_Onsite_Bid.FirstPrinterRate+" EX:"+sources.rMA_Onsite_Bid.AdditonalPrinterRate+" RN:"+sources.rMA_Onsite_Bid.ReturnRate;
