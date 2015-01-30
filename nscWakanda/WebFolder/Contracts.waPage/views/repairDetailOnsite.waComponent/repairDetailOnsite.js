@@ -25,7 +25,8 @@ function constructor (id) {
 			printerProblem = cw.textField3,
 			printerResolution = cw.textField4,
 			notesTech = cw.textField2,
-			repairShipTo = cw.textField1;
+			repairShipTo = cw.textField1,
+			repairContractNumber = cw.textField9;
 		
 //			repairShipTo = cw.textField2;
 //			repairPrinter = cw.textField9;
@@ -42,6 +43,9 @@ function constructor (id) {
 			printerResolution.show();
 			notesTech.show();
 			repairShipTo.show();	
+			
+			
+			repairContractNumber.setValue(sources.companyRepairArr.ContractNumber);
 			
 			cs.rMA_OnSite.wak_getRepairVisitArr({
 			   arguments: [sources.companyRepairArr.RMAID],
@@ -111,10 +115,10 @@ function constructor (id) {
 		
 		
 		function displayRepairPrinterDetail(eeuuid){
-				debugger;
+				
 			sources.equipment.query("EquipmentUUID == :1",eeuid,{
 				onSuccess: function(event){
-				debugger;
+				
 				}
 			});
 		}
@@ -137,7 +141,7 @@ function constructor (id) {
 				repairShipTo.hide();
 				
 				repairDetail.show();
-				debugger;
+				
 //				$$(repairDetail.id).displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
 				
 				cw.component1.displayRepairPrinterDetail(sources.repairPrinterArr.EEUUID);
@@ -148,7 +152,7 @@ function constructor (id) {
 //				   path: viewPath,
 ////				   userData: userData,
 //				   onSuccess:function(event){
-//					debugger;
+//					
 ////					  detailCompLoaded = $$(this.id);
 //						Wap.viewComp = $$(this.id);
 ////				

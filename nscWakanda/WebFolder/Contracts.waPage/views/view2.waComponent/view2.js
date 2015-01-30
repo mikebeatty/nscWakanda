@@ -20,10 +20,12 @@ function constructor (id) {
 			detailComp = cw.component1,
 			detailCompLoaded = null,
 			currentView = "",
+			rmaContractFilter = $$("textField5"),
 			rmaFilter = $$("textField3"),
 		    rmaReferenceFilter = $$("textField4"),
 		    contractRefresh = $$("button1"),
 		    rmaRefresh = $$("button2"),
+
 //			repairBillTo = cw.textField1,
 //			repairShipTo = cw.textField2,
 //			repairPrinter = cw.textField9,
@@ -86,9 +88,10 @@ function constructor (id) {
 	   
 	   function displaySelectedRMARecord(){
 		   var rmaid = sources.companyRepairArr.RMAID,
+		     contractNumber = companyRepairArr.ContractNumber,
 			   loadView;
 
-		   //determine which view should be displayed based on the currently selected repairsArr row
+		   
 		 
 		   if (sources.companyRepairArr.Type === "Depot_SC") {
 			   loadView = "depot";
@@ -137,7 +140,7 @@ function constructor (id) {
 		   	sources.equipment_Encounters.query("ThirdPartyID == :1",reference,{
 //			
 			   onSuccess: function(event) {
-				   debugger;
+				   
 				   var rmaid = sources.equipment_Encounters.TransactionID;
 				   if(sources.companyRepairArr.length === 0){
 				   
@@ -148,13 +151,25 @@ function constructor (id) {
 				   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
 //				   
 				    		onSuccess: function(event) {
-				   			debugger;
+				   			
 				   			displaySelectedRMARecord();
 				   			}
 				   		});
 				   }
 			   }
 		   });
+		}
+		
+		function displayContractNumberFilter(contractNumber){
+			
+			sources.companyRepairArr.query("ContractNumber == :1",contractNumber,{
+//				   
+				onSuccess: function(event) {
+				
+				displaySelectedRMARecord();
+				}
+			});
+		
 		}
 		   
 //		   }else{
@@ -238,7 +253,7 @@ function constructor (id) {
 	});
 	
 	   rmaReferenceFilter.addListener("change", function(){
-		debugger;
+		
 //		rmaFilter.setValue("");
 		var reference = rmaReferenceFilter.getValue();
 	
@@ -246,15 +261,27 @@ function constructor (id) {
 	
 	});
 	
+		rmaContractFilter.addListener("change", function(){
+//		
+			
+//		
+		var contractNumber = rmaContractFilter.getValue();
+	
+		displayContractNumberFilter(contractNumber);
+	
+	
+	});
+	
+	
 	contractRefresh.addListener("click", function() {
 //           goToView(sources.viewsArr.name);
-		debugger;
+		
 		displayFilteredSelection();
        });
        
     rmaRefresh.addListener("click", function() {
 //           goToView(sources.viewsArr.name);
-		debugger;
+		
 		displayFilteredSelection();
        });
        
