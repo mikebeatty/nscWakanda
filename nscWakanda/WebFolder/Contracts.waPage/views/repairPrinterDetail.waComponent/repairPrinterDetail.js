@@ -29,24 +29,40 @@ function constructor (id) {
 		
 			
 			sources.equipment_Encounters.query("Equipment_EncountersUUID == :1",eeuuid,{
-				
 			
-				
 				onSuccess:function(event){
+					
+					
 		
-				repairReference.setValue(sources.equipment_Encounters.ThirdPartyID);
-				repairProblem.setValue(sources.equipment_Encounters.Notes_Problem);
-				repairSolution.setValue(sources.equipment_Encounters.Notes_Resolution);
+					repairReference.setValue(sources.equipment_Encounters.ThirdPartyID);
+					repairProblem.setValue(sources.equipment_Encounters.Notes_Problem);
+					repairSolution.setValue(sources.equipment_Encounters.Notes_Resolution);
 				
-				var equipmentID = sources.equipment_Encounters.EquipmentID;
+					var equipmentID = sources.equipment_Encounters.EquipmentID,
+						rmaid = sources.equipment_Encounters.TransactionID;
 	
-				sources.equipment.query("Key == :1",equipmentID,{
-				onSuccess:function(event){
+					sources.equipment.query("Key == :1",equipmentID,{
+						onSuccess:function(event){
 	
-				}
-			});
+						}
+					});
+					
+					sources.equipment_Inventory_Used.wak_getRepairPartsArr({
+			   		arguments: [equipmentID, rmaid],
+			   			onSuccess: function(event) {
+		
+			 				repairPartsArr = JSON.parse(event.result);
+				    		sources.repairPartsArr.sync();
+				
+			   			}
+		   			});	
+					
+					
+					
 				
 				}
+				
+							
 			
 			
 			

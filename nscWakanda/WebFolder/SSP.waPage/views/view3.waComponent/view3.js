@@ -185,8 +185,22 @@
 				//convert time to milliseconds before sending to 4D
 				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
 				sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
-
+				debugger;
+			if(rmaComplete.getValue() === true){
 				cs.rMA.RMAStatus = "Precompleted";
+				sources.transactions.query("Transaction_ID == :1",sources.rMA_OnSite.RMA_ID,{
+//				
+					onSuccess: function() {
+						sources.transactions.Status = "Precompleted" ; //todo swh: install client side error handler
+						sources.transactions.save({
+							onSuccess: function() {
+							}
+						});
+					}
+				});
+			}
+
+				
 
 				sources.rMA_OnSite.save({
 					onSuccess: function() {
@@ -255,7 +269,7 @@
 				}
 				if (event.eventKind === "onAttributeChange") {
 					if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
-					
+				
 						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.serial,sources.partsArr.rmaID);
 					}
 				}
@@ -263,6 +277,7 @@
 			
 			//clicking on a used cell in the used column of the parts grid
 			WAF.addListener(partsGrid, "onCellClick", function(event) {
+			
 				WakUtils.gridEditCell(partsGrid, event.data.columnNumber, event.data.row.rowNumber);
 			});
 
