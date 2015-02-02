@@ -17,8 +17,8 @@ function constructor (id) {
 
 var cs = $comp.sources,
 	cw = $comp.widgets,
-	inventoryGrid = cw.dataGrid1,
-	inventoryCountGrid = cw.dataGrid2,
+	inventoryGrid = cw.dataGrid3,
+//	inventoryCountGrid = cw.dataGrid2,
 	oldinventoryArrTechCountVal = 0,
 	setInventoryComplete = checkbox1;
 
@@ -52,15 +52,15 @@ debugger;
 		function displayInventoryPhysicalCount(){
 		
 		inventoryGrid.hide();
-		inventoryCountGrid.show();
-		
+//		inventoryCountGrid.show();
+		debugger;
 		
 		}
 		
 		function displayInventoryFull(){
 		
 		inventoryGrid.show();
-		inventoryCountGrid.hide();
+//		inventoryCountGrid.hide();
 		
 		}
 		
@@ -106,9 +106,9 @@ debugger;
 			}
 		}, "WAF", "TechCount");
 
-		WAF.addListener(inventoryCountGrid, "onCellClick", function(event) {
-			WakUtils.gridEditCell(inventoryCountGrid, event.data.columnNumber, event.data.row.rowNumber);
-		});
+//		WAF.addListener(inventoryCountGrid, "onCellClick", function(event) {
+//			WakUtils.gridEditCell(inventoryCountGrid, event.data.columnNumber, event.data.row.rowNumber);
+//		});
 		
 
 

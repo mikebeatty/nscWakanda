@@ -15,7 +15,6 @@ WAF.onAfterInit = function() {
    	//module API, declaring variables, defining functions
 //=================================================================================================
 
-console.log('page.js');
    	
    	
        var viewsGrid = $$("dataGrid1"),//viewsGrid = $$("component1"),
@@ -57,8 +56,6 @@ console.log('page.js');
 			
 			return vRepairAddress;
 			
-			
-		
 		}
        /**
         * load a view into the main view component
@@ -145,8 +142,8 @@ console.log('page.js');
 				   onError: function(event){
 				
 				   }
-               }
-           );
+            });
+           
        }
 
 //on load, attahce event listeners, run code we want to run when page loads
