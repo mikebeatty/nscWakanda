@@ -232,21 +232,32 @@ WAF.onAfterInit = function() {
 	});
 	
 	submitPhysicalCount.addListener("click", function(){
-		debugger;
-		var vVendorID = sources.web_Access.CompanyID;
-		sources.warehouses.query('VendorID == :1',vVendorID,{
-			onSuccess: function () {
-				debugger;
+	
+		var sendCount = true;
+		for(var i=0; i<inventoryArr.length; i++) {
+       	 if (inventoryArr[i].TechCount === "") {
+        	
+        	alertify.alert("You must enter values for all items.");
+        	i = inventoryArr.length;
+        	sendCount = false;
+        	};
+    	}
+    	if(sendCount === true){
+			var vVendorID = sources.web_Access.CompanyID;
+			sources.warehouses.query('VendorID == :1',vVendorID,{
+				onSuccess: function () {
+			
 				
 				var warehouseID = sources.warehouses.WareHouseID;
 				sources.inventory_WarehouseCount.wak_setInventoryUpdateComplete(warehouseID);
 				alertify.alert("Physical count has been submitted.");
 			}
-		});
+			});
+		}
 	});
 	
 	printPhysicalCount.addListener("click", function(){
-		debugger;
+	
 		alertify.alert("Inventory list has been created.");
 //		var vVendorID = sources.web_Access.CompanyID;
 //		sources.warehouses.query('VendorID == :1',vVendorID,{

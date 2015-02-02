@@ -18,12 +18,12 @@ function constructor (id) {
 var cs = $comp.sources,
 	cw = $comp.widgets,
 	inventoryGrid = cw.dataGrid3,
-//	inventoryCountGrid = cw.dataGrid2,
+	inventoryCountGrid = cw.dataGrid4,
 	oldinventoryArrTechCountVal = 0,
 	setInventoryComplete = checkbox1;
 
 	// eventHandlers// @lock
-debugger;
+
 		var vVendorID = sources.web_Access.CompanyID;
 //		`vVendorID = 5161;
 		cs.warehouses.query('VendorID == :1',vVendorID,{
@@ -52,19 +52,19 @@ debugger;
 		function displayInventoryPhysicalCount(){
 		
 		inventoryGrid.hide();
-//		inventoryCountGrid.show();
-		debugger;
+		inventoryCountGrid.show();
+
 		
 		}
 		
 		function displayInventoryFull(){
 		
 		inventoryGrid.show();
-//		inventoryCountGrid.hide();
+		inventoryCountGrid.hide();
 		
 		}
 		
-		function saveInventoryUpdate(sku, name, onhand, target, techcount) {
+		function saveInventoryUpdate(sku, name, techcount, iwuuid) {
 		
 				//Hey Mike, here is where you would pass the sku and used values to 4D to update
 				//the record on the 4D side
@@ -75,10 +75,13 @@ debugger;
 				
 					onSuccess: function(event){
 		
-						alertify.success(event.result.result);
+		
+						sources.inventoryArr.LastUpdate = 'Updated';
+						sources.inventoryArr.sync();
+						alertify.success(event.result);
 					},
 					onError: function(event){
-						alertify.error(event.result.result);
+						alertify.error(event.result);
 					}
 					
 				
@@ -102,13 +105,14 @@ debugger;
 				if (sources.inventoryArr.TechCount != oldinventoryArrTechCountVal) { //using != because these were bouncing between number and string
 				
 					saveInventoryUpdate(sources.inventoryArr.SKU, sources.inventoryArr.Name,sources.inventoryArr.TechCount,sources.inventoryArr.IWUUID);
+					
 				}
 			}
 		}, "WAF", "TechCount");
 
-//		WAF.addListener(inventoryCountGrid, "onCellClick", function(event) {
-//			WakUtils.gridEditCell(inventoryCountGrid, event.data.columnNumber, event.data.row.rowNumber);
-//		});
+		WAF.addListener(inventoryCountGrid, "onCellClick", function(event) {
+			WakUtils.gridEditCell(inventoryCountGrid, event.data.columnNumber, event.data.row.rowNumber);
+		});
 		
 
 
