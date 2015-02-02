@@ -36,6 +36,8 @@
 				repairDepartDateField = cw.textField12,
 				repairDepartTimeField = cw.textField13,
 				$repairDepartTimeField = $("#" + repairDepartTimeField.id),
+				repairDueTimeField = cw.textField17,
+				$repairDueTimeField = $("#" + repairDueTimeField.id),
 				repairContractRateField = cw.textField15,
 				$repairContractRateField = $("#" + repairContractRateField.id),
 				repairGaloRmaNumber = cw.textField4,
@@ -48,7 +50,7 @@
 				rmaComplete = cw.checkbox1,
 				oldPartsArrUsedVal;
 
-
+	
 			function displayRepairDetail(rmaid) {
 
 				sources.equipment_Encounters.wak_getEquipmentArr({
@@ -86,9 +88,10 @@
 				//var rmaid = '1499614';
 				sources.rMA_OnSite.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
-		
+
 						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.ArrivedTime));
 						$repairDepartTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.DepartureTime));
+						$repairDueTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.DueTime));
 					}
 				});
 				
@@ -324,6 +327,10 @@
 			});
 			
 			$repairDepartTimeField.timepicker({
+				step: 15
+			});
+			
+			$repairDueTimeField.timepicker({
 				step: 15
 			});
 
