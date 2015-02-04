@@ -31,6 +31,7 @@ WAF.onAfterInit = function() {
 		   viewCompleteFilter = $$("checkbox3"),
 		   setPhysicalCount = $$("checkbox5"),
 		   submitPhysicalCount = $$("button1"),
+		   addItem = $$("addButton"),
 		   printPhysicalCount = $$("button2");
 		   
 
@@ -175,6 +176,7 @@ WAF.onAfterInit = function() {
 		setPhysicalCount.hide();
 		submitPhysicalCount.hide();
 		printPhysicalCount.hide();
+		addItem.hide();
 		viewsGrid.show();
 		viewBidFilter.show();
 		viewInProgressFilter.show();
@@ -187,6 +189,7 @@ WAF.onAfterInit = function() {
 
 	viewInventoryBtn.addListener("click", function(){
 		setPhysicalCount.show();
+	
 		submitPhysicalCount.hide();
 		printPhysicalCount.hide();
 		viewsGrid.hide();
@@ -222,10 +225,12 @@ WAF.onAfterInit = function() {
 		if(setPhysicalCount.getValue() === true){
 			submitPhysicalCount.show();
 			printPhysicalCount.show();
+				addItem.show();
 			Wap.viewComp.displayInventoryPhysicalCount();
 		}else{
 			submitPhysicalCount.hide();
 			printPhysicalCount.hide();
+			addItem.hide();
 			Wap.viewComp.displayInventoryFull();
 		}
 
@@ -256,9 +261,17 @@ WAF.onAfterInit = function() {
 		}
 	});
 	
+		addItem.addListener("click", function() {
+			debugger;
+				inventoryCountGrid.column(1).readOnly(false);
+			});
+			
+	
 	printPhysicalCount.addListener("click", function(){
 	
 		alertify.alert("Inventory list has been created.");
+		debugger;
+		window.print();
 //		var vVendorID = sources.web_Access.CompanyID;
 //		sources.warehouses.query('VendorID == :1',vVendorID,{
 //			onSuccess: function () {

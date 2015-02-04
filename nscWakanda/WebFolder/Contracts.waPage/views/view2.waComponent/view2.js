@@ -24,7 +24,8 @@ function constructor (id) {
 			rmaFilter = $$("textField3"),
 		    rmaReferenceFilter = $$("textField4"),
 		    contractRefresh = $$("button1"),
-		    rmaRefresh = $$("button2"),
+		    referenceRefresh = $$("button2"),
+		    rmaRefresh = $$("button9"),
 
 //			repairBillTo = cw.textField1,
 //			repairShipTo = cw.textField2,
@@ -68,14 +69,15 @@ function constructor (id) {
 			   onSuccess: function(event) {
 			 		companyRepairArr = JSON.parse(event.result);
 				   sources.companyRepairArr.sync();
-//				   displayRepairDetail(data.userData.rmaid);
+
+
 					displaySelectedRMARecord();
 				   
 			   }
 		   });
 	   }
 	   
-//	   function displaySelectedRMARecord(){
+//	  \
 //	   		
 ////	   		var rmaid = sources.companyRepairArr.RMAID;
 ////	   		sources.rMA.query("RMA_ID == :1", rmaid);
@@ -91,7 +93,7 @@ function constructor (id) {
 		     contractNumber = companyRepairArr.ContractNumber,
 			   loadView;
 
-		   
+		   debugger;
 		 
 		   if (sources.companyRepairArr.Type === "Depot_SC") {
 			   loadView = "depot";
@@ -145,7 +147,7 @@ function constructor (id) {
 				   if(sources.companyRepairArr.length === 0){
 				   
 				   		displayFilteredSelection();
-				   		displayRMAReferenceFilter(reference);
+//				   		displayRMAReferenceFilter(reference);
 				   }else{
 				    
 				   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
@@ -161,12 +163,22 @@ function constructor (id) {
 		}
 		
 		function displayContractNumberFilter(contractNumber){
-			
+			debugger;
 			sources.companyRepairArr.query("ContractNumber == :1",contractNumber,{
 //				   
 				onSuccess: function(event) {
-				
-				displaySelectedRMARecord();
+					if(sources.companyRepairArr.length === 0){
+				   		displayFilteredSelection();
+//				   		displayContractNumberFilter(contractNumber);
+				   }else{
+				sources.companyRepairArr.query("RMAID == :1",sources.companyRepairArr.RMAID,{
+//				   
+				    		onSuccess: function(event) {
+				   			
+				   				displaySelectedRMARecord();
+				   			}
+						});
+					}
 				}
 			});
 		
@@ -217,7 +229,7 @@ function constructor (id) {
 					
 					  detailCompLoaded = $$(this.id);
 					if((viewName === "depot")||(viewName === "onsite")){
-//					 displaySelectedRMARecord();
+//				
  						detailCompLoaded.displayRepairDetail(userData.rmaid);
 					
 					}
@@ -262,9 +274,7 @@ function constructor (id) {
 	});
 	
 		rmaContractFilter.addListener("change", function(){
-//		
-			
-//		
+
 		var contractNumber = rmaContractFilter.getValue();
 	
 		displayContractNumberFilter(contractNumber);
@@ -274,13 +284,17 @@ function constructor (id) {
 	
 	
 	contractRefresh.addListener("click", function() {
-//           goToView(sources.viewsArr.name);
-		
+
 		displayFilteredSelection();
        });
        
     rmaRefresh.addListener("click", function() {
-//           goToView(sources.viewsArr.name);
+
+		displayFilteredSelection();
+       });
+       
+    referenceRefresh.addListener("click", function() {
+
 		
 		displayFilteredSelection();
        });

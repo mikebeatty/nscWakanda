@@ -46,11 +46,11 @@ function constructor (id) {
 	
 						}
 					});
-					
+		
 					sources.equipment_Inventory_Used.wak_getRepairPartsArr({
 			   		arguments: [equipmentID, rmaid],
 			   			onSuccess: function(event) {
-		
+	
 			 				repairPartsArr = JSON.parse(event.result);
 				    		sources.repairPartsArr.sync();
 				

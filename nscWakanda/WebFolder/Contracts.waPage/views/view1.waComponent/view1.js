@@ -27,13 +27,15 @@ function constructor (id) {
 			saveBtn = cw.button1,
 			cancelBtn = cw.button2,
 			oldequipmentArrProblemVal = "",
+			equipmentProblemEntered = false,
+			message = "",
 			contractAddressFld = cw.textField10;
 			
 		function displayContractDetail(contractID) {
 
 			var companyID;
 		
-			saveBtn.hide();
+//			saveBtn.hide();
 		
 			//contractID = sources.contractArr.ContractID; //welsh: shouldn't need this because it is passed in as a param
 			sources.contracts.query("ContractID == :1", contractID,{
@@ -83,7 +85,7 @@ function constructor (id) {
 				contactPhone: contactPhoneFld.getValue(),
 				contactFax: contactFaxFld.getValue(),
 				contactEmail: contactEmailFld.getValue(),
-//				reference: sources.equipmentArr.Reference
+				repairNotes: repairAddressNotes.getValue(),
 				equipmentArr: equipmentArr
 			};
 		
@@ -185,7 +187,29 @@ function constructor (id) {
 	//displayContractDetail(data.userData.contractID); //welsh: we don't want this to run on load, should get called from the parent page
 	
 		saveBtn.addListener("click", function() {
-				saveRepair();
+			
+			var sendAlert = false;
+				if(contactNameFld.getValue() === ""){
+					sendAlert = true;
+					message = "Contact name and contact phone are required. Contract status must be open.";
+				}
+					
+				if(contactPhoneFld.getValue() === ""){
+					sendAlert = true;
+					message = "Contact name and contact phone are required. Contract status must be open.";
+				}
+				
+				
+				if(equipmentProblemEntered === false){
+					sendAlert = true;
+					message = "Please select a printer and enter the printer issue.";
+				}
+				
+				if(sendAlert === true){
+					alertify.alert(message);
+				}else{
+					saveRepair();
+				}
 			});
 
 			//cancel button click
@@ -210,25 +234,23 @@ function constructor (id) {
 			
 				if (sources.equipmentArr.Problem != oldequipmentArrProblemVal) { //using != because these were bouncing between number and string
 			
-					saveBtn.show();
+					equipmentProblemEntered = true;
 					
 					var sendAlert = false;
 					if(contactNameFld.getValue() === ""){
 					sendAlert = true;
-//					alertify.alert("Contact name is required.");
-					saveBtn.hide();
+//					saveBtn.hide();
 					}
 					
 					if(contactPhoneFld.getValue() === ""){
 					sendAlert = true;
-//					alertify.alert("Contact phone is required.");
-					saveBtn.hide();
+//					saveBtn.hide();
 					}
 					
 					if(sources.contracts.Status != 'Open'){
 					sendAlert = true;
 					
-					saveBtn.hide();
+//					saveBtn.hide();
 					}
 					
 					if(sendAlert === true){

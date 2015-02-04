@@ -210,9 +210,15 @@ console.log('page.js');
        });
        
      contractRefresh.addListener("click", function() {
-//           goToView(sources.viewsArr.name);
+
 		displayFilteredSelection();
        });
+       
+//      contractRefresh.addListener("mouseover", function() {
+//		debugger;
+//		$('contractRefresh').opentip("Shown after 2 seconds", { delay: 2 });
+//		displayFilteredSelection();
+//       });
        
      referenceRefresh.addListener("click", function() {
 //           goToView(sources.viewsArr.name);

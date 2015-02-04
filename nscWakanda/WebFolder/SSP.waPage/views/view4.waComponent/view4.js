@@ -20,6 +20,7 @@ var cs = $comp.sources,
 	inventoryGrid = cw.dataGrid3,
 	inventoryCountGrid = cw.dataGrid4,
 	oldinventoryArrTechCountVal = 0,
+	
 	setInventoryComplete = checkbox1;
 
 	// eventHandlers// @lock
@@ -53,6 +54,7 @@ var cs = $comp.sources,
 		
 		inventoryGrid.hide();
 		inventoryCountGrid.show();
+		addItem.show();
 
 		
 		}
@@ -64,19 +66,21 @@ var cs = $comp.sources,
 		
 		}
 		
-		function saveInventoryUpdate(sku, name, techcount, iwuuid) {
+		function saveInventoryUpdate(sku, name, techcount, iwuuid, selectedRow) {
 		
 				//Hey Mike, here is where you would pass the sku and used values to 4D to update
 				//the record on the 4D side
 				var equipmentID = sources.equipmentArr.EquipmentID,
+		
 					rmaID = sources.rMA_OnSite.RMA_ID;
 			
 				sources.inventory_WarehouseCount.wak_setInventoryPhysicalCount(sku, name, techcount, iwuuid,{
 				
 					onSuccess: function(event){
-		
-		
-						sources.inventoryArr.LastUpdate = 'Updated';
+						debugger;
+				
+						
+						inventoryArr[selectedRow].LastUpdate = 'Updated';
 						sources.inventoryArr.sync();
 						alertify.success(event.result);
 					},
@@ -103,8 +107,9 @@ var cs = $comp.sources,
 			if (event.eventKind === "onAttributeChange") {
 			
 				if (sources.inventoryArr.TechCount != oldinventoryArrTechCountVal) { //using != because these were bouncing between number and string
-				
-					saveInventoryUpdate(sources.inventoryArr.SKU, sources.inventoryArr.Name,sources.inventoryArr.TechCount,sources.inventoryArr.IWUUID);
+				debugger;
+					var selectedRow = sources.inventoryArr.getPosition();
+					saveInventoryUpdate(sources.inventoryArr.SKU, sources.inventoryArr.Name,sources.inventoryArr.TechCount,sources.inventoryArr.IWUUID,selectedRow);
 					
 				}
 			}
@@ -114,7 +119,10 @@ var cs = $comp.sources,
 			WakUtils.gridEditCell(inventoryCountGrid, event.data.columnNumber, event.data.row.rowNumber);
 		});
 		
-
+	
+		
+		
+		
 
 	//public API
 	//=================================================================================================

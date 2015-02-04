@@ -48,6 +48,7 @@
 				cancelBtn = cw.button2,
 				fieldsheetBtn = cw.button3,
 				rmaComplete = cw.checkbox1,
+				oldPartsArrSerialVal,
 				oldPartsArrUsedVal;
 
 	
@@ -239,17 +240,17 @@
 			 * @param {string} sku
 			 * @param {string} used
 			 */
-			function savePartUsed(sku, used, lineItem, equipmentID, serial, rmaID) {
+			function savePartUsed(sku, used, lineItem, equipmentID, serial) {
 		
 				//Hey Mike, here is where you would pass the sku and used values to 4D to update
 				//the record on the 4D side
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
-				
+				debugger;
 				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
-				
+				debugger;
 						alertify.success(event.result.result);
 					},
 					onError: function(event){
@@ -272,11 +273,23 @@
 				}
 				if (event.eventKind === "onAttributeChange") {
 					if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
-				
-						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.serial,sources.partsArr.rmaID);
+				debugger;
+						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
 					}
 				}
 			}, "WAF", "Used");
+			
+			WAF.addListener("partsArr", "onSerialAttributeChange", function(event) {
+				if (event.eventKind === "onCurrentElementChange") {
+					oldPartsArrSerialVal = sources.partsArr.Serial;
+				}
+				if (event.eventKind === "onAttributeChange") {
+					if (sources.partsArr.Serial != oldPartsArrSerialVal) { //using != because these were bouncing between number and string
+				debugger;
+						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
+					}
+				}
+			}, "WAF", "Serial");
 			
 			//clicking on a used cell in the used column of the parts grid
 			WAF.addListener(partsGrid, "onCellClick", function(event) {

@@ -99,10 +99,12 @@ function constructor (id) {
 //							});
 							
 						vAddressType = "ShipTo";
+						debugger;
 						cs.addresses.wak_getAddressRepair({
+						
 						arguments: [rmaid],
 							onSuccess: function(event) {
-									
+									debugger;
 								repairShipTo.setValue(event.result);
 								}
 							});
