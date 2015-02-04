@@ -48,11 +48,11 @@ function constructor (id) {
 			
 			
 			repairContractNumber.setValue(sources.companyRepairArr.ContractNumber);
-			debugger;
+		
 			sources.transactions.query("Transaction_ID == :1",sources.companyRepairArr.RMAID,{
 //				
 				onSuccess: function() {
-					debugger;
+					
 					transactionNotes.setValue(sources.transactions.Notes); //todo swh: install client side error handler
 									}
 				});
@@ -110,12 +110,12 @@ function constructor (id) {
 //							});
 							
 						vAddressType = "ShipTo";
-						debugger;
+					
 						cs.addresses.wak_getAddressRepair({
 						
 						arguments: [rmaid],
 							onSuccess: function(event) {
-									debugger;
+								
 								repairShipTo.setValue(event.result);
 								}
 							});

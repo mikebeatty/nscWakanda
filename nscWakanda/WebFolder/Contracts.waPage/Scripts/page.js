@@ -215,7 +215,7 @@ console.log('page.js');
        });
        
 //      contractRefresh.addListener("mouseover", function() {
-//		debugger;
+
 //		$('contractRefresh').opentip("Shown after 2 seconds", { delay: 2 });
 //		displayFilteredSelection();
 //       });

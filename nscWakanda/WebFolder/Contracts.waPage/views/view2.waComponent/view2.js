@@ -93,7 +93,6 @@ function constructor (id) {
 		     contractNumber = companyRepairArr.ContractNumber,
 			   loadView;
 
-		   debugger;
 		 
 		   if (sources.companyRepairArr.Type === "Depot_SC") {
 			   loadView = "depot";
@@ -103,8 +102,12 @@ function constructor (id) {
 
 		   //display the data for the currently selected repairsArr row
 		   if (currentView === loadView) {
+		  
 		   	
-			   detailCompLoaded.displayRepairDetail(rmaid);
+		   	if (rmaid === null){
+			 rmaid = 0;
+			   }
+			 detailCompLoaded.displayRepairDetail(rmaid);
 		   } else {
 			 
 			   goToView(loadView, {
@@ -163,7 +166,7 @@ function constructor (id) {
 		}
 		
 		function displayContractNumberFilter(contractNumber){
-			debugger;
+			
 			sources.companyRepairArr.query("ContractNumber == :1",contractNumber,{
 //				   
 				onSuccess: function(event) {

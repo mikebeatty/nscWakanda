@@ -168,7 +168,7 @@
 //				sources.equipment_Encounters.wak_getPartsArr({
 //					arguments: [rmaid],
 //					onSuccess: function(event) {
-//			debugger;
+//		
 //						partsArr = JSON.parse(event.result);
 //						sources.partsArr.sync();
 //						sources.equipment_Encounters.query("EquipmentID == :1",sources.equipmentArr.EquipmentID, {
@@ -189,7 +189,7 @@
 				//convert time to milliseconds before sending to 4D
 				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
 				sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
-				debugger;
+				
 			if(rmaComplete.getValue() === true){
 				cs.rMA.RMAStatus = "Precompleted";
 				sources.transactions.query("Transaction_ID == :1",sources.rMA_OnSite.RMA_ID,{
@@ -246,11 +246,11 @@
 				//the record on the 4D side
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
-				debugger;
+				
 				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
-				debugger;
+				
 						alertify.success(event.result.result);
 					},
 					onError: function(event){
@@ -273,7 +273,7 @@
 				}
 				if (event.eventKind === "onAttributeChange") {
 					if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
-				debugger;
+				
 						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
 					}
 				}
@@ -285,7 +285,7 @@
 				}
 				if (event.eventKind === "onAttributeChange") {
 					if (sources.partsArr.Serial != oldPartsArrSerialVal) { //using != because these were bouncing between number and string
-				debugger;
+				
 						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
 					}
 				}

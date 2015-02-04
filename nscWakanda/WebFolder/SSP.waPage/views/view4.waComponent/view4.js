@@ -77,8 +77,8 @@ var cs = $comp.sources,
 				sources.inventory_WarehouseCount.wak_setInventoryPhysicalCount(sku, name, techcount, iwuuid,{
 				
 					onSuccess: function(event){
-						debugger;
-				
+						
+			
 						
 						inventoryArr[selectedRow].LastUpdate = 'Updated';
 						sources.inventoryArr.sync();
@@ -107,7 +107,7 @@ var cs = $comp.sources,
 			if (event.eventKind === "onAttributeChange") {
 			
 				if (sources.inventoryArr.TechCount != oldinventoryArrTechCountVal) { //using != because these were bouncing between number and string
-				debugger;
+				
 					var selectedRow = sources.inventoryArr.getPosition();
 					saveInventoryUpdate(sources.inventoryArr.SKU, sources.inventoryArr.Name,sources.inventoryArr.TechCount,sources.inventoryArr.IWUUID,selectedRow);
 					
