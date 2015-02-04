@@ -24,9 +24,15 @@ function docProxy(request, response) {
             file,
             pathElems,
             fileName;
-
+            
+ 
+		if(rmaID.substr(0,9) === "Inventory"){
+			var warehouseID = rmaID.substr(9);
+		  fullPath = ds.Inventory_WarehouseCount.wak_getInventoryList(warehouseID);
+	}else{
         //get the path to the document from 4D
         fullPath = ds.RMA_OnSite.wak_getFieldSheet(rmaID);
+    }
     
 //        fullPath = "/Users/welsh/Desktop/test.pdf";
 //		fullPath = "/Users/mikebeatty/4D Write-Untitled.pdf";

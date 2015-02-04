@@ -269,20 +269,18 @@ WAF.onAfterInit = function() {
 	
 	printPhysicalCount.addListener("click", function(){
 	
-		alertify.alert("Inventory list has been created.");
+//		alertify.alert("Inventory list has been created.");
 		debugger;
-		window.print();
-//		var vVendorID = sources.web_Access.CompanyID;
-//		sources.warehouses.query('VendorID == :1',vVendorID,{
-//			onSuccess: function () {
-//				debugger;
-//				
-//				var warehouseID = sources.warehouses.WareHouseID;
-//				sources.inventory_WarehouseCount.wak_setInventoryUpdateComplete(warehouseID);
-//				alertify.alert("Inventory list has been created.");
-//			}
-//		});
-	});
+			var vVendorID = sources.web_Access.CompanyID;
+			sources.warehouses.query('VendorID == :1',vVendorID,{
+				onSuccess: function () {
+
+				var warehouseID = sources.warehouses.WareHouseID;
+					window.open("http://" + window.location.host + "/docProxy?"+"Inventory"+ warehouseID);
+					}	
+				});
+			});
+		
 	
 //		This is essentially the on load portion
 //		var vSSPID = '38789';
