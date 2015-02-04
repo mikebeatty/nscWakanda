@@ -24,7 +24,8 @@ function constructor (id) {
 			notesGrid = cw.dataGrid3,
 			printerProblem = cw.textField3,
 			printerResolution = cw.textField4,
-			notesTech = cw.textField2,
+//			notesTech = cw.textField2,
+			transactionNotes = cw.textField2,
 			repairShipTo = cw.textField1,
 			repairContractNumber = cw.textField9;
 		
@@ -41,11 +42,20 @@ function constructor (id) {
 			notesGrid.show();
 			printerProblem.show();	
 			printerResolution.show();
-			notesTech.show();
+//			notesTech.show();
+			transactionNotes.show();
 			repairShipTo.show();	
 			
 			
 			repairContractNumber.setValue(sources.companyRepairArr.ContractNumber);
+			debugger;
+			sources.transactions.query("Transaction_ID == :1",sources.companyRepairArr.RMAID,{
+//				
+				onSuccess: function() {
+					debugger;
+					transactionNotes.setValue(sources.transactions.Notes); //todo swh: install client side error handler
+									}
+				});
 			
 			cs.rMA_OnSite.wak_getRepairVisitArr({
 			   arguments: [sources.companyRepairArr.RMAID],
@@ -64,7 +74,8 @@ function constructor (id) {
 			 		repairPrinterArr = JSON.parse(event.result);
 				   sources.repairPrinterArr.sync();
 				
-				   notesTech.setValue(sources.repairPrinterArr.Notes);
+//				   notesTech.setValue(sources.repairPrinterArr.Notes);
+				   
 				   printerProblem.setValue(""),
 				   printerResolution.setValue("")
 			   }
@@ -139,7 +150,8 @@ function constructor (id) {
 				notesGrid.hide();
 				printerProblem.hide();
 				printerResolution.hide();
-				notesTech.hide();
+//				notesTech.hide();
+				transactionNotes.hide();
 				repairShipTo.hide();
 				
 				repairDetail.show();
