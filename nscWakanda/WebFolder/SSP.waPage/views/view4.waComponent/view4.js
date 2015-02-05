@@ -20,7 +20,7 @@ var cs = $comp.sources,
 	inventoryGrid = cw.dataGrid3,
 	inventoryCountGrid = cw.dataGrid4,
 	oldinventoryArrTechCountVal = 0,
-	
+//	addItem = $$("addButton"),
 	setInventoryComplete = checkbox1;
 
 	// eventHandlers// @lock
@@ -54,7 +54,7 @@ var cs = $comp.sources,
 		
 		inventoryGrid.hide();
 		inventoryCountGrid.show();
-		addItem.show();
+//		addItem.show();
 
 		
 		}
