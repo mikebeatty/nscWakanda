@@ -31,7 +31,7 @@ WAF.onAfterInit = function() {
 		   viewCompleteFilter = $$("checkbox3"),
 		   setPhysicalCount = $$("checkbox5"),
 		   submitPhysicalCount = $$("button1"),
-		   addItem = $$("addButton"),
+//		   addItem = $$("addButton"),
 		   printPhysicalCount = $$("button2");
 		   
 
@@ -176,7 +176,7 @@ WAF.onAfterInit = function() {
 		setPhysicalCount.hide();
 		submitPhysicalCount.hide();
 		printPhysicalCount.hide();
-		addItem.hide();
+//		addItem.hide();
 		viewsGrid.show();
 		viewBidFilter.show();
 		viewInProgressFilter.show();
@@ -225,12 +225,12 @@ WAF.onAfterInit = function() {
 		if(setPhysicalCount.getValue() === true){
 			submitPhysicalCount.show();
 			printPhysicalCount.show();
-				addItem.show();
+//			addItem.show();
 			Wap.viewComp.displayInventoryPhysicalCount();
 		}else{
 			submitPhysicalCount.hide();
 			printPhysicalCount.hide();
-			addItem.hide();
+//			addItem.hide();
 			Wap.viewComp.displayInventoryFull();
 		}
 
@@ -261,11 +261,11 @@ WAF.onAfterInit = function() {
 		}
 	});
 	
-		addItem.addListener("click", function() {
-			debugger;
-				inventoryCountGrid.column(1).readOnly(false);
-			});
-			
+//		addItem.addListener("click", function() {
+//			debugger;
+//				inventoryCountGrid.column(1).readOnly(false);
+//			});
+//			
 	
 	printPhysicalCount.addListener("click", function(){
 	
