@@ -23,8 +23,8 @@ WAF.onAfterInit = function() {
          * Display a contract based on the ulr search params
          */
         function loadContract() {
-            sources.contracts.query("GALO_ContractNum == :1", {
-                params: [GALO_ContractNum],
+            sources.contracts.query("GALO_ContractNum == :1 and BillToCompanyID = :2", {
+                params: [GALO_ContractNum, clientKey],
                 onSuccess: function() {
                     if (sources.contracts.length > 0) {
                         viewCompWidget.loadComponent({

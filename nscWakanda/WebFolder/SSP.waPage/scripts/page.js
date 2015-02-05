@@ -31,7 +31,7 @@ WAF.onAfterInit = function() {
 		   viewCompleteFilter = $$("checkbox3"),
 		   setPhysicalCount = $$("checkbox5"),
 		   submitPhysicalCount = $$("button1"),
-		   addItem = $$("addButton"),
+		   addItemBtn = $$("addButton"),
 		   printPhysicalCount = $$("button2");
 		   
 
@@ -63,6 +63,10 @@ WAF.onAfterInit = function() {
         * @param {string} viewName - name of the view as setup in the viewsArr
         * @param {object} [userData] - data to send to the component when it loads into the view
         */
+        
+        function addItem() {
+			addItemComp.loadComponent();
+    	}
         
 	   function displayFilteredSelection(){
 		   var vSSPID = sources.web_Access.CompanyID,
@@ -176,7 +180,7 @@ WAF.onAfterInit = function() {
 		setPhysicalCount.hide();
 		submitPhysicalCount.hide();
 		printPhysicalCount.hide();
-		addItem.hide();
+		addItemBtn.hide();
 		viewsGrid.show();
 		viewBidFilter.show();
 		viewInProgressFilter.show();
@@ -192,7 +196,7 @@ WAF.onAfterInit = function() {
 	
 		submitPhysicalCount.hide();
 		printPhysicalCount.hide();
-		addItem.hide();
+		addItemBtn.hide();
 		viewsGrid.hide();
 		viewBidFilter.hide();
 		viewInProgressFilter.hide();
@@ -226,12 +230,12 @@ WAF.onAfterInit = function() {
 		if(setPhysicalCount.getValue() === true){
 			submitPhysicalCount.show();
 			printPhysicalCount.show();
-			addItem.show();
+			addItemBtn.show();
 			Wap.viewComp.displayInventoryPhysicalCount();
 		}else{
 			submitPhysicalCount.hide();
 			printPhysicalCount.hide();
-			addItem.hide();
+			addItemBtn.hide();
 			Wap.viewComp.displayInventoryFull();
 		}
 
@@ -262,10 +266,10 @@ WAF.onAfterInit = function() {
 		}
 	});
 	
-//		addItem.addListener("click", function() {
-//			debugger;
-//				inventoryCountGrid.column(1).readOnly(false);
-//			});
+		 WAF.addListener(addItemBtn, "click", function(event) {
+		 	debugger;
+        addItem();
+    		});
 //			
 	
 	printPhysicalCount.addListener("click", function(){

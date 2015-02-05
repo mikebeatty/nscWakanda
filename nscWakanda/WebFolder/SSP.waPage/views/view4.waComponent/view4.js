@@ -20,7 +20,8 @@ var cs = $comp.sources,
 	inventoryGrid = cw.dataGrid3,
 	inventoryCountGrid = cw.dataGrid4,
 	oldinventoryArrTechCountVal = 0,
-//	addItem = $$("addButton"),
+	addItemBtn = $$("button2"),
+	addItemComp = $$("component1"),
 	setInventoryComplete = checkbox1;
 
 	// eventHandlers// @lock
@@ -65,6 +66,10 @@ var cs = $comp.sources,
 		inventoryCountGrid.hide();
 		
 		}
+		
+		 function addItem() {
+		addItemComp.loadComponent();
+    	}
 		
 		function saveInventoryUpdate(sku, name, techcount, iwuuid, selectedRow) {
 		
@@ -128,6 +133,7 @@ var cs = $comp.sources,
 	//=================================================================================================
 	this.displayInventoryPhysicalCount = displayInventoryPhysicalCount;
 	this.displayInventoryFull = displayInventoryFull;
+	this.addItem = addItem;
 
 
 	};// @lock
