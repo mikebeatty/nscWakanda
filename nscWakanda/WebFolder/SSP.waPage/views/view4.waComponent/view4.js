@@ -21,7 +21,7 @@ var cs = $comp.sources,
 	inventoryCountGrid = cw.dataGrid4,
 	oldinventoryArrTechCountVal = 0,
 	addItemBtn = $$("button2"),
-	addItemComp = $$("component1"),
+//	addItemComp = $$("component1"),
 	setInventoryComplete = checkbox1;
 
 	// eventHandlers// @lock
@@ -68,7 +68,7 @@ var cs = $comp.sources,
 		}
 		
 		 function addItem() {
-		addItemComp.loadComponent();
+//		addItemComp.loadComponent();
     	}
 		
 		function saveInventoryUpdate(sku, name, techcount, iwuuid, selectedRow) {

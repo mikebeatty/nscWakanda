@@ -250,7 +250,7 @@
 				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
-				
+				debugger;
 						alertify.success(event.result.result);
 					},
 					onError: function(event){
