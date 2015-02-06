@@ -232,7 +232,7 @@ WAF.onAfterInit = function() {
 	});
 
 	setPhysicalCount.addListener("click", function(){
-	debugger;
+
 	performPhysicalCount = (!performPhysicalCount);
 		if(performPhysicalCount === true){
 			submitPhysicalCount.show();
