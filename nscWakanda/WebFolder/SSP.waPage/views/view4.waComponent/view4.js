@@ -22,10 +22,13 @@ var cs = $comp.sources,
 	oldinventoryArrTechCountVal = 0,
 	addItemBtn = $$("button2"),
 //	addItemComp = $$("component1"),
+	addItemDialog = cw.container1,
+	addItemSave = cw.imageButton2,
+	addItemCancel = cw.imageButton3,
 	setInventoryComplete = checkbox1;
 
 	// eventHandlers// @lock
-
+	
 		var vVendorID = sources.web_Access.CompanyID;
 //		`vVendorID = 5161;
 		cs.warehouses.query('VendorID == :1',vVendorID,{
@@ -69,6 +72,9 @@ var cs = $comp.sources,
 		
 		 function addItem() {
 //		addItemComp.loadComponent();
+			addItemDialog.show();
+			
+			
     	}
 		
 		function saveInventoryUpdate(sku, name, techcount, iwuuid, selectedRow) {
@@ -125,7 +131,19 @@ var cs = $comp.sources,
 		});
 		
 	
+		addItemSave.addListener("click", function(){
 		
+		addItemDialog.hide();
+		
+		
+		});
+		
+		addItemCancel.addListener("click", function(){
+		
+		addItemDialog.hide();
+		
+		
+		});
 		
 		
 
