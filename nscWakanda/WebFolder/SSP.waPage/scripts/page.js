@@ -32,6 +32,7 @@ WAF.onAfterInit = function() {
 		   setPhysicalCount = $$("checkbox5"),
 		   submitPhysicalCount = $$("button1"),
 //		   addItemBtn = $$("addButton"),
+			performPhysicalCount = false,
 		   printPhysicalCount = $$("button2");
 		   debugger;
 
@@ -226,8 +227,9 @@ WAF.onAfterInit = function() {
 	});
 
 	setPhysicalCount.addListener("click", function(){
-	
-		if(setPhysicalCount.getValue() === true){
+	debugger;
+	performPhysicalCount = (!performPhysicalCount);
+		if(performPhysicalCount === true){
 			submitPhysicalCount.show();
 			printPhysicalCount.show();
 //			addItemBtn.show();
