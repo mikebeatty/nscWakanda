@@ -127,7 +127,7 @@ var cs = $comp.sources,
 							sources.inventory_WarehouseCount.wak_getInventory({
 							arguments: [wareHouseID],
 								onSuccess: function(event) {
-								debugger;
+								
 								inventoryArr = JSON.parse(event.result);
 								sources.inventoryArr.sync();
 								alertify.success("Record updated.");

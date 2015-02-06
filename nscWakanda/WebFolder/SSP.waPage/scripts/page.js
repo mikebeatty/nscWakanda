@@ -195,7 +195,7 @@ WAF.onAfterInit = function() {
 
 	viewInventoryBtn.addListener("click", function(){
 		
-		debugger;
+		
 		setPhysicalCount.show();
 	
 		submitPhysicalCount.hide();
@@ -274,7 +274,7 @@ WAF.onAfterInit = function() {
 	});
 	
 		 WAF.addListener(addItemBtn, "click", function(event) {
-		 	debugger;
+		
         		Wap.viewComp.addItem();
     		});
 //			
@@ -282,7 +282,8 @@ WAF.onAfterInit = function() {
 	printPhysicalCount.addListener("click", function(){
 	
 //		alertify.alert("Inventory list has been created.");
-		debugger;
+	
+	
 			var vVendorID = sources.web_Access.CompanyID;
 			sources.warehouses.query('VendorID == :1',vVendorID,{
 				onSuccess: function () {
@@ -314,16 +315,7 @@ WAF.onAfterInit = function() {
 				displayFilteredSelection();
 				
 				
-//			var vSSPID = sources.web_Access.CompanyID;
-//				//debugger;
-//				sources.rMA_Onsite_Bid.wak_getRepairsArr({
-//			
-//					arguments: [vSSPID],
-//					onSuccess: function(event) {
-//						//debugger;
-//						repairsArr = JSON.parse(event.result);
-//						sources.repairsArr.sync();
-//						displaySelectedRecord();
+
 //	}
 //});
 			}
