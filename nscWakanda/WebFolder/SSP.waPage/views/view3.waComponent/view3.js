@@ -328,6 +328,18 @@
 				var rmaID = sources.rMA_OnSite.RMA_ID;
 				window.open("http://" + window.location.host + "/docProxy?" + rmaID);
 			});
+			
+			repairEquipSolutionField.addListener("change", function(){
+				sources.equipment_Encounters.save({
+					onSuccess: function() {
+
+					},
+					onError: function(event) {
+						alert("error"); //todo swh: install client side error handler
+					}
+				});
+			
+			});
 
 			
 
@@ -349,7 +361,7 @@
 			});
 
 			//load the detail
-			displayRepairDetail(data.userData.rmaid);
+//			displayRepairDetail(data.userData.rmaid);
 			
 			
 
