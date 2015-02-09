@@ -106,7 +106,7 @@
 				
 				cs.rMA.query('RMA_ID == :1',rmaid,{
 					onSuccess: function(){
-						debugger;
+						
 						var vCompanyID = cs.rMA.CompanyID;
 						
 							repairGaloRmaNumber.setValue(cs.rMA.GALO_RMA_Number);
