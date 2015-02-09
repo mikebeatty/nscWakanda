@@ -142,7 +142,15 @@ WAF.onAfterInit = function() {
 					  Wap.viewComp = $$(this.id);
 					if((viewName === "bids")||(viewName === "repairs")){
 //					 displaySelectedRecord();
- 						Wap.viewComp.displayRepairDetail(userData.rmaid);
+
+					var rmaid = 0;
+					if(userData.rmaid === undefined){
+						rmaid = sources.repairsArr.RMAID;
+					}else{
+						rmaid = userData.rmaid;
+					}
+					
+ 						Wap.viewComp.displayRepairDetail(rmaid);
 					
 					}
 				   },
