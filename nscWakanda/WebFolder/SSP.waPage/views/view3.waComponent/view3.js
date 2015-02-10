@@ -245,6 +245,11 @@
 		
 				//Hey Mike, here is where you would pass the sku and used values to 4D to update
 				//the record on the 4D side
+//				if( serial === 'Required'){
+//					
+//					alertify.alert("Please enter the printhead serial number.");
+//					
+//				}else{
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
 				
@@ -252,6 +257,37 @@
 				
 					onSuccess: function(event){
 				debugger;
+						alertify.success(event.result.result);
+					var rmaid = sources.rMA_OnSite.RMA_ID;
+						sources.equipment_Encounters.wak_getPartsArr({
+					arguments: [rmaid],
+						onSuccess: function(event) {
+						partsArr = JSON.parse(event.result);
+						sources.partsArr.sync();
+					}
+				});
+					},
+					onError: function(event){
+						alertify.error(event.result.result);
+					}
+					
+				
+				});
+//			}
+
+			}
+			
+			function savePartUsedSerial(sku, used, lineItem, equipmentID, serial) {
+		
+				//Hey Mike, here is where you would pass the sku and used values to 4D to update
+				//the record on the 4D side
+				var equipmentID = sources.equipmentArr.EquipmentID,
+					rmaID = sources.rMA_OnSite.RMA_ID;
+				debugger;
+				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
+				
+					onSuccess: function(event){
+		debugger;
 						alertify.success(event.result.result);
 					},
 					onError: function(event){
@@ -287,7 +323,7 @@
 				if (event.eventKind === "onAttributeChange") {
 					if (sources.partsArr.Serial != oldPartsArrSerialVal) { //using != because these were bouncing between number and string
 				
-						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
+						savePartUsedSerial(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
 					}
 				}
 			}, "WAF", "Serial");
