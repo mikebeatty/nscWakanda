@@ -282,7 +282,7 @@ WAF.onAfterInit = function() {
 	});
 	
 		 WAF.addListener(addItemBtn, "click", function(event) {
-		
+		debugger;
         		Wap.viewComp.addItem();
     		});
 //			

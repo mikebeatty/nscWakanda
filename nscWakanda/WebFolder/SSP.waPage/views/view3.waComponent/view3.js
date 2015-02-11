@@ -279,23 +279,36 @@
 			
 			function savePartUsedSerial(sku, used, lineItem, equipmentID, serial) {
 		
-				//Hey Mike, here is where you would pass the sku and used values to 4D to update
-				//the record on the 4D side
+//					if( serial === 'Required'){
+//					
+//					alertify.alert("Please enter the printhead serial number.");
+//					
+//				}else{
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
-				debugger;
-				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
+				
+						sources.lineItems.wak_setPartsArrSerial(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
-		debugger;
+						debugger;
 						alertify.success(event.result.result);
-					},
+							var rmaid = sources.rMA_OnSite.RMA_ID;
+							sources.equipment_Encounters.wak_getPartsArr({
+							arguments: [rmaid],
+								onSuccess: function(event) {
+								partsArr = JSON.parse(event.result);
+								sources.partsArr.sync();
+						
+									}
+								});
+						},
 					onError: function(event){
 						alertify.error(event.result.result);
 					}
 					
 				
 				});
+//			}
 
 			}
 			

@@ -20,7 +20,7 @@ var cs = $comp.sources,
 	inventoryGrid = cw.dataGrid3,
 	inventoryCountGrid = cw.dataGrid4,
 	oldinventoryArrTechCountVal = 0,
-	addItemBtn = $$("button2"),
+//	addItemBtn = cw.addButton,s
 //	addItemComp = $$("component1"),
 	addItemDialog = cw.container1,
 	addItemSave = cw.imageButton2,
@@ -69,6 +69,7 @@ var cs = $comp.sources,
 		}
 		
 		 function addItem() {
+		 	debugger;
 //		addItemComp.loadComponent();
 			addItemDialog.setValue("");
 			addItemDialog.show();
