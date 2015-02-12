@@ -69,7 +69,7 @@ var cs = $comp.sources,
 		}
 		
 		 function addItem() {
-		 	debugger;
+	
 //		addItemComp.loadComponent();
 			addItemDialog.setValue("");
 			addItemDialog.show();

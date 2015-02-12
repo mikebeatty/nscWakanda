@@ -49,6 +49,7 @@
 				fieldsheetBtn = cw.button3,
 				rmaComplete = cw.checkbox1,
 				oldPartsArrSerialVal,
+				savePartsUsedRunning = false,
 				oldPartsArrUsedVal;
 
 	
@@ -77,7 +78,7 @@
 //						transactionNotes.disable();
 					}
 				});
-				
+			
 				sources.equipment_Encounters.wak_getPartsArr({
 					arguments: [rmaid],
 						onSuccess: function(event) {
@@ -248,15 +249,16 @@
 //				if( serial === 'Required'){
 //					
 //					alertify.alert("Please enter the printhead serial number.");
-//					
+
 //				}else{
 				var equipmentID = sources.equipmentArr.EquipmentID,
+					
 					rmaID = sources.rMA_OnSite.RMA_ID;
-				
+			
 				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
-				debugger;
+				
 						alertify.success(event.result.result);
 					var rmaid = sources.rMA_OnSite.RMA_ID;
 						sources.equipment_Encounters.wak_getPartsArr({
@@ -264,6 +266,7 @@
 						onSuccess: function(event) {
 						partsArr = JSON.parse(event.result);
 						sources.partsArr.sync();
+		
 					}
 				});
 					},
@@ -290,17 +293,17 @@
 						sources.lineItems.wak_setPartsArrSerial(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
-						debugger;
-						alertify.success(event.result.result);
-							var rmaid = sources.rMA_OnSite.RMA_ID;
-							sources.equipment_Encounters.wak_getPartsArr({
-							arguments: [rmaid],
-								onSuccess: function(event) {
-								partsArr = JSON.parse(event.result);
-								sources.partsArr.sync();
-						
-									}
-								});
+//					
+//						alertify.success(event.result);
+//							var rmaid = sources.rMA_OnSite.RMA_ID;
+//							sources.equipment_Encounters.wak_getPartsArr({
+//							arguments: [rmaid],
+//								onSuccess: function(event) {
+//								partsArr = JSON.parse(event.result);
+//								sources.partsArr.sync();
+//						
+//									}
+//								});
 						},
 					onError: function(event){
 						alertify.error(event.result.result);
@@ -317,19 +320,32 @@
 			//event handlers
 			//=================================================================================================
 
-			WAF.addListener("partsArr", "onUsedAttributeChange", function(event) {
-				if (event.eventKind === "onCurrentElementChange") {
-					oldPartsArrUsedVal = sources.partsArr.Used;
-				}
-				if (event.eventKind === "onAttributeChange") {
-					if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
-				
-						savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
-					}
-				}
-			}, "WAF", "Used");
+//			sources.partsArr.removeAllListeners();
+			if(!Wap.partsArrInstalled){
+				Wap.partsArrInstalled = true;
+				sources.partsArr.addListener("all", function(event) {
+
+
+						if (event.eventKind === "onCurrentElementChange") {
+							oldPartsArrUsedVal = sources.partsArr.Used;
+						}
+						if (event.eventKind === "onAttributeChange") {
+
+
+							if(typeof oldPartsArrUsedVal != 'undefined'){
+								if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
+
+									savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
+										
+
+								}
+							}
+						}
+					
+				});
+			}
 			
-			WAF.addListener("partsArr", "onSerialAttributeChange", function(event) {
+			WAF.addListener("partsArr","onSerialAttributeChange", function(event) {
 				if (event.eventKind === "onCurrentElementChange") {
 					oldPartsArrSerialVal = sources.partsArr.Serial;
 				}
@@ -339,7 +355,7 @@
 						savePartUsedSerial(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
 					}
 				}
-			}, "WAF", "Serial");
+			},"WAF","Serial");
 			
 			//clicking on a used cell in the used column of the parts grid
 			WAF.addListener(partsGrid, "onCellClick", function(event) {
@@ -408,6 +424,7 @@
 			$repairDueTimeField.timepicker({
 				step: 15
 			});
+
 
 			//load the detail
 //			displayRepairDetail(data.userData.rmaid);

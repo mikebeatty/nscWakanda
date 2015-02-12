@@ -129,7 +129,7 @@
 				var finalBidValue,
 					numEncounters;
 
-				numEncounters = sources.equipment_Encounters.length;
+				numEncounters = sources.equipmentArr.length;
 				if (numEncounters === 0) {
 					finalBidValue = 0;
 				} else {

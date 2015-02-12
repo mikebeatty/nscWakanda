@@ -43,8 +43,10 @@ WakUtils = (function() {
      */
     function gridEditCell(grid, colNo, rowNo) {
         grid.gridController.gridView._private.functions.startEditCell({
+            
             gridView: grid.gridController.gridView,
             row: grid.gridController.gridView._private.globals.rows[rowNo],
+       
             cell: grid.gridController.gridView._private.globals.rows[rowNo].cells[colNo],
             columnNumber: colNo
         });

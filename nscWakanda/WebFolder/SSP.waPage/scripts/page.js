@@ -8,7 +8,7 @@ var Wap = Wap || {};
 WAF.onAfterInit = function() {
    "use strict";
    
-
+	Wap.partsArrInstalled = false;
 
    Wap.page = (function() {
    	
@@ -282,7 +282,7 @@ WAF.onAfterInit = function() {
 	});
 	
 		 WAF.addListener(addItemBtn, "click", function(event) {
-		debugger;
+
         		Wap.viewComp.addItem();
     		});
 //			
