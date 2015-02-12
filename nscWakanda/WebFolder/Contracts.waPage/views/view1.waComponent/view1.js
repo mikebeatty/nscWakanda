@@ -99,6 +99,8 @@ function constructor (id) {
 					
 					if(rmaid > 0){
 					alertify.alert("RMA "+rmaid+" has been created.");
+					displayContractDetail(contractID);
+//					sources.equipmentArr.Problem
 					
 					}else{
 					
@@ -117,7 +119,10 @@ function constructor (id) {
 				onError: function(event){
 					alertify.alert("A repair could not be created.");
 				}
+			
+			
 			});
+		
 			
 		}
 		 function displayPrinterFilter(){
