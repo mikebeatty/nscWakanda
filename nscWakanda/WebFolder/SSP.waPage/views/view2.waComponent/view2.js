@@ -48,7 +48,7 @@
 				cs.rMA_Onsite_Bid.query("RMA_ID == :1 AND SSP_ID == :2", rmaid, sspID, {
 					onSuccess: function () {
 						$repairByFld.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid.RepairBy));
-						updateFinalBid();
+//						updateFinalBid();
 					}
 				});
 				
@@ -76,11 +76,6 @@
 					onSuccess: function(){
 						$repairArriveTimeField.timepicker("setTime", WakUtils.convert4DTimeToJSDate(cs.rMA_Onsite_Bid.RepairBy));
 						
-//						sources.rMA_OnSite.query("RMA_ID == :1",rmaid,{
-//							onSuccess: function() {
-//							repairNeededTimeField("setTime", WakUtils.convert4DTimeToJSDate(sources.rMA_OnSite.NeededByTime));
-//							}
-//						});
 						
 						
 						vCompanyID = sources.rMA.CompanyID;
@@ -108,6 +103,7 @@
 					onSuccess: function(event) {
 						equipmentArr = JSON.parse(event.result);
 						sources.equipmentArr.sync();
+						updateFinalBid();
 					}
 				});
 
@@ -133,6 +129,7 @@
 				if (numEncounters === 0) {
 					finalBidValue = 0;
 				} else {
+					
 					finalBidValue = cs.rMA_Onsite_Bid.FirstPrinterRate + ((numEncounters-1) * cs.rMA_Onsite_Bid.AdditonalPrinterRate);
 				}
 
