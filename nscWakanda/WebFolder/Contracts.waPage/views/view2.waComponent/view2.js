@@ -149,21 +149,25 @@ function constructor (id) {
 		   	sources.equipment_Encounters.query("ThirdPartyID == :1",reference,{
 //			
 			   onSuccess: function(event) {
+				   debugger;
 				   
-				   var rmaid = sources.equipment_Encounters.TransactionID;
 				   if(sources.companyRepairArr.length === 0){
 				   
 				   		displayFilteredSelection();
 //				   		displayRMAReferenceFilter(reference);
 				   }else{
-				    
-				   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
-//				   
-				    		onSuccess: function(event) {
-				   			
-				   			displaySelectedRMARecord();
-				   			}
-				   		});
+				    var rmaid = sources.equipment_Encounters.TransactionID;
+				    if(rmaid != null){
+					   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
+	//				   
+					    		onSuccess: function(event) {
+					   			
+					   			displaySelectedRMARecord();
+					   			}
+					   		});
+				   		}else{
+				   		alertify.alert("Reference number could not be found.");
+				   	}
 				   }
 			   }
 		   });
