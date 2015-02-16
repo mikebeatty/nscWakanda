@@ -15,7 +15,8 @@ function constructor (id) {
 
 	// @region namespaceDeclaration// @startlock
 	// @endregion// @endlock
-
+	cw = $comp.widgets,
+	loggedInAs = cw.textField1;
 	/**
 	 * Handle what to do after the user logs out
 	 */
@@ -33,6 +34,14 @@ function constructor (id) {
 	// @region eventManager// @startlock
 	// @endregion// @endlock
 
+
+	sources.web_Access.query('WebLogOn == :1',Wap.auth.getCurrUserName(),{
+			onSuccess: function(event) {
+	debugger;
+			var vCompanyID = sources.web_Access.CompanyID,
+			loggedInAs = sources.web_Access.EmailAddress;
+			}
+		});	
 	};// @lock
 
 

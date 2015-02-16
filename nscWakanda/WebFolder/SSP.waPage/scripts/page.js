@@ -31,7 +31,7 @@ WAF.onAfterInit = function() {
 		   viewCompleteFilter = $$("checkbox3"),
 		   setPhysicalCount = $$("checkbox5"),
 		   submitPhysicalCount = $$("button1"),
-		
+			loggedInAs = $$("textField1"),
 		   addItemBtn = $$("addButton"),
 			performPhysicalCount = false,
 		   printPhysicalCount = $$("button2");
@@ -308,6 +308,8 @@ WAF.onAfterInit = function() {
 		sources.web_Access.query('WebLogOn == :1',Wap.auth.getCurrUserName(),{
 			onSuccess: function(event) {
 //				console.log('CurrentUser '+Wap.auth.getCurrUserName());
+
+				loggedInAs.setValue("logged in as: "+sources.web_Access.EmailAddress);
 			
 				sources.rMA_OnSite.query('SSP_ID == :1',sources.web_Access.CompanyID,{
 					onSuccess: function(event) {

@@ -289,7 +289,7 @@
 //				}else{
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
-				
+					used = used.toString();
 						sources.lineItems.wak_setPartsArrSerial(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){

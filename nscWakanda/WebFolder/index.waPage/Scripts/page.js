@@ -65,11 +65,13 @@ Wap.page = (function() {
 				}
 
 				sources.web_Access.query('webLogOn == :1',userName);
-				var vCompanyID = sources.web_Access.CompanyID;
+				var vCompanyID = sources.web_Access.CompanyID,
+					emailAddress = sources.web_Access.EmailAddress;
 			} else if (Wap.auth.isInGroup("Service")) {
 				window.location = "/SSP";
 				sources.web_Access.query('webLogOn == :1',userName);
-				var vSSPID = sources.web_Access.CompanyID;
+				var vSSPID = sources.web_Access.CompanyID,
+				emailAddress = sources.web_Access.EmailAddress;
 			} else { //assume Internal
 				window.location = "/internal";
 			}
