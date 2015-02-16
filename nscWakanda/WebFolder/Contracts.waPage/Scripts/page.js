@@ -33,6 +33,7 @@ console.log('page.js');
 		   rmaFilter = $$("textField3"),
 		   rmaReferenceFilter = $$("textField4"),
 		   rmaContractFilter = $$("textField5"),
+		   loggedInAs = $$("textField6"),
 //		   viewBidsRepairsBtn = $$("button7"),
 //		   viewBidFilter = $$("checkbox1"),
 //		   viewInProgressFilter = $$("checkbox2"),
@@ -131,7 +132,7 @@ console.log('page.js');
 		   //display the data for the currently selected repairsArr row
 		   if (currentView === loadView) {
 		   	
-
+debugger;
 			   Wap.viewComp.displayContractDetail(contractID);
 		   } else {
 			   goToView(loadView, {
@@ -325,6 +326,8 @@ console.log('page.js');
 		sources.web_Access.query('WebLogOn == :1',Wap.auth.getCurrUserName(),{
 			onSuccess: function(event) {
 //				console.log('CurrentUser '+Wap.auth.getCurrUserName());
+
+				loggedInAs.setValue("logged in as: "+sources.web_Access.EmailAddress);
 			
 				sources.contracts.query('BillToCompanyID == :1',sources.web_Access.CompanyID,{
 					onSuccess: function(event) {

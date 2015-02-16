@@ -57,6 +57,10 @@ function constructor (id) {
 //		   });
 //				
 //			};
+
+		function displayContractDetail(){
+//			debugger; - this is here while I figure out some view loading issues in Contracts.page.js
+		}
 			
 		function displayFilteredSelection(){
 		   var vcompanyID = sources.web_Access.CompanyID,
@@ -316,6 +320,10 @@ function constructor (id) {
 
 
 displayFilteredSelection();
+	//public API
+			//=================================================================================================
+//	this.displayRepairDetail = displayRepairDetail;
+	this.displayContractDetail = displayContractDetail;
 
 	};// @lock
 

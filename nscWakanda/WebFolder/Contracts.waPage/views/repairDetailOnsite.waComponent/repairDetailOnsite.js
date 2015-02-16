@@ -32,7 +32,9 @@ function constructor (id) {
 //			repairShipTo = cw.textField2;
 //			repairPrinter = cw.textField9;
 
-
+		function displayContractDetail(){
+			debugger;
+		}
 
 		function displayRepairDetail(rmaid) {
 			
@@ -190,6 +192,7 @@ function constructor (id) {
 	//public API
 			//=================================================================================================
 			this.displayRepairDetail = displayRepairDetail;
+			this.displayContractDetail = displayContractDetail;
 	
 
 	};// @lock
