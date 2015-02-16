@@ -16,6 +16,7 @@ function constructor (id) {
 	// @endregion// @endlock
 	var cs = $comp.sources,
 		cw = $comp.widgets,
+		partsGrid = cw.dataGrid1,
 		repairMake = cw.textField1,
 		repairModel = cw.textField2,
 		repairSerial = cw.textField3,
@@ -50,7 +51,7 @@ function constructor (id) {
 					sources.equipment_Inventory_Used.wak_getRepairPartsArr({
 			   		arguments: [equipmentID, rmaid],
 			   			onSuccess: function(event) {
-	
+	debugger;
 			 				repairPartsArr = JSON.parse(event.result);
 				    		sources.repairPartsArr.sync();
 				

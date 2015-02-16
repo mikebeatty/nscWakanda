@@ -78,13 +78,8 @@ console.log('page.js');
 	   function displayFilteredSelection(goToContractID){
 		   var vcompanyID = sources.web_Access.CompanyID,
 		   		vAll = false;
-//			   isBid,
-//			   isInProgress,
-//			   isComplete;
 
-//		   isBid = viewBidFilter.getValue();
-//		   isInProgress = viewInProgressFilter.getValue();
-//		   isComplete = viewCompleteFilter.getValue();
+
 			
 			vAll = viewAllFilter.getValue();
 
@@ -127,12 +122,14 @@ console.log('page.js');
 //		   } else {
 //			   loadView = "bids";
 //		   }
+
 			loadView = "contract";
+//			loadView = sources.viewsArr.getAttributeValue('name');
 
 		   //display the data for the currently selected repairsArr row
 		   if (currentView === loadView) {
 		   	
-debugger;
+
 			   Wap.viewComp.displayContractDetail(contractID);
 		   } else {
 			   goToView(loadView, {
@@ -206,7 +203,7 @@ debugger;
 
        //when clicking a row on the views listbox, load the view
        WAF.addListener(viewsGrid, "onRowClick", function() {
-//           goToView(sources.viewsArr.name);
+//        
 		displaySelectedRecord();
        });
        
@@ -222,12 +219,12 @@ debugger;
 //       });
        
      referenceRefresh.addListener("click", function() {
-//           goToView(sources.viewsArr.name);
+//          
 		displayFilteredSelection();
        });
        
        viewAllFilter.addListener("click", function() {
-//           goToView(sources.viewsArr.name);
+//       
 		displayFilteredSelection();
        });
 
@@ -354,6 +351,7 @@ debugger;
 //=================================================================================================
         return {
            goToView: goToView//Wap.page.goToView()
+           
 //          formatAddress: formatAddress
  
         };
