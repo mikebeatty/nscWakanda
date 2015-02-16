@@ -149,7 +149,7 @@ function constructor (id) {
 		   	sources.equipment_Encounters.query("ThirdPartyID == :1",reference,{
 //			
 			   onSuccess: function(event) {
-				   debugger;
+//				   debugger;
 				   
 				   if(sources.companyRepairArr.length === 0){
 				   
@@ -167,6 +167,7 @@ function constructor (id) {
 					   		});
 				   		}else{
 				   		alertify.alert("Reference number could not be found.");
+//				   		rmaReferenceFilter.setValue("");
 				   	}
 				   }
 			   }
