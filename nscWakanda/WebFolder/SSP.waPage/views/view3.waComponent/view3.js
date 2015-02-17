@@ -259,7 +259,6 @@
 				
 					onSuccess: function(event){
 				
-						alertify.success(event.result.result);
 					var rmaid = sources.rMA_OnSite.RMA_ID;
 						sources.equipment_Encounters.wak_getPartsArr({
 					arguments: [rmaid],
@@ -285,7 +284,7 @@
 //					if( serial === 'Required'){
 //					
 //					alertify.alert("Please enter the printhead serial number.");
-//					
+					debugger;
 //				}else{
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
@@ -294,6 +293,22 @@
 				
 					onSuccess: function(event){
 //					
+
+					debugger;
+					if(event.result.substring(0,5) === "Alert"){
+							alertify.alert(event.result);
+							sources.equipment_Encounters.wak_getPartsArr({
+								arguments: [rmaID],
+								onSuccess: function(event) {
+								partsArr = JSON.parse(event.result);
+								sources.partsArr.sync();
+		
+								}
+						});
+					}else{				
+						alertify.success(event.result);
+					}
+
 //						alertify.success(event.result);
 //							var rmaid = sources.rMA_OnSite.RMA_ID;
 //							sources.equipment_Encounters.wak_getPartsArr({
@@ -306,7 +321,7 @@
 //								});
 						},
 					onError: function(event){
-						alertify.error(event.result.result);
+						alertify.error(event.result);
 					}
 					
 				
@@ -351,7 +366,7 @@
 				}
 				if (event.eventKind === "onAttributeChange") {
 					if (sources.partsArr.Serial != oldPartsArrSerialVal) { //using != because these were bouncing between number and string
-				
+		
 						savePartUsedSerial(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
 					}
 				}
