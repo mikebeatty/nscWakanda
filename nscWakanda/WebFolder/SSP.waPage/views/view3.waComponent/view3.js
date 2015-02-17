@@ -259,6 +259,15 @@
 				
 					onSuccess: function(event){
 				
+				debugger;
+						if(event.result.substring(0,5) === "Alert"){
+							alertify.alert(event.result);
+						
+						}else{				
+							alertify.success(event.result);
+						}
+				
+				
 					var rmaid = sources.rMA_OnSite.RMA_ID;
 						sources.equipment_Encounters.wak_getPartsArr({
 					arguments: [rmaid],
@@ -294,7 +303,6 @@
 					onSuccess: function(event){
 //					
 
-					debugger;
 					if(event.result.substring(0,5) === "Alert"){
 							alertify.alert(event.result);
 							sources.equipment_Encounters.wak_getPartsArr({
