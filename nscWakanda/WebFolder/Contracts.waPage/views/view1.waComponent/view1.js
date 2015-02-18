@@ -262,22 +262,26 @@ function constructor (id) {
 					
 					var sendAlert = false;
 					if(contactNameFld.getValue() === ""){
+//						debugger;
 					sendAlert = true;
 //					saveBtn.hide();
 					}
 					
 					if(contactPhoneFld.getValue() === ""){
+//							debugger;
 					sendAlert = true;
 //					saveBtn.hide();
 					}
 					
 					if(sources.contracts.Status != 'Open'){
+//							debugger;
 					sendAlert = true;
 					
 //					saveBtn.hide();
 					}
 					
 					if(sendAlert === true){
+//							debugger;
 					alertify.alert("Contact name and contact phone are required. Contract status must be open.");
 					}
 						

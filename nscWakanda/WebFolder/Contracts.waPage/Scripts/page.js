@@ -79,7 +79,8 @@ console.log('page.js');
 		   var vcompanyID = sources.web_Access.CompanyID,
 		   		vAll = false;
 
-
+//			contractFilter.setValue("");
+//			referenceFilter.setValue("");
 			
 			vAll = viewAllFilter.getValue();
 
@@ -274,9 +275,10 @@ console.log('page.js');
 //				wak_getFilterResults(contractFilter.getValue())
 				if(sources.contracts.GALO_ContractNum != null){
 				var goToContractID = sources.contracts.GALO_ContractNum;
-				displayFilteredSelection(goToContractID)
+				displayFilteredSelection(goToContractID);
+				
 					}else{
-				alertify.alert("Contract number not found");
+				alertify.alert("Contract "+contractFilter.getValue()+" not found");
 				}
 			}
 	
@@ -300,14 +302,15 @@ console.log('page.js');
 //				wak_getFilterResults(contractFilter.getValue())
 						if(sources.contracts.GALO_ContractNum != null){
 						var goToContractID = sources.contracts.GALO_ContractNum;
-						displayFilteredSelection(goToContractID)
+						displayFilteredSelection(goToContractID);
+					
 							}else{
-						alertify.alert("Reference number not found");
+						alertify.alert("Reference "+referenceFilter.getValue()+" not found");
 							}
 						}
 					});
 				}else{
-					alertify.alert("Reference number not found");
+					alertify.alert("Reference "+referenceFilter.getValue()+" not found");
 //					displayFilteredSelection();
 				}
 			}
