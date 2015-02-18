@@ -45,28 +45,47 @@ function constructor (id) {
 				},
 				
 				onSuccess: function () {
+					
+					sources.equipment_Encounters.wak_getContractPrintersArr({
+			   		arguments: [contractID],
+			   			onSuccess: function(event) {
+			 			equipmentArr = JSON.parse(event.result);
+				   		sources.equipmentArr.sync();
 
-					companyID = sources.contracts.ShipID;
-					cs.addresses.query("CompanyID == :1", companyID, {
-						onSuccess: function(){
-							sources.equipment_Encounters.wak_getContractPrintersArr({
-			   					arguments: [contractID],
-			   					onSuccess: function(event) {
-			 						equipmentArr = JSON.parse(event.result);
-				   					sources.equipmentArr.sync();
-				   	
-				   
-			   }
-		   });
-							cs.addresses.wak_getAddressCompany({
-								arguments: [companyID],
-								onSuccess: function(event) {
-								contractAddressFld.setValue(event.result);
-									}
-							});
-
-						}
+			   			}
+		   			});
+							
+					cs.addresses.wak_getAddressContractEndUser({
+						arguments: [contractID],
+						onSuccess: function(event) {
+						contractAddressFld.setValue(event.result);
+							}
 					});
+
+						
+		
+
+//					var addressID = sources.contracts.EndUserAddressID;
+//					cs.addresses.query("AddressID == :1", addressID, {
+//						onSuccess: function(){
+//							sources.equipment_Encounters.wak_getContractPrintersArr({
+//			   					arguments: [contractID],
+//			   					onSuccess: function(event) {
+//			 						equipmentArr = JSON.parse(event.result);
+//				   					sources.equipmentArr.sync();
+//				   	
+//				   
+//			   }
+//		   });
+//							cs.addresses.wak_getAddressContractEndUser({
+//								arguments: [contractID],
+//								onSuccess: function(event) {
+//								contractAddressFld.setValue(event.result);
+//									}
+//							});
+
+//						}
+//					});
 				}
 
 			});
