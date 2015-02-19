@@ -53,7 +53,71 @@
 				oldPartsArrUsedVal;
 
 	
+//			function getLockedStatus(lockedTable, lockedField){
+//			
+//				sources.web_Access.wak_getLockedStatus(lockedTable, lockedField,{
+//					
+////					onSuccess : function(event){
+////					
+////					lockedRMA = event.result;
+//					
+////					}
+//					
+//				});
+//			}
+	
 			function displayRepairDetail(rmaid) {
+				
+				var lockedRMA = false;
+	
+					transactionNotes.enable();
+					partsGrid.enable();
+					repairEquipProblemField.enable();
+					repairEquipSolutionField.enable();
+					repairArriveDateField.enable();
+					repairArriveTimeField.enable();
+					repairDepartDateField.enable();
+					repairDepartTimeField.enable();
+					repairTripsRequired.enable();
+					repairApprovedTravel.enable();
+					repairApprovedLabor.enable();
+					repairMileage.enable();
+					
+				sources.rMA_OnSite.query("RMA_ID == :1", rmaid, {
+					onSuccess: function () {
+			
+						
+//						lockedRMA = getLockedStatus('RMA_OnSite',sources.rMA_OnSite.RMA_OnSiteUUID);
+						
+						sources.web_Access.wak_getLockedStatus('RMA_OnSite',sources.rMA_OnSite.RMA_OnSiteUUID,{
+//						sources.web_Access.wak_getLockedStatus('RMA_OnSite',sources.rMA_OnSite.getKey(),{
+					
+							onSuccess : function(event){
+						
+							lockedRMA = event.result;
+							
+								if(lockedRMA === true){
+								alertify.alert('This record is locked by another user and can not be modified.');
+							
+								transactionNotes.disable();
+								partsGrid.disable();
+								repairEquipProblemField.disable();
+								repairEquipSolutionField.disable();
+								repairArriveDateField.disable();
+								repairArriveTimeField.disable();
+								repairDepartDateField.disable();
+								repairDepartTimeField.disable();
+								repairTripsRequired.disable();
+								repairApprovedTravel.disable();
+								repairApprovedLabor.disable();
+								repairMileage.disable();
+								}
+							}	
+					
+						});
+					}
+				});
+				
 				
 				sources.equipment_Encounters.wak_getEquipmentArr({
 					arguments: [rmaid],
@@ -166,75 +230,80 @@
 				});
 
 			
-			
-//				sources.equipment_Encounters.wak_getPartsArr({
-//					arguments: [rmaid],
-//					onSuccess: function(event) {
-//		
-//						partsArr = JSON.parse(event.result);
-//						sources.partsArr.sync();
-//						sources.equipment_Encounters.query("EquipmentID == :1",sources.equipmentArr.EquipmentID, {
-//						
-//						onError: function(event) {
-//						alert("error"); //todo swh: install client side error handler
-//							}
-//							
-//						});
-//					}
-//				});
+
 			
 			
 			}
 			
 			function saveRepair() {
 
+				var lockedRMA = false;
+				
+				sources.web_Access.wak_getLockedStatus('RMA_OnSite',sources.rMA_OnSite.RMA_OnSiteUUID,{
+					
+					onSuccess : function(event){
+					
+						lockedRMA = event.result;
+							
+						if(lockedRMA === true){
+							alertify.alert('This record is locked by another user and can not be saved.');
+						}
+					}
+					
+				});
+					
+			
+				
+				
+				if(lockedRMA === false){	
 				//convert time to milliseconds before sending to 4D
-				sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
-				sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
-				
-			if(rmaComplete.getValue() === true){
-				cs.rMA.RMAStatus = "Precompleted";
-				sources.transactions.query("Transaction_ID == :1",sources.rMA_OnSite.RMA_ID,{
-//				
-					onSuccess: function() {
-						sources.transactions.Status = "Precompleted" ; //todo swh: install client side error handler
-						sources.transactions.save({
-							onSuccess: function() {
-							}
-						});
+					sources.rMA_OnSite.ArrivedTime = WakUtils.convertTimeStringTo4DTime(repairArriveTimeField.getValue());
+					sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
+					
+					if(rmaComplete.getValue() === true){
+					cs.rMA.RMAStatus = "Precompleted";
+					sources.transactions.query("Transaction_ID == :1",sources.rMA_OnSite.RMA_ID,{
+	//				
+						onSuccess: function() {
+							sources.transactions.Status = "Precompleted" ; //todo swh: install client side error handler
+							sources.transactions.save({
+								onSuccess: function() {
+								}
+							});
+						}
+					});
 					}
-				});
-			}
 
-				
+					
 
-				sources.rMA_OnSite.save({
-					onSuccess: function() {
-						alertify.success("Record has been saved.");
-					},
-					onError: function(event) {
-						alert("error"); //todo swh: install client side error handler
-					}
-				});
+					sources.rMA_OnSite.save({
+						onSuccess: function() {
+							alertify.success("Record has been saved.");
+						},
+						onError: function(event) {
 				
-				sources.equipment_Encounters.save({
-					onSuccess: function() {
+							alert("It appears this record has been modified by another user -- your changes have not been saved."); //todo swh: install client side error handler
+						}
+					});
+					
+					sources.equipment_Encounters.save({
+						onSuccess: function() {
 
-					},
-					onError: function(event) {
-						alert("error"); //todo swh: install client side error handler
-					}
-				});
-				
-				cs.rMA.save({
-					onSuccess: function() {
-						
-					},
-					onError: function(event) {
-						alert("error"); //todo swh: install client side error handler
-					}
-				});
-				
+						},
+						onError: function(event) {
+							alert("There was a problem saving this record -- your changes have not been saved."); //todo swh: install client side error handler
+						}
+					});
+					
+					cs.rMA.save({
+						onSuccess: function() {
+							
+						},
+						onError: function(event) {
+							alert("There was a problem saving this record -- your changes have not been saved."); //todo swh: install client side error handler
+						}
+					});
+				}
 			}
 
 			/**
@@ -244,47 +313,67 @@
 			 */
 			function savePartUsed(sku, used, lineItem, equipmentID, serial) {
 		
-				//Hey Mike, here is where you would pass the sku and used values to 4D to update
-				//the record on the 4D side
-//				if( serial === 'Required'){
-//					
-//					alertify.alert("Please enter the printhead serial number.");
-
-//				}else{
-				var equipmentID = sources.equipmentArr.EquipmentID,
+				var lockedRecord = false;
+				
+				sources.web_Access.wak_getLockedStatus('RMA_OnSite',sources.rMA_OnSite.RMA_OnSiteUUID,{
 					
-					rmaID = sources.rMA_OnSite.RMA_ID;
-			
-				sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
+					onSuccess : function(event){
+					
+						lockedRecord = event.result;
+							
+						if(lockedRecord === true){
+							alertify.alert('This record is locked by another user and can not be saved.');
+							var rmaid = sources.rMA_OnSite.RMA_ID;
+								sources.equipment_Encounters.wak_getPartsArr({
+								arguments: [rmaid],
+									onSuccess: function(event) {
+									partsArr = JSON.parse(event.result);
+									sources.partsArr.sync();
 				
-					onSuccess: function(event){
-				
-				debugger;
-						if(event.result.substring(0,5) === "Alert"){
-							alertify.alert(event.result);
+									}
+								});
+						}else{
+							
+							var equipmentID = sources.equipmentArr.EquipmentID,
 						
-						}else{				
-							alertify.success(event.result);
+							rmaID = sources.rMA_OnSite.RMA_ID;
+				
+							sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
+					
+							onSuccess: function(event){
+					
+					
+								if(event.result.substring(0,5) === "Alert"){
+									alertify.alert(event.result);
+								
+								}else{				
+									alertify.success(event.result);
+								}
+					
+					
+								var rmaid = sources.rMA_OnSite.RMA_ID;
+								sources.equipment_Encounters.wak_getPartsArr({
+								arguments: [rmaid],
+									onSuccess: function(event) {
+									partsArr = JSON.parse(event.result);
+									sources.partsArr.sync();
+				
+									}
+								});
+							},
+							
+						onError: function(event){
+							alertify.error(event.result.result);
 						}
-				
-				
-					var rmaid = sources.rMA_OnSite.RMA_ID;
-						sources.equipment_Encounters.wak_getPartsArr({
-					arguments: [rmaid],
-						onSuccess: function(event) {
-						partsArr = JSON.parse(event.result);
-						sources.partsArr.sync();
-		
-					}
-				});
-					},
-					onError: function(event){
-						alertify.error(event.result.result);
+						
+					
+					});
+							
+						}
 					}
 					
-				
 				});
-//			}
+			
 
 			}
 			
@@ -293,7 +382,7 @@
 //					if( serial === 'Required'){
 //					
 //					alertify.alert("Please enter the printhead serial number.");
-					debugger;
+					
 //				}else{
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
