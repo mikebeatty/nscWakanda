@@ -335,39 +335,63 @@
 						}else{
 							
 							var equipmentID = sources.equipmentArr.EquipmentID,
+								reqSerial = false,
 						
 							rmaID = sources.rMA_OnSite.RMA_ID;
-				
-							sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
-					
-							onSuccess: function(event){
-					
-					
-								if(event.result.substring(0,5) === "Alert"){
-									alertify.alert(event.result);
-								
-								}else{				
-									alertify.success(event.result);
-								}
-					
-					
-								var rmaid = sources.rMA_OnSite.RMA_ID;
-								sources.equipment_Encounters.wak_getPartsArr({
-								arguments: [rmaid],
-									onSuccess: function(event) {
-									partsArr = JSON.parse(event.result);
-									sources.partsArr.sync();
-				
-									}
-								});
-							},
+							debugger;
+							sources.inventory.query("SKU == :1",sku,{
 							
-						onError: function(event){
-							alertify.error(event.result.result);
-						}
+								onSuccess : function(event){
+								debugger;
+									if(sources.inventory.ReqSerial === true){
+										reqSerial = true;
+										if(serial === ""){
+										serial = "Required";
+										}
+									}
+								
+									if(reqSerial & used > 1)		{
+										alertify.alert("Please enter individual printheads for each printer.");
+									}else{
+										sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
+					
+										onSuccess: function(event){
+						
+						
+											if(event.result.substring(0,5) === "Alert"){
+												alertify.alert(event.result);
+											
+											}else{				
+												alertify.success(event.result);
+											}
+								
+								
+											var rmaid = sources.rMA_OnSite.RMA_ID;
+											sources.equipment_Encounters.wak_getPartsArr({
+											arguments: [rmaid],
+												onSuccess: function(event) {
+												partsArr = JSON.parse(event.result);
+												sources.partsArr.sync();
+							
+												}
+											});
+											},
+											
+											onError: function(event){
+												alertify.error(event.result.result);
+											}
 						
 					
-					});
+										});
+									}
+								
+								
+								}
+						
+
+							});
+							
+							
 							
 						}
 					}
