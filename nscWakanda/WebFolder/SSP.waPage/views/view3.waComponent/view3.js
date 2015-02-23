@@ -356,7 +356,7 @@
 										sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
 					
 										onSuccess: function(event){
-						
+						debugger;
 						
 											if(event.result.substring(0,5) === "Alert"){
 												alertify.alert(event.result);
@@ -466,7 +466,7 @@
 							oldPartsArrUsedVal = sources.partsArr.Used;
 						}
 						if (event.eventKind === "onAttributeChange") {
-
+							debugger;
 
 							if(typeof oldPartsArrUsedVal != 'undefined'){
 								if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
