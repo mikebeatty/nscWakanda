@@ -50,6 +50,7 @@
 				rmaComplete = cw.checkbox1,
 				oldPartsArrSerialVal,
 				savePartsUsedRunning = false,
+				oldPartsArrStatusVal,
 				oldPartsArrUsedVal;
 
 	
@@ -274,7 +275,7 @@
 					});
 					}
 
-					
+				
 
 					sources.rMA_OnSite.save({
 						onSuccess: function() {
@@ -301,6 +302,18 @@
 						},
 						onError: function(event) {
 							alert("There was a problem saving this record -- your changes have not been saved."); //todo swh: install client side error handler
+						}
+					});
+					
+					
+					sources.lineItems.wak_setLineItemsVerifyQuantity({
+					
+					arguments: [sources.rMA_OnSite.RMA_ID],
+						onSuccess: function(event) {
+						
+						if(event.result !=""){
+						alertify.alert(event.result);
+							};
 						}
 					});
 				}
@@ -338,11 +351,11 @@
 								reqSerial = false,
 						
 							rmaID = sources.rMA_OnSite.RMA_ID;
-							debugger;
+							
 							sources.inventory.query("SKU == :1",sku,{
 							
 								onSuccess : function(event){
-								debugger;
+							
 									if(sources.inventory.ReqSerial === true){
 										reqSerial = true;
 										if(serial === ""){
@@ -356,13 +369,24 @@
 										sources.equipment_Inventory_Used.wak_setPartsArrUsedParts(sku,used,lineItem, equipmentID,serial,rmaID,{
 					
 										onSuccess: function(event){
-						debugger;
+						
 						
 											if(event.result.substring(0,5) === "Alert"){
 												alertify.alert(event.result);
 											
 											}else{				
 												alertify.success(event.result);
+//												debugger;
+//												if(sources.partsArr.Origin != "Trunk") {
+//													
+//													if(sources.partsArr.Used != sources.partsArr.Quantity){
+//														
+//														if(sources.partsArr.Status = "Update Status"){
+//															alertify.alert("Quantity used does not match quantity shipped. Please indicate if additional parts were: returned to NSC, left with customer, or returned to trunk.");
+//														}
+//													}
+//												}
+												
 											}
 								
 								
@@ -403,18 +427,15 @@
 			
 			function savePartUsedSerial(sku, used, lineItem, equipmentID, serial) {
 		
-//					if( serial === 'Required'){
-//					
-//					alertify.alert("Please enter the printhead serial number.");
-					
-//				}else{
+
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
 					used = used.toString();
+		
 						sources.lineItems.wak_setPartsArrSerial(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
-//					
+		
 
 					if(event.result.substring(0,5) === "Alert"){
 							alertify.alert(event.result);
@@ -430,16 +451,7 @@
 						alertify.success(event.result);
 					}
 
-//						alertify.success(event.result);
-//							var rmaid = sources.rMA_OnSite.RMA_ID;
-//							sources.equipment_Encounters.wak_getPartsArr({
-//							arguments: [rmaid],
-//								onSuccess: function(event) {
-//								partsArr = JSON.parse(event.result);
-//								sources.partsArr.sync();
-//						
-//									}
-//								});
+
 						},
 					onError: function(event){
 						alertify.error(event.result);
@@ -447,9 +459,44 @@
 					
 				
 				});
-//			}
 
 			}
+			
+//			function savePartUsedStatus(sku, used, lineItem, equipmentID, status) {
+//		
+
+//				var equipmentID = sources.equipmentArr.EquipmentID,
+//					rmaID = sources.rMA_OnSite.RMA_ID;
+//					used = used.toString();
+//						sources.lineItems.wak_setPartsArrStatus(sku,used,lineItem, equipmentID,status,rmaID,{
+//				
+//					onSuccess: function(event){
+////					
+
+//					if(event.result.substring(0,5) === "Alert"){
+//							alertify.alert(event.result);
+//							sources.equipment_Encounters.wak_getPartsArr({
+//								arguments: [rmaID],
+//								onSuccess: function(event) {
+//								partsArr = JSON.parse(event.result);
+//								sources.partsArr.sync();
+//		
+//								}
+//						});
+//					}else{				
+////						alertify.success(event.result);
+//					}
+
+
+//						},
+//					onError: function(event){
+//						alertify.error(event.result);
+//					}
+//					
+//				
+//				});
+
+//			}
 			
 			
 
@@ -492,6 +539,19 @@
 					}
 				}
 			},"WAF","Serial");
+			
+//			WAF.addListener("partsArr","onStatusAttributeChange", function(event) {
+//				if (event.eventKind === "onCurrentElementChange") {
+//					oldPartsArrStatusVal = sources.partsArr.Status;
+//				}
+//				if (event.eventKind === "onAttributeChange") {
+//					debugger;
+//					if (sources.partsArr.Status != oldPartsArrStatusVal) { //using != because these were bouncing between number and string
+//		
+//						savePartUsedStatus(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Status);
+//					}
+//				}
+//			},"WAF","Serial");
 			
 			//clicking on a used cell in the used column of the parts grid
 			WAF.addListener(partsGrid, "onCellClick", function(event) {
