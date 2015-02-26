@@ -54,19 +54,7 @@
 				oldPartsArrUsedVal;
 
 	
-//			function getLockedStatus(lockedTable, lockedField){
-//			
-//				sources.web_Access.wak_getLockedStatus(lockedTable, lockedField,{
-//					
-////					onSuccess : function(event){
-////					
-////					lockedRMA = event.result;
-//					
-////					}
-//					
-//				});
-//			}
-	
+
 			function displayRepairDetail(rmaid) {
 				
 				var lockedRMA = false;
@@ -88,10 +76,9 @@
 					onSuccess: function () {
 			
 						
-//						lockedRMA = getLockedStatus('RMA_OnSite',sources.rMA_OnSite.RMA_OnSiteUUID);
 						
 						sources.web_Access.wak_getLockedStatus('RMA_OnSite',sources.rMA_OnSite.RMA_OnSiteUUID,{
-//						sources.web_Access.wak_getLockedStatus('RMA_OnSite',sources.rMA_OnSite.getKey(),{
+
 					
 							onSuccess : function(event){
 						
@@ -176,7 +163,7 @@
 						var vCompanyID = cs.rMA.CompanyID;
 						
 							repairGaloRmaNumber.setValue(cs.rMA.GALO_RMA_Number);
-//							rmaComplete.setValue(cs.rMA.RMAComplete);
+//						
 						
 						if(cs.rMA.RMAComplete == true){
 						
@@ -580,7 +567,34 @@
        		});
        		
        		rmaComplete.addListener("change", function() {
-//				cs.rMA.RMAComplete = 'true';
+				debugger;
+				var notComplete = false;
+				if(rmaComplete.getValue() === true){
+				
+				if(repairTripsRequired.getValue() === "0"){
+				notComplete = true;
+				}
+				
+				if(repairApprovedTravel.getValue() === "0"){
+				notComplete = true;
+				}
+				
+				if(repairApprovedLabor.getValue() === "0"){
+				notComplete = true;
+				}
+				
+				if(repairMileage.getValue() === "0"){
+				notComplete = true;
+				}
+				
+				if(notComplete){
+				alertify.alert("You must enter a value for trips, travel, labor and mileage.");
+				rmaComplete.setValue() = false;
+				
+				}
+				
+				
+				}
 			});
 
 
