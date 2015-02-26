@@ -269,21 +269,24 @@
 							sources.transactions.Status = "Precompleted" ; //todo swh: install client side error handler
 							sources.transactions.save({
 								onSuccess: function() {
+									
+									sources.lineItems.wak_setLineItemsVerifyQuantity({
+					
+									arguments: [sources.rMA_OnSite.RMA_ID],
+										onSuccess: function(event) {
+						
+											if(event.result !=""){
+											alertify.alert(event.result);
+											};
+										}
+									});
+									
 								}
 							});
 						}
 					});
 					
-						sources.lineItems.wak_setLineItemsVerifyQuantity({
 					
-						arguments: [sources.rMA_OnSite.RMA_ID],
-							onSuccess: function(event) {
-						
-							if(event.result !=""){
-								alertify.alert(event.result);
-							};
-							}
-						});
 					
 					
 					}
