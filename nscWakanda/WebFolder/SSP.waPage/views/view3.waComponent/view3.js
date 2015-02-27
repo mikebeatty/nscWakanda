@@ -379,7 +379,7 @@
 											
 											}else{				
 												alertify.success(event.result);
-//												debugger;
+//											
 //												if(sources.partsArr.Origin != "Trunk") {
 //													
 //													if(sources.partsArr.Used != sources.partsArr.Quantity){
@@ -434,7 +434,7 @@
 				var equipmentID = sources.equipmentArr.EquipmentID,
 					rmaID = sources.rMA_OnSite.RMA_ID;
 					used = used.toString();
-		debugger;
+	
 						sources.lineItems.wak_setPartsArrSerial(sku,used,lineItem, equipmentID,serial,rmaID,{
 				
 					onSuccess: function(event){
@@ -450,7 +450,8 @@
 		
 								}
 						});
-					}else{				
+					}else{			
+					debugger;	
 						alertify.success(event.result);
 					}
 
@@ -514,34 +515,42 @@
 
 						if (event.eventKind === "onCurrentElementChange") {
 							oldPartsArrUsedVal = sources.partsArr.Used;
+							oldPartsArrSerialVal = sources.partsArr.Serial;
 						}
 						if (event.eventKind === "onAttributeChange") {
-							debugger;
-
+						
+							if (sources.partsArr.Serial != oldPartsArrSerialVal) { //using != because these were bouncing between number and string
+			
+								savePartUsedSerial(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
+							}
+							
 							if(typeof oldPartsArrUsedVal != 'undefined'){
 								if (sources.partsArr.Used != oldPartsArrUsedVal) { //using != because these were bouncing between number and string
 
 									savePartUsed(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
 										
-
 								}
 							}
 						}
 					
 				});
+				
+				
+//				WAF.addListener("partsArr","onSerialAttributeChange", function(event) {
+//					if (event.eventKind === "onCurrentElementChange") {
+//						oldPartsArrSerialVal = sources.partsArr.Serial;
+//					}
+//					if (event.eventKind === "onAttributeChange") {
+//	//					debugger;
+//						if (sources.partsArr.Serial != oldPartsArrSerialVal) { //using != because these were bouncing between number and string
+//			
+//							savePartUsedSerial(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
+//						}
+//				}
+//			},"WAF","Serial");
 			}
 			
-			WAF.addListener("partsArr","onSerialAttributeChange", function(event) {
-				if (event.eventKind === "onCurrentElementChange") {
-					oldPartsArrSerialVal = sources.partsArr.Serial;
-				}
-				if (event.eventKind === "onAttributeChange") {
-					if (sources.partsArr.Serial != oldPartsArrSerialVal) { //using != because these were bouncing between number and string
-		
-						savePartUsedSerial(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
-					}
-				}
-			},"WAF","Serial");
+
 			
 //			WAF.addListener("partsArr","onStatusAttributeChange", function(event) {
 //				if (event.eventKind === "onCurrentElementChange") {
@@ -567,7 +576,7 @@
        		});
        		
        		rmaComplete.addListener("change", function() {
-				debugger;
+			
 				var notComplete = false;
 				if(rmaComplete.getValue() === true){
 				

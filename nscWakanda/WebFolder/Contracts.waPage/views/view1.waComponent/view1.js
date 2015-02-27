@@ -29,6 +29,7 @@ function constructor (id) {
 			oldequipmentArrProblemVal = "",
 			equipmentProblemEntered = false,
 			message = "",
+			equipmentArrPrime = [],
 			contractAddressFld = cw.textField10;
 			
 		function displayContractDetail(contractID) {
@@ -51,6 +52,9 @@ function constructor (id) {
 			   			onSuccess: function(event) {
 			 			equipmentArr = JSON.parse(event.result);
 				   		sources.equipmentArr.sync();
+				   		
+				   		equipmentArrPrime = [];
+				   		equipmentArrPrime = _.extend(equipmentArrPrime, equipmentArr);
 
 			   			}
 		   			});
@@ -119,7 +123,7 @@ function constructor (id) {
 					if(rmaid > 0){
 					alertify.alert("RMA "+rmaid+" has been created.");
 					displayContractDetail(contractID);
-//					sources.equipmentArr.Problem
+
 					
 					}else{
 					
@@ -155,20 +159,31 @@ function constructor (id) {
 		   		sources.equipmentArr.query("Serial == :1",vSerial,{
 			
 			   onSuccess: function(event) {
-				   
+
 			   }
 		   });
 		   }else{
-//		   	
-		 
-		   	sources.equipment_Encounters.wak_getContractPrintersArr({
-			   	arguments: [contractID],
-			   	onSuccess: function(event) {
-			 		equipmentArr = JSON.parse(event.result);
-				   	sources.equipmentArr.sync();
-		  			}
-		  
-		  		});
+	
+			equipmentArr = _.extend(equipmentArr, equipmentArrPrime);
+			sources.equipmentArr.sync();
+//		 	sources.equipmentArr = equipmentArrPrime;
+//		 	vSerial = "";
+//		 	sources.equipmentArr.query("Serial !== :1",vSerial,{
+//			
+//			   onSuccess: function(event) {
+
+//			   }
+//			  });
+
+	
+//		   	sources.equipment_Encounters.wak_getContractPrintersArr({
+//			   	arguments: [contractID],
+//			   	onSuccess: function(event) {
+//			 		equipmentArr = JSON.parse(event.result);
+//				   	sources.equipmentArr.sync();
+//		  			}
+//		  
+//		  		});
 		   
 	   		}	
 			
