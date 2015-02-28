@@ -580,7 +580,7 @@
 				var notComplete = false;
 				if(rmaComplete.getValue() === true){
 				
-				if(repairTripsRequired.getValue() === "0"){
+				if((repairTripsRequired.getValue() === "0") || (repairApprovedTravel.getValue() === "0")){
 				notComplete = true;
 				}
 				
