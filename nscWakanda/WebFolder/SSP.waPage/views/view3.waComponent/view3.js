@@ -56,7 +56,7 @@
 	
 
 			function displayRepairDetail(rmaid) {
-				
+			
 				var lockedRMA = false;
 	
 					transactionNotes.enable();
@@ -76,7 +76,8 @@
 					onSuccess: function () {
 			
 						
-						
+						var lockedRMA = false;
+					
 						sources.web_Access.wak_getLockedStatus('RMA_OnSite',sources.rMA_OnSite.RMA_OnSiteUUID,{
 
 					
@@ -451,7 +452,7 @@
 								}
 						});
 					}else{			
-					debugger;	
+				
 						alertify.success(event.result);
 					}
 
@@ -466,42 +467,7 @@
 
 			}
 			
-//			function savePartUsedStatus(sku, used, lineItem, equipmentID, status) {
-//		
 
-//				var equipmentID = sources.equipmentArr.EquipmentID,
-//					rmaID = sources.rMA_OnSite.RMA_ID;
-//					used = used.toString();
-//						sources.lineItems.wak_setPartsArrStatus(sku,used,lineItem, equipmentID,status,rmaID,{
-//				
-//					onSuccess: function(event){
-////					
-
-//					if(event.result.substring(0,5) === "Alert"){
-//							alertify.alert(event.result);
-//							sources.equipment_Encounters.wak_getPartsArr({
-//								arguments: [rmaID],
-//								onSuccess: function(event) {
-//								partsArr = JSON.parse(event.result);
-//								sources.partsArr.sync();
-//		
-//								}
-//						});
-//					}else{				
-////						alertify.success(event.result);
-//					}
-
-
-//						},
-//					onError: function(event){
-//						alertify.error(event.result);
-//					}
-//					
-//				
-//				});
-
-//			}
-			
 			
 
 			//event handlers
@@ -536,47 +502,24 @@
 				});
 				
 				
-//				WAF.addListener("partsArr","onSerialAttributeChange", function(event) {
-//					if (event.eventKind === "onCurrentElementChange") {
-//						oldPartsArrSerialVal = sources.partsArr.Serial;
-//					}
-//					if (event.eventKind === "onAttributeChange") {
-//	//					debugger;
-//						if (sources.partsArr.Serial != oldPartsArrSerialVal) { //using != because these were bouncing between number and string
-//			
-//							savePartUsedSerial(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Serial);
-//						}
-//				}
-//			},"WAF","Serial");
+
 			}
 			
 
 			
-//			WAF.addListener("partsArr","onStatusAttributeChange", function(event) {
-//				if (event.eventKind === "onCurrentElementChange") {
-//					oldPartsArrStatusVal = sources.partsArr.Status;
-//				}
-//				if (event.eventKind === "onAttributeChange") {
-//					debugger;
-//					if (sources.partsArr.Status != oldPartsArrStatusVal) { //using != because these were bouncing between number and string
-//		
-//						savePartUsedStatus(sources.partsArr.SKU, sources.partsArr.Used, sources.partsArr.LineItem,sources.partsArr.equipmentID,sources.partsArr.Status);
-//					}
-//				}
-//			},"WAF","Serial");
 			
 			//clicking on a used cell in the used column of the parts grid
 			WAF.addListener(partsGrid, "onCellClick", function(event) {
 			
 				WakUtils.gridEditCell(partsGrid, event.data.columnNumber, event.data.row.rowNumber);
-			});
+				});
 
 			WAF.addListener(equipmentGrid, "onRowClick", function() {
 				displayPartsDetail();
        		});
        		
        		rmaComplete.addListener("change", function() {
-			
+
 				var notComplete = false;
 				if(rmaComplete.getValue() === true){
 				
@@ -598,7 +541,7 @@
 				
 				if(notComplete){
 				alertify.alert("You must enter a value for trips, travel, labor and mileage.");
-				rmaComplete.setValue() = false;
+				rmaComplete.setValue(false);
 				
 				}
 				
