@@ -557,20 +557,20 @@
 //			location.href = $filepath "http://" + window.location.host + "/getReport?" + cs.reportInstance.uuid;
 			
 				//save button click
-			saveBtn.addListener("click", function() {
+			saveBtn.addListener("click", _.debounce(function() {
 				saveRepair();
-			});
+				}, 300, true));
 
 			//cancel button click
-			cancelBtn.addListener("click", function() {
+			cancelBtn.addListener("click",  _.debounce(function() {
 				alertify.error("Changes cancelled.");
 				displayRepairDetail();
-			});
+					}, 300, true));
 			
-			fieldsheetBtn.addListener("click", function() {
+			fieldsheetBtn.addListener("click", _.debounce(function() {
 				var rmaID = sources.rMA_OnSite.RMA_ID;
 				window.open("http://" + window.location.host + "/docProxy?" + rmaID);
-			});
+				}, 300, true));
 			
 			repairEquipSolutionField.addListener("change", function(){
 				sources.equipment_Encounters.save({

@@ -88,15 +88,24 @@ Wap.page = (function() {
 	}
 	
 	//attempt to login when user clicks the login button
-    WAF.addListener(loginBtn, "click", function(event) {
+    WAF.addListener(loginBtn, "click", _.debounce(function() {
         login();
-    });
+    }, 300, true));
+//    
+//    //request the password reminder dialog
+    WAF.addListener(passwordReminderBtn, "click", _.debounce(function() {
+        passwordReminder();
+    }, 300, true));
+
+//    WAF.addListener(loginBtn, "click",function() {
+//        login();
+//    });
     
     //request the password reminder dialog
-    WAF.addListener(passwordReminderBtn, "click", function(event) {
-        passwordReminder();
-    });
-    
+//    WAF.addListener(passwordReminderBtn, "click", function() {
+//        passwordReminder();
+//     });
+//    
     //if the user clicks the return key we will go ahead and login
     $("#"+passwordFld.id).keydown(function (event) {
 		if (event.which === 13) {
