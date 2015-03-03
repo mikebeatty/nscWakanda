@@ -36,7 +36,7 @@ var cs = $comp.sources,
 		cs.warehouses.query('VendorID == :1',vVendorID,{
 			onSuccess: function () {
 //		var WareHouseID = '467';
-
+debugger;
 				var wareHouseID = cs.warehouses.WareHouseID;
 
 

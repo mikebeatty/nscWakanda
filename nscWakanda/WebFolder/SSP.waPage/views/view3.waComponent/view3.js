@@ -76,7 +76,7 @@
 				sources.rMA_OnSite.query("RMA_ID == :1", rmaid, {
 					onSuccess: function () {
 			
-						
+//						alertify.alert(sources.rMA_OnSite.RMA_OnSiteUUID);
 						var lockedRMA = false;
 					
 						sources.web_Access.wak_getLockedStatus('RMA_OnSite',sources.rMA_OnSite.RMA_OnSiteUUID,{

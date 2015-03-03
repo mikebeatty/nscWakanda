@@ -15,7 +15,7 @@ WAF.onAfterInit = function() {
    	//module API, declaring variables, defining functions
 //=================================================================================================
 
-   	debugger;
+
    	
        var viewsGrid = $$("dataGrid1"),//viewsGrid = $$("component1"),
 		   viewInventoryBtn = $$("button3"),//equiment
@@ -139,7 +139,7 @@ WAF.onAfterInit = function() {
 				   path: view.path,
 				   userData: userData,
 				   onSuccess:function(event){
-	debugger;
+	
 					  Wap.viewComp = $$(this.id);
 					if((viewName === "bids")||(viewName === "repairs")){
 //					 displaySelectedRecord();
@@ -156,7 +156,7 @@ WAF.onAfterInit = function() {
 					}
 				   },
 				   onError: function(event){
-				debugger;
+			
 				   }
             });
            
@@ -204,7 +204,7 @@ WAF.onAfterInit = function() {
 
 	viewInventoryBtn.addListener("click", function(){
 		
-		debugger;
+	
 		setPhysicalCount.show();
 	
 		submitPhysicalCount.hide();

@@ -16,15 +16,18 @@ WAF.onAfterInit = function() {
         var viewCompWidget = $$("component1"),
             sorryText = $$("richText1"),
             uriParams,
-            GALO_ContractNum,
+            ContractID,
             clientKey;
 
         /**
          * Display a contract based on the ulr search params
          */
         function loadContract() {
-            sources.contracts.query("GALO_ContractNum == :1 and BillToCompanyID = :2", {
-                params: [GALO_ContractNum, clientKey],
+         
+//            sources.contracts.query("GALO_ContractNum == :1 and BillToCompanyID = :2", {
+//                params: [GALO_ContractNum, clientKey],
+			sources.contracts.query("ContractID == :1", {
+                params: [ContractID],
                 onSuccess: function() {
                     if (sources.contracts.length > 0) {
                         viewCompWidget.loadComponent({
@@ -48,14 +51,17 @@ WAF.onAfterInit = function() {
         //==================================== on load ========================================================================
 
         //check to see if the user is using a url with a contract id
-        GALO_ContractNum = null;
+        ContractID = null;
         clientKey = null;
         uriParams = new URI(document.URL).search(true);
         if (typeof uriParams.C !== "undefined") {
-            GALO_ContractNum = uriParams.C;
+            ContractID = uriParams.C;
         }
         if (typeof uriParams.ClientKey !== "undefined") {
             clientKey = uriParams.ClientKey;
+            if(clientKey === "0"){
+            	clientKey = "@";
+            }
         }
 
         //attempt to load the contract
