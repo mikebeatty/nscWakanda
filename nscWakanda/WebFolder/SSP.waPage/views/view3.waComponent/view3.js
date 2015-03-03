@@ -57,6 +57,7 @@
 
 			function displayRepairDetail(rmaid) {
 			
+			if(rmaid != null){
 				var lockedRMA = false;
 	
 					transactionNotes.enable();
@@ -205,7 +206,7 @@
 						});
 					}
 				});
-
+			}
 			}
 			
 			function displayPartsDetail(equipmentID){
@@ -605,7 +606,7 @@
 
 
 			//load the detail
-//			displayRepairDetail(data.userData.rmaid);
+//		
 			
 			
 

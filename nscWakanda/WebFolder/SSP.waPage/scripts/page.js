@@ -204,7 +204,7 @@ WAF.onAfterInit = function() {
 
 	viewInventoryBtn.addListener("click", function(){
 		
-		
+		debugger;
 		setPhysicalCount.show();
 	
 		submitPhysicalCount.hide();
