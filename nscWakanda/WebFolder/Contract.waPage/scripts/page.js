@@ -26,7 +26,7 @@ WAF.onAfterInit = function() {
          
 //            sources.contracts.query("GALO_ContractNum == :1 and BillToCompanyID = :2", {
 //                params: [GALO_ContractNum, clientKey],
-			sources.contracts.query("ContractID == :1", {
+			sources.contracts.query("ContractID == :1 or GALO_ContractNum == :1", {
                 params: [ContractID],
                 onSuccess: function() {
                     if (sources.contracts.length > 0) {
@@ -59,9 +59,9 @@ WAF.onAfterInit = function() {
         }
         if (typeof uriParams.ClientKey !== "undefined") {
             clientKey = uriParams.ClientKey;
-            if(clientKey === "0"){
-            	clientKey = "@";
-            }
+//            if(clientKey === "0"){
+//            	clientKey = "@";
+//            }
         }
 
         //attempt to load the contract

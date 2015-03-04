@@ -19,9 +19,16 @@ Wap.page = (function() {
 //		passwordReminder = $$("richText10");
 		passwordReminderBtn = $$("button2"),
 		passwordReminderComp = $$("component1"),
+		ContractID,
+		clientKey,
+		uriParams,
 		goToContractID;
 	
 	//attempt to login
+	
+	 
+	
+	
     function login() {
   
 		var userName = userNameFld.getValue(),
@@ -39,19 +46,11 @@ Wap.page = (function() {
 	//on whether the call to Wap.auth.login() resulted in the user
 	//authenticating
 	function onAfterLogin(event) { 
+
 		if (event.result === true) {
 
 			console.log('Login');
 			
-//			if (Wap.auth.isInGroup("Service")) {
-//				window.location = "/SSP";//Welsh had used service, defaults to index.html within the folder
-//				sources.web_Access.query('webLogOn == :1',userName);
-//				var vSSPID = sources.web_Access.companyID;
-//			} else if (Wap.auth.isInGroup("Customer")) {
-//				window.location = "/Contracts";
-//			} else { //assume Internal
-//				window.location = "/internal";
-//			}
 
 			if (Wap.auth.isInGroup("Customer")) {
 
@@ -64,24 +63,19 @@ Wap.page = (function() {
 					window.location = "/Contracts";
 				}
 
-//				sources.web_Access.query('webLogOn == :1',userName);
-//				var vCompanyID = sources.web_Access.CompanyID,
-//					emailAddress = sources.web_Access.EmailAddress;
+
 			} else if (Wap.auth.isInGroup("Service")) {
 				window.location = "/SSP";
-//				sources.web_Access.query('webLogOn == :1',userName,{
-//				
-//					onSuccess: function(event){
-//				var vSSPID = sources.web_Access.CompanyID,
-//				emailAddress = sources.web_Access.EmailAddress;
-//					}
-//				});
+
 			} else { //assume Internal
-				window.location = "/internal";
+//				window.location = "/internal";
+
+				Wap.auth.logout();
 			}
 
 
 		} else {
+
 			//errorText.setValue(event.errorMessage); //hmm Wak9 isn't returning the error message, maybe a bug?
 			errorText.show();
 		}
@@ -97,21 +91,35 @@ Wap.page = (function() {
         passwordReminder();
     }, 300, true));
 
-//    WAF.addListener(loginBtn, "click",function() {
-//        login();
-//    });
-    
-    //request the password reminder dialog
-//    WAF.addListener(passwordReminderBtn, "click", function() {
-//        passwordReminder();
-//     });
+
 //    
-    //if the user clicks the return key we will go ahead and login
+    //if the user clicks the return key we will go ahead and loginac
     $("#"+passwordFld.id).keydown(function (event) {
 		if (event.which === 13) {
 			login();
 		}
 	});
+	debugger;
+	   //check to see if the user is using a url with a contract id
+        ContractID = null;
+        clientKey = null;
+        uriParams = new URI(document.URL).search(true);
+        if (typeof uriParams.C !== "undefined") {
+           
+           ContractID = uriParams.C;
+        }
+        if (typeof uriParams.ClientKey !== "undefined") {
+            clientKey = uriParams.ClientKey;
+            if(clientKey === "0"){
+            	clientKey = "@";
+            }
+        }
+
+		if(ContractID != null){
+			debugger;
+        //attempt to load the contract
+        window.location = "/Contract/?C="+ContractID;
+    		}
 	
 }());
 
