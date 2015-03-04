@@ -29,10 +29,11 @@ console.log('page.js');
            viewComp = $$("componentDetail"),
 			viewCompLoaded = $$(viewComp.id),
 		   contractFilter = $$("textField1"),
-		   referenceFilter = $$("textField2"),
+		   serialFilter = $$("textField2"),
 		   rmaFilter = $$("textField3"),
 		   rmaReferenceFilter = $$("textField4"),
 		   rmaContractFilter = $$("textField5"),
+		   serialFilter = $$("textField7"),
 		   loggedInAs = $$("textField6"),
 //		   viewBidsRepairsBtn = $$("button7"),
 //		   viewBidFilter = $$("checkbox1"),
@@ -78,9 +79,6 @@ console.log('page.js');
 	   function displayFilteredSelection(goToContractID){
 		   var vcompanyID = sources.web_Access.CompanyID,
 		   		vAll = false;
-
-//			contractFilter.setValue("");
-//			referenceFilter.setValue("");
 			
 			vAll = viewAllFilter.getValue();
 
@@ -234,6 +232,7 @@ console.log('page.js');
 		viewsGrid.show();
 		contractFilter.show();
 		referenceFilter.show();
+		serialFilter.show();
 		rmaFilter.hide();
 		rmaReferenceFilter.hide();
 		rmaRefresh.hide();
@@ -253,6 +252,7 @@ console.log('page.js');
 		viewsGrid.hide();
 		contractFilter.hide();
 		referenceFilter.hide();
+		serialFilter.hide();
 		rmaFilter.show();
 		rmaReferenceFilter.show();
 		rmaRefresh.show();
@@ -311,6 +311,43 @@ console.log('page.js');
 					});
 				}else{
 					alertify.alert("Reference "+referenceFilter.getValue()+" not found");
+//					displayFilteredSelection();
+				}
+			}
+//	
+		});
+//	
+//	
+	});
+	
+		serialFilter.addListener("change", function(){
+	
+		debugger;
+		sources.equipment.query("SerialNumber == :1",serialFilter.getValue(),{
+//	
+			onSuccess:function(event){
+				if(sources.equipment.SerialNumber != null){
+
+					sources.equipment_Encounters.query("EquipmentID == :1",sources.equipment.SerialNumber,{
+						onSuccess:function(event){
+						sources.contracts.query("ContractID == :1",sources.equipment_Encounters.ContractID,{
+							onSuccess:function(event){
+	//				wak_getFilterResults(contractFilter.getValue())
+							if(sources.contracts.GALO_ContractNum != null){
+							var goToContractID = sources.contracts.GALO_ContractNum;
+							displayFilteredSelection(goToContractID);
+						
+								}else{
+							alertify.alert("Serial number "+serialFilter.getValue()+" not found");
+								}
+							}
+						});
+					}
+					
+					});
+				
+				}else{
+					alertify.alert("Serial number "+serialFilter.getValue()+" not found");
 //					displayFilteredSelection();
 				}
 			}
