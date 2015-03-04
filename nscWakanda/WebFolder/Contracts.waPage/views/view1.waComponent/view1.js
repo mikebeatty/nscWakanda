@@ -29,13 +29,14 @@ function constructor (id) {
 			oldequipmentArrProblemVal = "",
 			equipmentProblemEntered = false,
 			message = "",
+			selectedContractID = "",
 			equipmentArrPrime = [],
 			contractAddressFld = cw.textField10;
 			
 		function displayContractDetail(contractID) {
 
 			var companyID;
-		
+			selectedContractID = contractID;
 //			saveBtn.hide();
 		
 			//contractID = sources.contractArr.ContractID; //welsh: shouldn't need this because it is passed in as a param
@@ -97,13 +98,13 @@ function constructor (id) {
 		
 		function saveRepair() {
 //Need code here to create/save repair
-			var test = sources.equipmentArr.Reference,
-			contractID = sources.contractArr.ContractID;
+			var test = sources.equipmentArr.Reference;
+//			contractID = sources.contractArr.ContractID;
 			
 			sources.equipmentArr.sync();
 			
 			var dataObj = {
-				contractID: contractID,
+				contractID: selectedContractID,
 				contactName: contactNameFld.getValue(),
 				contactPhone: contactPhoneFld.getValue(),
 				contactFax: contactFaxFld.getValue(),
@@ -122,7 +123,7 @@ function constructor (id) {
 					
 					if(rmaid > 0){
 					alertify.alert("RMA "+rmaid+" has been created.");
-					displayContractDetail(contractID);
+					displayContractDetail(selectedContractID);
 
 					
 					}else{
@@ -150,8 +151,8 @@ function constructor (id) {
 		}
 		 function displayPrinterFilter(){
 		 
-		   var vSerial = repairPrinterFilter.getValue(),
-				contractID = sources.contractArr.ContractID;
+		   var vSerial = repairPrinterFilter.getValue();
+//				contractID = sources.contractArr.ContractID;
 
 			   
 			if(vSerial.length > 0){

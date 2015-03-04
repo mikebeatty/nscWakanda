@@ -39,7 +39,7 @@ var cs = $comp.sources,
 debugger;
 				var wareHouseID = cs.warehouses.WareHouseID;
 
-
+			if(wareHouseID != null){
 			sources.inventory_WarehouseCount.wak_getInventory({
 					arguments: [wareHouseID],
 						onSuccess: function(event) {
@@ -48,7 +48,7 @@ debugger;
 					}
 				});
 		
-	
+			}
 			}
 		});
 		

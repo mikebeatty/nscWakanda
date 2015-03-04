@@ -118,7 +118,8 @@ Wap.page = (function() {
 		if(ContractID != null){
 			debugger;
         //attempt to load the contract
-        window.location = "/Contract/?C="+ContractID;
+//        window.location = "/Contract/?C="+ContractID;
+          window.location = "/Contracts/?C="+ContractID;
     		}
 	
 }());

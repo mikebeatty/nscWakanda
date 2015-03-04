@@ -29,12 +29,13 @@ console.log('page.js');
            viewComp = $$("componentDetail"),
 			viewCompLoaded = $$(viewComp.id),
 		   contractFilter = $$("textField1"),
-		   serialFilter = $$("textField2"),
+		   referenceFilter = $$("textField2"),
 		   rmaFilter = $$("textField3"),
 		   rmaReferenceFilter = $$("textField4"),
 		   rmaContractFilter = $$("textField5"),
 		   serialFilter = $$("textField7"),
 		   loggedInAs = $$("textField6"),
+		   sorryText = $$("richText3"),
 //		   viewBidsRepairsBtn = $$("button7"),
 //		   viewBidFilter = $$("checkbox1"),
 //		   viewInProgressFilter = $$("checkbox2"),
@@ -55,6 +56,33 @@ console.log('page.js');
 //           {name: "received", path: "/SSP.waPage/views/view7.waComponent", left: 5, width: 1090}
        ];
        sources.viewsArr.sync();
+       
+       function loadContract() {
+         
+//            sources.contracts.query("GALO_ContractNum == :1 and BillToCompanyID = :2", {
+//                params: [GALO_ContractNum, clientKey],
+			sources.contracts.query("ContractID == :1 or GALO_ContractNum == :1", {
+                params: [ContractID],
+                onSuccess: function() {
+                    if (sources.contracts.length > 0) {
+                    	 sorryText.hide();
+//                        viewCompWidget.loadComponent({
+//                            onSuccess: function() {
+//                                Wap.viewComp = $$(this.id);
+//                                Wap.viewComp.displayContractDetail(sources.contracts.ContractID);
+//                            }
+//                        });
+                    } else {
+                        viewComp.hide();
+                        sorryText.show();
+                    }
+                },
+                onError: function() {
+                    viewComp.hide();
+                    sorryText.show();
+                }
+            });
+        }
 
 		function formatAddress(addressEntity){
 			var vRepairAddress;
@@ -188,15 +216,15 @@ console.log('page.js');
        }
 
        //lets make sure the user is logged in, if not kick them to the login page
-       if (Wap.auth.isLoggedIn() === false) {
+//       if (Wap.auth.isLoggedIn() === false) {
 
-           //if the url had a go to contract id, throw in local storage so the login page
-           //can put back in the url after the user logs in
-           if (goToContractID) {
-               localStorage.setItem("ContractID", goToContractID);
-           }
-           window.location = "/";
-       }
+//           //if the url had a go to contract id, throw in local storage so the login page
+//           //can put back in the url after the user logs in
+//           if (goToContractID) {
+//               localStorage.setItem("ContractID", goToContractID);
+//           }
+//           window.location = "/";
+//       }
 
 
 
@@ -322,13 +350,13 @@ console.log('page.js');
 	
 		serialFilter.addListener("change", function(){
 	
-		debugger;
+		
 		sources.equipment.query("SerialNumber == :1",serialFilter.getValue(),{
 //	
 			onSuccess:function(event){
 				if(sources.equipment.SerialNumber != null){
 
-					sources.equipment_Encounters.query("EquipmentID == :1",sources.equipment.SerialNumber,{
+					sources.equipment_Encounters.query("EquipmentID == :1",sources.equipment.Key,{
 						onSuccess:function(event){
 						sources.contracts.query("ContractID == :1",sources.equipment_Encounters.ContractID,{
 							onSuccess:function(event){
