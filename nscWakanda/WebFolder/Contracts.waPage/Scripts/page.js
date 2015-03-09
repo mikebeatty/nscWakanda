@@ -239,11 +239,10 @@ console.log('page.js');
 		displayFilteredSelection();
        });
        
-//      contractRefresh.addListener("mouseover", function() {
+		rmaRefresh.addListener("click", function() {
 
-//		$('contractRefresh').opentip("Shown after 2 seconds", { delay: 2 });
-//		displayFilteredSelection();
-//       });
+			displayFilteredSelection();
+	       });
        
      referenceRefresh.addListener("click", function() {
 //          
@@ -263,7 +262,7 @@ console.log('page.js');
 		serialFilter.show();
 		rmaFilter.hide();
 		rmaReferenceFilter.hide();
-		rmaRefresh.hide();
+//		rmaRefresh.hide();
 		rmaContractFilter.hide();
 //		contractRefresh.show();
 //		rmaRefresh.hide();
@@ -283,7 +282,7 @@ console.log('page.js');
 		serialFilter.hide();
 		rmaFilter.show();
 		rmaReferenceFilter.show();
-		rmaRefresh.show();
+//		rmaRefresh.show();
 		rmaContractFilter.show();
 //		contractRefresh.hide();
 //		rmaRefresh.show();
@@ -350,40 +349,33 @@ console.log('page.js');
 	
 		serialFilter.addListener("change", function(){
 	
-		
-		sources.equipment.query("SerialNumber == :1",serialFilter.getValue(),{
-//	
-			onSuccess:function(event){
-				if(sources.equipment.SerialNumber != null){
-
-					sources.equipment_Encounters.query("EquipmentID == :1",sources.equipment.Key,{
-						onSuccess:function(event){
-						sources.contracts.query("ContractID == :1",sources.equipment_Encounters.ContractID,{
-							onSuccess:function(event){
-	//				wak_getFilterResults(contractFilter.getValue())
-							if(sources.contracts.GALO_ContractNum != null){
-							var goToContractID = sources.contracts.GALO_ContractNum;
-							displayFilteredSelection(goToContractID);
-						
-								}else{
-							alertify.alert("Serial number "+serialFilter.getValue()+" not found");
-								}
-							}
-						});
+		debugger;
+		sources.contracts.wak_filterContractSerialNumber({
+						arguments: [serialFilter.getValue()],
+						onSuccess: function(event) {
+							debugger;
+							contractArr = JSON.parse(event.result);
+							if(contractArr.length > 0){
+				   sources.contractArr.sync();
+				   displaySelectedRecord();
+				   	}else{
+				alertify.alert("Serial number "+serialFilter.getValue()+" not found");
+					sources.contracts.query('BillToCompanyID == :1',sources.web_Access.CompanyID,{
+					onSuccess: function(event) {
+						console.log('CompanyID '+sources.web_Access.CompanyID);
 					}
-					
-					});
+				});
 				
-				}else{
-					alertify.alert("Serial number "+serialFilter.getValue()+" not found");
-//					displayFilteredSelection();
+
+				displayFilteredSelection(goToContractID);
 				}
-			}
-//	
+//						var goToContractID = sources.contracts.ContractID;
+//							displayFilteredSelection(goToContractID);
+							}
+					});
+		
+
 		});
-//	
-//	
-	});
 //	
 	
 //		This is essentially the on load portion

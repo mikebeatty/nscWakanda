@@ -14,11 +14,13 @@ Wap.auth = (function () {
 	//attempt to login the user
 	function login(email, password, callback) {
 //		WAF.directory.login(email, password , {
-		ds.PARTS.wak_Auth(email, password , {
-			
-			onSuccess: callback,
-			onError: callback
-		});
+		if(email != null){
+			ds.PARTS.wak_Auth(email, password , {
+				
+				onSuccess: callback,
+				onError: callback
+			});
+		}
 	}
 	
 	//logout the current user
