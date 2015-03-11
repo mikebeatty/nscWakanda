@@ -148,39 +148,32 @@ function constructor (id) {
 		   });
 		}
 		   
+		   
+		   
+		   
 		function displayRMAReferenceFilter(reference){
+			
+			debugger;
+			
+			sources.equipment_Encounters.wak_filterRMAReferenceNumber({
+				arguments: [rmaReferenceFilter.getValue()],
+						onSuccess: function(event) {
+				debugger;
+							companyRepairArr = JSON.parse(event.result);
+							if(companyRepairArr.length > 0){
+							   sources.companyRepairArr.sync();
+							   displaySelectedRMARecord();
+							   rmaReferenceFilter.setValue("");
+						   	}else{
+								alertify.alert("Reference number "+rmaReferenceFilter.getValue()+" not found");
+								displayFilteredSelection();
+		
+							}
 
-		   	sources.equipment_Encounters.query("ThirdPartyID == :1",reference,{
-//			
-			   onSuccess: function(event) {
+					}
+			});
 
-				   
-				   if(sources.companyRepairArr.length === 0){
-				   debugger;
-				   		displayFilteredSelection();
-//				   	
-				   }else{
-				    var rmaid = sources.equipment_Encounters.TransactionID;
-				    if(rmaid != null){
-					   		sources.companyRepairArr.query("RMAID == :1",rmaid,{
-	//				   
-					    		onSuccess: function(event) {
-					   				if(sources.companyRepairArr.length === 0){
-					   				alertify.alert("Reference number "+reference+" could not be found.");
-					   				rmaReferenceFilter.setValue("");
-					   				}else{
-					   					displaySelectedRMARecord();
-					   					rmaReferenceFilter.setValue("");
-					   				}
-					   			}
-					   		});
-				   		}else{
-				   		alertify.alert("Reference number "+reference+" could not be found.");
-				  		rmaReferenceFilter.setValue("");
-				   	}
-				   }
-			   }
-		   });
+		  
 		}
 		
 		function displayContractNumberFilter(contractNumber){
@@ -194,19 +187,7 @@ function constructor (id) {
 					   		rmaContractFilter.setValue("");
 	//				   	
 					   }else{
-//					   	displayFilteredSelection();
-//							sources.companyRepairArr.query("RMAID == :1",sources.companyRepairArr.RMAID,{
-//	//				   
-//					    		onSuccess: function(event) {
-//					    			debugger;
-//					   				if(sources.companyRepairArr.length === 0){
-//						   				alertify.alert("Contract "+contractNumber+" could not be found.");
-//						   				}else{
-//					   					displaySelectedRMARecord();
-//					   					rmaContractFilter.setValue("");
-//					   					}
-//					   			}
-//							});
+
 						}
 					}
 				});
@@ -299,7 +280,7 @@ function constructor (id) {
 	});
 	
 	rmaReferenceFilter.addListener("change", function(){
-		
+		debugger;
 //		rmaFilter.setValue("");
 //		rmaContractFilter.setValue("");
 		var reference = rmaReferenceFilter.getValue();

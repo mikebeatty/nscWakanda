@@ -143,12 +143,6 @@ console.log('page.js');
 		   var contractID = sources.contractArr.ContractID,
 			   loadView;
 		
-		   //determine which view should be displayed based on the currently selected repairsArr row
-//		   if (sources.repairsArr.Status === "Repair") {
-//			   loadView = "repairs";
-//		   } else {
-//			   loadView = "bids";
-//		   }
 
 			loadView = "contract";
 //			loadView = sources.viewsArr.getAttributeValue('name');
@@ -167,6 +161,35 @@ console.log('page.js');
 
 		   currentView = loadView;
         }
+        
+        function displayReferenceFilter(reference){
+        debugger;
+        	sources.equipment_Encounters.wak_filterContractReferenceNum({
+				arguments: [referenceFilter.getValue()],
+					onSuccess: function(event) {
+			debugger;
+						contractArr = JSON.parse(event.result);
+						if(contractArr.length > 0){
+					   sources.contractArr.sync();
+					   displaySelectedRecord();
+					   	}else{
+						alertify.alert("Reference number "+referenceFilter.getValue()+" was not found. Please check the Repairs tab and verify the contract.");
+						sources.contracts.query('BillToCompanyID == :1',sources.web_Access.CompanyID,{
+						onSuccess: function(event) {
+							console.log('CompanyID '+sources.web_Access.CompanyID);
+						}
+					});
+				
+
+				displayFilteredSelection(goToContractID);
+				}
+
+			}
+		});
+        
+        
+       }
+        
         
        function goToView(viewName, userData) {
     
@@ -319,56 +342,11 @@ console.log('page.js');
 	referenceFilter.addListener("change", function(){
 	
 
-		sources.contracts.wak_filterContractReferenceNum({
-				arguments: [referenceFilter.getValue()],
-						onSuccess: function(event) {
-							debugger;
-							contractArr = JSON.parse(event.result);
-							if(contractArr.length > 0){
-				   sources.contractArr.sync();
-				   displaySelectedRecord();
-				   	}else{
-				alertify.alert("Reference number "+referenceFilter.getValue()+" not found");
-					sources.contracts.query('BillToCompanyID == :1',sources.web_Access.CompanyID,{
-					onSuccess: function(event) {
-						console.log('CompanyID '+sources.web_Access.CompanyID);
-					}
-				});
-				
+		var reference = referenceFilter.getValue();
+		if (reference != ""){
+			displayReferenceFilter(reference);
+		}
 
-				displayFilteredSelection(goToContractID);
-				}
-//						var goToContractID = sources.contracts.ContractID;
-//							displayFilteredSelection(goToContractID);
-							}
-					});
-
-//		sources.equipment_Encounters.query("ThirdPartyID == :1",referenceFilter.getValue(),{
-////	
-//			onSuccess:function(event){
-//				if(sources.equipment_Encounters.ThirdPartyID != null){
-
-//					sources.contracts.query("ContractID == :1",sources.equipment_Encounters.ContractID,{
-//						onSuccess:function(event){
-////				wak_getFilterResults(contractFilter.getValue())
-//						if(sources.contracts.GALO_ContractNum != null){
-//						var goToContractID = sources.contracts.GALO_ContractNum;
-//						displayFilteredSelection(goToContractID);
-//					
-//							}else{
-//						alertify.alert("Reference "+referenceFilter.getValue()+" not found");
-//							}
-//						}
-//					});
-//				}else{
-//					alertify.alert("Reference "+referenceFilter.getValue()+" not found");
-////					displayFilteredSelection();
-//				}
-//			}
-////	
-//		});
-//	
-//	
 	});
 	
 		serialFilter.addListener("change", function(){
