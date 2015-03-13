@@ -569,6 +569,7 @@
 					}, 300, true));
 			
 			fieldsheetBtn.addListener("click", _.debounce(function() {
+				alertify.alert("Fieldsheet is being prepared. Please stand by.");
 				var rmaID = sources.rMA_OnSite.RMA_ID;
 				window.open("http://" + window.location.host + "/docProxy?" + rmaID);
 				}, 300, true));
