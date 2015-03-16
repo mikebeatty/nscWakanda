@@ -263,65 +263,68 @@ function constructor (id) {
 	WAF.addListener(repairGrid, "onRowClick", function() {
 				displaySelectedRMARecord();
        		});
-       		
 
-       		
-       		
-    rmaFilter.addListener("change", function(){
-		
+
+    if (!Wap.page.repairCompHasBeenLoaded) {
+        Wap.page.repairCompHasBeenLoaded = true;
+
+        rmaFilter.addListener("change", function(){
+
 //		rmaReferenceFilter.setValue("");
 //		rmaContractFilter.setValue("");
-		
-		var rmaid = rmaFilter.getValue();
-		if (rmaid != ""){
-			displayRMAFilter(rmaid);
-		}
-	
-	});
-	
-	rmaReferenceFilter.addListener("change", function(){
-		debugger;
+
+            var rmaid = rmaFilter.getValue();
+            if (rmaid != ""){
+                displayRMAFilter(rmaid);
+            }
+
+        });
+
+        rmaReferenceFilter.addListener("change", function(){
+            debugger;
 //		rmaFilter.setValue("");
 //		rmaContractFilter.setValue("");
-		var reference = rmaReferenceFilter.getValue();
-		if (reference != ""){
-			displayRMAReferenceFilter(reference);
-		}
-	
-	});
-	
-	rmaContractFilter.addListener("change", function(){
-			
+            var reference = rmaReferenceFilter.getValue();
+            if (reference != ""){
+                displayRMAReferenceFilter(reference);
+            }
+
+        });
+
+        rmaContractFilter.addListener("change", function(){
+
 //		rmaFilter.setValue("");
 //		rmaReferenceFilter.setValue("");
-		var contractNumber = rmaContractFilter.getValue();
-		if (contractNumber != ""){
-			displayContractNumberFilter(contractNumber);
-		}
-	
-	});
-	
-	
-	contractRefresh.addListener("click", function() {
+            var contractNumber = rmaContractFilter.getValue();
+            if (contractNumber != ""){
+                displayContractNumberFilter(contractNumber);
+            }
 
-		displayFilteredSelection();
-       });
-       
-    rmaRefresh.addListener("click", function() {
+        });
 
-		displayFilteredSelection();
-       });
-       
-    referenceRefresh.addListener("click", function() {
 
-		
-		displayFilteredSelection();
-       });
-       
+        contractRefresh.addListener("click", function() {
+
+            displayFilteredSelection();
+        });
+
+        rmaRefresh.addListener("click", function() {
+
+            displayFilteredSelection();
+        });
+
+        referenceRefresh.addListener("click", function() {
+
+
+            displayFilteredSelection();
+        });
+
         viewAllFilter.addListener("click", function() {
 //           goToView(sources.viewsArr.name);
-		displayFilteredSelection();
-       });
+            displayFilteredSelection();
+        });
+    }
+
 //       		WAF.addListener(repairGrid, "onRowClick", function() {
 //				displayRepairDetail();
 //       		});

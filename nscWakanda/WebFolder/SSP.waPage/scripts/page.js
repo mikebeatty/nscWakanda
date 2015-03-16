@@ -288,20 +288,18 @@ WAF.onAfterInit = function() {
     		});
 //			
 	
-	printPhysicalCount.addListener("click", function(){
+	printPhysicalCount.addListener("click", _.debounce(function(){
 	
 //		alertify.alert("Inventory list has been created.");
-	
-	
-			var vVendorID = sources.web_Access.CompanyID;
-			sources.warehouses.query('VendorID == :1',vVendorID,{
-				onSuccess: function () {
 
-				var warehouseID = sources.warehouses.WareHouseID;
-					window.open("http://" + window.location.host + "/docProxy?"+"Inventory"+ warehouseID);
-					}	
-				});
-			});
+        var vVendorID = sources.web_Access.CompanyID;
+        sources.warehouses.query('VendorID == :1',vVendorID,{
+            onSuccess: function () {
+                var warehouseID = sources.warehouses.WareHouseID;
+                window.open("http://" + window.location.host + "/docProxy?"+"Inventory"+ warehouseID);
+            }
+        });
+    }, 300, true));
 		
 	
 //		This is essentially the on load portion

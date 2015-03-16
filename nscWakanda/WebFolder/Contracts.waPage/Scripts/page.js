@@ -163,11 +163,11 @@ console.log('page.js');
         }
         
         function displayReferenceFilter(reference){
-        debugger;
+        //debugger;
         	sources.equipment_Encounters.wak_filterContractReferenceNum({
 				arguments: [referenceFilter.getValue()],
 					onSuccess: function(event) {
-			debugger;
+			//debugger;
 						contractArr = JSON.parse(event.result);
 						if(contractArr.length > 0){
 					   sources.contractArr.sync();
@@ -378,7 +378,6 @@ console.log('page.js');
 		
 
 		});
-//	
 	
 //		This is essentially the on load portion
 //		var vSSPID = '38789';
@@ -400,7 +399,7 @@ console.log('page.js');
 			}
 			
 		});
-		
+
 
 
 
@@ -412,9 +411,12 @@ console.log('page.js');
 //public API, where we place functions we want accessible from outside environment
 //=================================================================================================
         return {
-           goToView: goToView//Wap.page.goToView()
-           
-//          formatAddress: formatAddress
+           goToView: goToView, //Wap.page.goToView()
+
+            //SWH: all the code for the repair search widgets should be in here, but they are in the js file
+            //of the repairs (view2) component.  Rather than re-writing for now, just gonna make sure the
+            //event handlers are only installed once.
+            repairCompHasBeenLoaded: false
  
         };
 

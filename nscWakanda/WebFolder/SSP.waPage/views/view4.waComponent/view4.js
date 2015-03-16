@@ -56,6 +56,7 @@ debugger;
 		
 		inventoryGrid.hide();
 		inventoryCountGrid.show();
+		$("#" + inventoryCountGrid.id).css("z-index", "99");
 //		addItem.show();
 
 		
@@ -73,6 +74,7 @@ debugger;
 //		addItemComp.loadComponent();
 			addItemDialog.setValue("");
 			addItemDialog.show();
+			$("#" + addItemDialog.id).css("z-index", "100");
 			addItemDescription.setValue("");
 			addItemSave.disable();
 			addItemQuantity.setValue("");
