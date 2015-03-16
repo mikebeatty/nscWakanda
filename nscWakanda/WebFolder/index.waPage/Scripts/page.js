@@ -119,7 +119,7 @@ Wap.page = (function() {
 			debugger;
         //attempt to load the contract
 //        window.location = "/Contract/?C="+ContractID;
-          window.location = "/Contracts/?C="+ContractID;
+          window.location = "/Contract/?C="+ContractID;
     		}
 	
 }());
