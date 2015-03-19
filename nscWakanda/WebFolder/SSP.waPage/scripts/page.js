@@ -98,10 +98,15 @@ WAF.onAfterInit = function() {
 			   loadView;
 
 		   //determine which view should be displayed based on the currently selected repairsArr row
-		   if (sources.repairsArr.Status === "Repair") {
-			   loadView = "repairs";
-		   } else {
+//		   if (sources.repairsArr.Status === "Repair") {
+//			   loadView = "repairs";
+//		   } else {
+//			   loadView = "bids";
+//		   }
+  if (sources.repairsArr.Status === "Open") {
 			   loadView = "bids";
+		   } else {
+			   loadView = "repairs";
 		   }
 
 		   //display the data for the currently selected repairsArr row
