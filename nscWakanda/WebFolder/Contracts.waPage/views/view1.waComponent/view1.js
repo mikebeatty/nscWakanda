@@ -102,7 +102,7 @@ function constructor (id) {
 //			contractID = sources.contractArr.ContractID;
 			
 			sources.equipmentArr.sync();
-			
+		
 			var dataObj = {
 				contractID: selectedContractID,
 				contactName: contactNameFld.getValue(),
@@ -113,7 +113,7 @@ function constructor (id) {
 				equipmentArr: equipmentArr
 			};
 		
-		
+		alertify.success("Processing request. Please wait.");
 			
 			var rmaid = sources.rMA.wak_createRMAOnsite({
 			arguments: dataObj,

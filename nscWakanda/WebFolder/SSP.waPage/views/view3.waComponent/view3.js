@@ -284,6 +284,10 @@
 
 					sources.rMA_OnSite.save({
 						onSuccess: function() {
+							debugger;
+							sources.timeStamps.wak_timestamp(sources.rMA_OnSite.RMA_ID,"Arrival");
+							sources.timeStamps.wak_timestamp(sources.rMA_OnSite.RMA_ID,"Departure");
+							
 							alertify.success("Record has been saved.");
 						},
 						onError: function(event) {
@@ -297,7 +301,7 @@
 
 						},
 						onError: function(event) {
-							alert("There was a problem saving this record -- your changes have not been saved."); //todo swh: install client side error handler
+							alert("There was a problem saving the equipment encounter record -- your changes have not been saved."); //todo swh: install client side error handler
 						}
 					});
 					
@@ -306,7 +310,7 @@
 							
 						},
 						onError: function(event) {
-							alert("There was a problem saving this record -- your changes have not been saved."); //todo swh: install client side error handler
+							alert("There was a problem saving the RMA record -- your changes have not been saved."); //todo swh: install client side error handler
 						}
 					});
 					
@@ -382,7 +386,7 @@
 											}else{				
 												alertify.success(event.result);
 //											
-//												if(sources.partsArr.Origin != "Trunk") {
+												if(sources.partsArr.Origin === "Trunk") {
 //													
 //													if(sources.partsArr.Used != sources.partsArr.Quantity){
 //														
@@ -390,7 +394,7 @@
 //															alertify.alert("Quantity used does not match quantity shipped. Please indicate if additional parts were: returned to NSC, left with customer, or returned to trunk.");
 //														}
 //													}
-//												}
+												}
 												
 											}
 								
