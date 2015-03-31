@@ -252,7 +252,8 @@
 					sources.rMA_OnSite.DepartureTime = WakUtils.convertTimeStringTo4DTime(repairDepartTimeField.getValue());
 					
 					if(rmaComplete.getValue() === true){
-//					cs.rMA.RMAStatus = "Precompleted";
+					sources.timeStamps.wak_timestamp(sources.rMA_OnSite.RMA_ID,"Precompleted");
+					
 					sources.transactions.query("Transaction_ID == :1",sources.rMA_OnSite.RMA_ID,{
 	//				
 						onSuccess: function() {
