@@ -19,9 +19,11 @@ Wap.page = (function() {
 //		passwordReminder = $$("richText10");
 		passwordReminderBtn = $$("button2"),
 		passwordReminderComp = $$("component1"),
+		logoComp = $$("componentLogo"),
 		ContractID,
 		clientKey,
 		uriParams,
+		url,
 		goToContractID;
 	
 	//attempt to login
@@ -62,6 +64,7 @@ Wap.page = (function() {
 				} else {
 					window.location = "/Contracts";
 				}
+				
 
 
 			} else if (Wap.auth.isInGroup("Service")) {
@@ -104,6 +107,15 @@ Wap.page = (function() {
         ContractID = null;
         clientKey = null;
         uriParams = new URI(document.URL).search(true);
+        
+        url = document.URL;
+        if(url === "*zebra*"){
+//        	logoComp.show();
+        	logoComp.loadComponent();
+        }else{
+//        	logoComp.loadComponent();
+        }
+        
         if (typeof uriParams.C !== "undefined") {
            
            ContractID = uriParams.C;
