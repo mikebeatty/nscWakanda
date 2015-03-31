@@ -212,7 +212,8 @@
 			function displayPartsDetail(equipmentID){
 
 //				sources.equipment_Encounters.query("EquipmentID == :1", {
-	sources.equipment_Encounters.query("EquipmentID == :1",sources.equipmentArr.EquipmentID,{
+//	sources.equipment_Encounters.query("EquipmentID == :1",sources.equipmentArr.EquipmentID,{
+				sources.equipment_Encounters.query("EquipmentID == :1 AND TransactionID == :2",sources.equipmentArr.EquipmentID, sources.rMA_OnSite.RMA_ID,{
 //					params: [equipmentID],
 					onError: function() {
 						alert("error - equipmentID"); //todo swh: install client side error handler
@@ -525,7 +526,8 @@
        		
        		rmaComplete.addListener("change", function() {
 
-				var notComplete = false;
+				var notComplete = false,
+					noSolution = false;
 				if(rmaComplete.getValue() === true){
 				
 				if((repairTripsRequired.getValue() === "0") || (repairApprovedTravel.getValue() === "0")){
@@ -550,6 +552,29 @@
 				
 				}
 				
+//				var noSolution = false;
+				
+				var len = sources.equipmentArr.length;
+				
+				for (i = 0; i < len; i++) {
+
+					sources.equipment_Encounters.query("EquipmentID == :1 AND TransactionID == :2",equipmentArr[i].EquipmentID, sources.rMA_OnSite.RMA_ID);
+
+							if(sources.equipment_Encounters.Notes_Tech === ""){
+
+								noSolution = true;
+								rmaComplete.setValue(false);
+								i = len;
+							}
+//						}
+
+					
+				}
+				
+				if(noSolution){
+		
+				alertify.alert("You must enter tech notes for each printer.");
+				}
 				
 				}
 			});
