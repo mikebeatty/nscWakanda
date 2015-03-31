@@ -109,10 +109,11 @@ Wap.page = (function() {
         uriParams = new URI(document.URL).search(true);
         
         url = document.URL;
-        if(url === "*zebra*"){
+        if(url.search("zebra") != -1){
 //        	logoComp.show();
         	logoComp.loadComponent();
         }else{
+        	logoComp.hide();
 //        	logoComp.loadComponent();
         }
         
